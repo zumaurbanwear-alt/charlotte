@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour Yasmina</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1C1410;
+  --bg2:#231A13;
+  --bg3:#2E2018;
+  --cream:#F2EAD8;
+  --cream2:#D9CEBC;
+  --brown:#8B6A4A;
+  --brown-light:#B8956A;
+  --brown-dark:#5C3D22;
+  --text:#F2EAD8;
+  --muted:#9C8570;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;width:100%;
+  z-index:50;
+  padding:1.2rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(28,20,16,0.95),transparent);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.1rem;letter-spacing:0.3em;
+  color:var(--brown-light);text-decoration:none;
+  opacity:0.8;
+}
+.nav-links{
+  display:flex;gap:2rem;list-style:none;
+}
+.nav-links a{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.7rem;letter-spacing:0.4em;
+  color:var(--muted);text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--cream);}
+@media(max-width:580px){
+  .nav-links{display:none;}
+}
+
+/* STARFIELD */
+#starfield{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;
+}
+
+/* ══ HERO ══ */
+#hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:2rem;
+  padding-top:5rem;
+}
+.hero-eyebrow{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(0.7rem,1.5vw,0.85rem);
+  letter-spacing:0.6em;
+  color:var(--brown-light);
+  margin-bottom:2rem;opacity:0.75;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(7rem,20vw,16rem);
+  line-height:0.85;
+  color:var(--cream);
+  letter-spacing:0.04em;
+  margin-bottom:1.2rem;
+}
+.hero-title .accent{color:var(--brown-light);}
+.hero-names{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.4rem,4.5vw,3rem);
+  letter-spacing:0.25em;
+  color:var(--brown-light);
+  margin-bottom:0.4rem;
+}
+.hero-nickname{
+  font-size:clamp(0.85rem,1.8vw,1rem);
+  font-style:italic;
+  color:var(--muted);
+  letter-spacing:0.2em;
+  margin-bottom:3rem;
+}
+.spotify-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:0.9rem;
+  margin-bottom:3.5rem;
+}
+.spotify-label{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.75rem;letter-spacing:0.5em;
+  color:var(--brown);opacity:0.7;
+}
+.spotify-links{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;}
+.sp-btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  border:1px solid rgba(184,149,106,0.3);
+  padding:0.55rem 1.4rem;
+  border-radius:2px;
+  color:var(--cream2);text-decoration:none;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.8rem;letter-spacing:0.2em;
+  transition:all 0.3s;
+  background:rgba(255,255,255,0.02);
+}
+.sp-btn:hover{background:rgba(184,149,106,0.12);border-color:var(--brown-light);color:var(--cream);}
+.sp-btn svg{fill:currentColor;width:14px;height:14px;}
+.scroll-cue{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.4em;
+  color:var(--muted);opacity:0.4;
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+}
+.scroll-cue::after{
+  content:'';width:1px;height:36px;
+  background:var(--muted);opacity:0.4;
+  animation:drop 2s ease-in-out infinite;
+}
+@keyframes drop{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* DIVIDER */
+.divider{
+  position:relative;z-index:1;
+  width:100%;max-width:500px;margin:0 auto;
+  height:1px;background:linear-gradient(to right,transparent,rgba(184,149,106,0.2),transparent);
+}
+
+/* ══ MON ÉTOILE ══ */
+#etoile{
+  position:relative;z-index:1;
+  padding:5rem 2rem;
+  max-width:920px;margin:0 auto;
+}
+.etoile-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+}
+@media(max-width:680px){.etoile-inner{grid-template-columns:1fr;gap:2.5rem;}}
+.etoile-img-frame{
+  width:100%;aspect-ratio:3/4;
+  border:1px solid rgba(184,149,106,0.2);
+  background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.etoile-img-frame img{width:100%;height:100%;object-fit:cover;opacity:0.85;}
+.etoile-img-placeholder{
+  display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:0.25;
+}
+.etoile-img-placeholder .star-big{font-size:3.5rem;color:var(--brown-light);}
+.etoile-img-placeholder p{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.4em;color:var(--muted);
+}
+.etoile-corner{position:absolute;width:14px;height:14px;border-color:rgba(184,149,106,0.35);border-style:solid;}
+.etoile-corner.tl{top:-5px;left:-5px;border-width:1px 0 0 1px;}
+.etoile-corner.tr{top:-5px;right:-5px;border-width:1px 1px 0 0;}
+.etoile-corner.bl{bottom:-5px;left:-5px;border-width:0 0 1px 1px;}
+.etoile-corner.br{bottom:-5px;right:-5px;border-width:0 1px 1px 0;}
+.etoile-name-tag{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.6em;
+  color:var(--brown-light);opacity:0.6;margin-bottom:0.9rem;
+}
+.etoile-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.2rem,5.5vw,4rem);
+  line-height:0.9;color:var(--cream);
+  margin-bottom:1.8rem;letter-spacing:0.04em;
+}
+.etoile-title span{color:var(--brown-light);}
+.etoile-body{
+  font-size:clamp(0.9rem,1.8vw,1.05rem);
+  line-height:2;color:var(--cream2);
+  opacity:0.85;font-weight:300;margin-bottom:1.2rem;
+}
+.etoile-ref{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.4em;
+  color:var(--brown);
+  border-top:1px solid rgba(184,149,106,0.15);
+  padding-top:1rem;width:100%;
+}
+
+/* ══ COMPLIMENTS ══ */
+#compliments{
+  position:relative;z-index:1;
+  padding:5rem 2rem;
+  max-width:920px;margin:0 auto;
+}
+.section-head{text-align:center;margin-bottom:3rem;}
+.section-head h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2rem,6vw,4.5rem);
+  color:var(--cream);letter-spacing:0.06em;
+}
+.section-head p{
+  font-style:italic;color:var(--muted);
+  font-size:0.9rem;margin-top:0.3rem;opacity:0.7;
+}
+.compliments-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.2rem;
+}
+.compliment-card{
+  background:var(--bg2);
+  border:1px solid rgba(184,149,106,0.1);
+  padding:1.75rem 1.5rem;
+  position:relative;
+}
+.compliment-card::before{
+  content:'✦';font-size:0.55rem;
+  color:var(--brown-light);opacity:0.4;
+  position:absolute;top:1rem;right:1rem;
+}
+.compliment-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  color:rgba(184,149,106,0.07);
+  line-height:1;margin-bottom:0.6rem;display:block;
+}
+.compliment-text{
+  font-size:clamp(0.95rem,1.8vw,1.05rem);
+  line-height:1.85;color:var(--cream2);
+  font-style:italic;font-weight:300;
+}
+
+/* ══ 200 RAISONS ══ */
+#raisons{
+  position:relative;z-index:1;
+  padding:5rem 2rem;
+  max-width:920px;margin:0 auto;
+}
+.counter-line{
+  text-align:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.75rem;letter-spacing:0.4em;
+  color:var(--brown-light);opacity:0.6;
+  margin:1rem 0 2.5rem;
+}
+.back-btn{
+  display:flex;align-items:center;justify-content:center;
+  margin:3rem auto 0;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.75rem;letter-spacing:0.5em;
+  color:var(--muted);
+  background:none;border:1px solid rgba(184,149,106,0.2);
+  padding:0.7rem 2rem;cursor:pointer;
+  text-decoration:none;
+  transition:all 0.3s;
+  width:fit-content;
+}
+.back-btn:hover{color:var(--cream);border-color:rgba(184,149,106,0.5);}
+.stars-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(56px,1fr));
+  gap:9px;
+}
+.star-btn{
+  width:100%;aspect-ratio:1;
+  border:1px solid rgba(184,149,106,0.18);
+  background:rgba(255,255,255,0.015);
+  border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.58rem;letter-spacing:0.05em;
+  color:rgba(184,149,106,0.38);
+  transition:all 0.3s ease;position:relative;
+}
+.star-btn:hover{
+  background:rgba(184,149,106,0.1);
+  border-color:rgba(184,149,106,0.5);
+  color:var(--cream);transform:scale(1.08);
+}
+.star-btn.found{
+  background:rgba(184,149,106,0.1);
+  border-color:rgba(184,149,106,0.4);
+  color:var(--brown-light);
+}
+.star-glyph{position:absolute;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.star-btn:hover .star-glyph,.star-btn.found .star-glyph{opacity:0.65;}
+.star-btn.found .s-num{opacity:0;}
+
+/* ══ MODAL ══ */
+#overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,7,4,0.9);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s;
+}
+#overlay.open{opacity:1;pointer-events:all;}
+#modal{
+  background:var(--bg2);
+  border:1px solid rgba(184,149,106,0.22);
+  padding:3rem;max-width:460px;width:100%;
+  text-align:center;
+  transform:translateY(14px);
+  transition:transform 0.4s;
+}
+#overlay.open #modal{transform:translateY(0);}
+.m-tag{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.5em;
+  color:var(--brown-light);opacity:0.6;
+  margin-bottom:1.2rem;
+}
+.m-star{font-size:1.2rem;color:var(--brown-light);margin-bottom:1.2rem;display:block;opacity:0.65;}
+.m-text{
+  font-size:clamp(1.1rem,2.2vw,1.4rem);
+  font-style:italic;line-height:1.85;
+  color:var(--cream);font-weight:300;
+}
+.m-line{width:28px;height:1px;background:rgba(184,149,106,0.25);margin:1.8rem auto 0;}
+.m-close{
+  margin-top:1.3rem;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.4em;
+  color:var(--muted);cursor:pointer;
+  background:none;border:none;
+  transition:color 0.2s;
+}
+.m-close:hover{color:var(--cream);}
+
+/* ══ FINAL ══ */
+#final{
+  position:relative;z-index:1;
+  padding:6rem 2rem 8rem;
+  text-align:center;
+}
+#final h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,10vw,8rem);
+  color:var(--cream);letter-spacing:0.06em;
+  line-height:0.9;margin-bottom:2rem;opacity:0.12;
+}
+#final p{
+  font-style:italic;
+  font-size:clamp(0.95rem,2vw,1.1rem);
+  color:var(--muted);line-height:2.1;
+  max-width:460px;margin:0 auto 2.5rem;
+}
+#final .sig{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.6em;
+  color:var(--brown);opacity:0.45;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">✦ Yasmina</a>
+  <ul class="nav-links">
+    <li><a href="#etoile">Mon Étoile</a></li>
+    <li><a href="#compliments">Ce que je pense</a></li>
+    <li><a href="#raisons">200 Raisons</a></li>
+  </ul>
+</nav>
+
+<canvas id="starfield"></canvas>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <p class="hero-eyebrow">Pour toi et toi seule</p>
+  <h1 class="hero-title">JE<br><span class="accent">T'AIME</span></h1>
+  <p class="hero-names">Yasmina</p>
+  <p class="hero-nickname">« Charlotte »</p>
+  <div class="spotify-wrap">
+    <p class="spotify-label">Notre musique</p>
+    <div class="spotify-links">
+      <a class="sp-btn" href="REMPLACE_PAR_TA_PLAYLIST_1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Playlist pour toi
+      </a>
+      <a class="sp-btn" href="REMPLACE_PAR_TA_PLAYLIST_2" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Nos souvenirs
+      </a>
+    </div>
+  </div>
+  <p class="scroll-cue">Descends</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ MON ÉTOILE ══ -->
+<section id="etoile">
+  <div class="etoile-inner">
+    <div style="position:relative;">
+      <div class="etoile-img-frame">
+        <!-- REMPLACE LE BLOC CI-DESSOUS PAR : <img src="ta-photo.jpg" alt="Mon étoile"> -->
+        <div class="etoile-img-placeholder">
+          <span class="star-big">✦</span>
+          <p>Ajoute ta photo ici</p>
+        </div>
+        <div class="etoile-corner tl"></div>
+        <div class="etoile-corner tr"></div>
+        <div class="etoile-corner bl"></div>
+        <div class="etoile-corner br"></div>
+      </div>
+    </div>
+    <div>
+      <p class="etoile-name-tag">✦ Étoile Vegas · Constellation Lyra</p>
+      <h2 class="etoile-title">MON<br><span>ÉTOILE</span></h2>
+      <p class="etoile-body">
+        Quelque part dans la constellation de la Lyre, une étoile porte désormais ton nom.
+        Pas par hasard — parce que la Lyre est l'instrument d'Orphée, celui qui descendit aux Enfers
+        pour ramener Eurydice, la femme qu'il aimait plus que tout.
+      </p>
+      <p class="etoile-body">
+        Il joua si bien que les dieux s'arrêtèrent d'écouter. La mort elle-même se tut.
+        Et on lui permit de la reprendre — à condition de ne pas se retourner.
+        Il se retourna, parce que l'amour ne sait pas attendre.
+      </p>
+      <p class="etoile-body">
+        Moi, je n'aurais pas eu besoin de me retourner.
+        Tu es déjà là, devant moi, dans ma vie.
+        Cette étoile, c'est ma façon de dire que ton nom appartient au ciel.
+      </p>
+      <p class="etoile-ref">✦ &nbsp; Certificat étoile Vegas · Registre officiel</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ CE QUE JE PENSE DE TOI ══ -->
+<section id="compliments">
+  <div class="section-head">
+    <h2>CE QUE JE PENSE DE TOI</h2>
+    <p>Six vérités que tu devrais savoir</p>
+  </div>
+  <div class="compliments-grid">
+    <div class="compliment-card">
+      <span class="compliment-num">01</span>
+      <p class="compliment-text">Tu es la personne la plus courageuse que j'aie jamais rencontrée. Pas le courage bruyant — le tien, discret et solide.</p>
+    </div>
+    <div class="compliment-card">
+      <span class="compliment-num">02</span>
+      <p class="compliment-text">Tu as une intelligence émotionnelle rare. Tu lis les gens, les situations, les silences — mieux que quiconque.</p>
+    </div>
+    <div class="compliment-card">
+      <span class="compliment-num">03</span>
+      <p class="compliment-text">La façon dont tu prends soin de ceux que tu aimes est une forme de générosité que peu de gens connaissent.</p>
+    </div>
+    <div class="compliment-card">
+      <span class="compliment-num">04</span>
+      <p class="compliment-text">Tu es belle de la façon la plus rare — de l'intérieur d'abord, ce qui rend l'extérieur encore plus lumineux.</p>
+    </div>
+    <div class="compliment-card">
+      <span class="compliment-num">05</span>
+      <p class="compliment-text">Tu m'as appris à ralentir, à regarder, à ressentir. Je suis meilleur grâce à toi, et je ne l'oublierai jamais.</p>
+    </div>
+    <div class="compliment-card">
+      <span class="compliment-num">06</span>
+      <p class="compliment-text">Dans toutes les vies que j'aurais pu vivre, je t'aurais choisie dans chacune d'elles.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ 200 RAISONS ══ -->
+<section id="raisons">
+  <div class="section-head">
+    <h2>200 RAISONS</h2>
+    <p>chaque étoile cache une raison de t'aimer</p>
+  </div>
+  <p class="counter-line" id="counter">0 / 200 découvertes</p>
+  <div class="stars-grid" id="stars-grid"></div>
+  <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ FINAL ══ -->
+<section id="final">
+  <h2>POUR<br>TOUJOURS</h2>
+  <p>
+    Il y aurait mille autres raisons,<br>
+    mais certaines n'ont pas de mots —<br>
+    elles se vivent dans le silence<br>
+    de nos matins ensemble.
+  </p>
+  <p class="sig">Pour Yasmina · Pour toujours</p>
+</section>
+
+<!-- ══ MODAL ══ -->
+<div id="overlay">
+  <div id="modal">
+    <p class="m-tag" id="m-tag">Raison n° 1</p>
+    <span class="m-star">✦</span>
+    <p class="m-text" id="m-text"></p>
+    <div class="m-line"></div>
+    <button class="m-close" id="m-close">FERMER ✕</button>
+  </div>
+</div>
+
+<script>
+// STARFIELD
+const cv=document.getElementById('starfield');
+const cx=cv.getContext('2d');
+let ST=[];
+function rsz(){cv.width=innerWidth;cv.height=Math.max(document.body.scrollHeight,innerHeight);}
+function mkStars(){
+  ST=[];
+  const n=Math.floor(cv.height/3.5);
+  for(let i=0;i<n;i++){
+    ST.push({x:Math.random()*cv.width,y:Math.random()*cv.height,
+      r:Math.random()*1.1+0.15,a:Math.random(),sp:Math.random()*0.004+0.001});
+  }
+}
+function draw(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  ST.forEach(s=>{
+    s.a+=s.sp;
+    const al=(Math.sin(s.a)*0.5+0.5)*0.5+0.05;
+    cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    cx.fillStyle=`rgba(242,234,216,${al})`;cx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+rsz();mkStars();draw();
+window.addEventListener('resize',()=>{rsz();mkStars();});
+
+// 200 RAISONS
+const raisons=[
+  "Ton rire qui remplit toute la pièce","La façon dont tu prononces mon prénom",
+  "Ton courage face à tout","Tes yeux au réveil","Ta gentillesse désarmante",
+  "L'intensité avec laquelle tu aimes","Ton intelligence qui m'éblouit","Ta voix le matin",
+  "Ton sens de l'humour qui me surprend toujours","Ta façon de prendre soin des autres",
+  "Ton regard qui me dit tout","Ta tendresse inattendue","Ton sourire de côté",
+  "La chaleur de tes mains","Ta curiosité pour tout",
+  "Ta manière de danser quand personne ne regarde","Ton courage de dire la vérité",
+  "La façon dont tu t'endors","Ton parfum qui reste","Ton caractère bien trempé",
+  "Ta douceur quand ça compte","Tes silences complices","Ta façon d'aimer les petites choses",
+  "Ton regard sur le monde","Ta confiance en moi","La façon dont tu ris aux larmes",
+  "Ton instinct toujours juste","Ta présence qui apaise","Tes mains qui construisent",
+  "Ton âme profonde","Ta façon de défendre ce qui compte","Ton sérieux quand il le faut",
+  "Ta légèreté quand ça soulage","Tes contradictions qui te rendent unique",
+  "Ta façon de m'écouter vraiment","Ton énergie contagieuse",
+  "La façon dont tu t'occupes des détails","Ton regard sur les enfants","Ta patience infinie",
+  "Ton ambition discrète","La façon dont tu portes une robe","Ton intelligence émotionnelle",
+  "Tes convictions solides","Ta façon de choisir tes batailles","Ton goût sûr",
+  "La façon dont tu te souviens de tout","Ton empathie naturelle",
+  "Ta façon de me surprendre encore","La confiance que tu m'inspires","Ta fidélité absolue",
+  "Ta façon d'embrasser","Tes questions qui font réfléchir","Ta façon d'assumer qui tu es",
+  "Ton regard sur les étoiles","Ton rapport à la beauté","Ta façon de ne jamais abandonner",
+  "Tes larmes de joie","Ta façon de défendre les tiens","Ton rapport à la famille",
+  "Ta générosité sans compter","La façon dont tu portes tes forces","Ton humilité sincère",
+  "Ta façon de croire en moi","Tes rêves qui m'inspirent","Ta façon de regarder la mer",
+  "Ton rapport au silence","La façon dont tu lis","Ton soin pour les détails invisibles",
+  "Ta façon de pardonner","Ton intuition souvent juste",
+  "La façon dont tu prends les décisions","Ton sens des priorités",
+  "Ta façon de te battre sans te plaindre","La chaleur que tu portes autour de toi",
+  "Ton côté Charlotte, toujours",
+  "Ta façon de faire du quotidien quelque chose de beau",
+  "Tes petites habitudes que j'aime","La façon dont tu dis mon nom dans la nuit",
+  "Ton regard sur notre avenir","Ta façon de m'apprendre à ralentir",
+  "Ton rapport au temps","La façon dont tu t'adaptes","Ton courage de recommencer",
+  "Ta façon de vivre pleinement","Ton rire silencieux","Tes mains dans les miennes",
+  "Ta façon de choisir les batailles qui valent la peine","Ton amour de la musique",
+  "Ta façon de porter ta culture","Tes silences éloquents",
+  "Ta façon de rendre les gens meilleurs","Ton côté secret",
+  "La façon dont tu gardes les souvenirs","Ton rapport à la vérité",
+  "Ta manière de te lever chaque matin","Ton courage quotidien",
+  "La façon dont tu construis","Ton sens du sacré","Ta façon d'être présente",
+  "Tes qualités que tu ne vois pas encore","La façon dont tu m'as choisi",
+  "Ta grâce naturelle","Ton rapport à la douleur","Ta façon de traverser les tempêtes",
+  "Tes mots qui restent","Ta façon d'être à la fois forte et douce",
+  "Le fait que tu existes","Tes élans d'affection soudains",
+  "Ta façon de me connaître mieux que moi","Ton goût pour les histoires vraies",
+  "Ta façon de sourire avec les yeux","Tes petits défauts que j'aime",
+  "La façon dont tu portes ce prénom","Ta façon d'être Yasmina","Ta façon d'être Charlotte",
+  "Ton rapport à l'amour","La façon dont tu deviens meilleure chaque jour",
+  "Ton caractère trempé dans le feu doux","Ta façon de mettre du sens partout",
+  "Ton regard sur moi quand tu crois que je ne vois pas","Tes soupirs de soulagement",
+  "Ta façon de dire merci","Tes questions sur la vie","La façon dont tu tiens mes mains",
+  "Ton rapport à la mort avec sagesse","Ta façon de prier",
+  "Ton lien avec ce qui te dépasse","La façon dont tu transmets","Tes espoirs intacts",
+  "Ta façon d'imaginer le futur","Tes petites victoires que tu célèbres",
+  "Ta façon de recevoir les compliments","Ton rapport à ton corps",
+  "Ta façon de te réconcilier avec toi-même",
+  "Tes matins difficiles transformés en force","Ta façon de traverser le doute",
+  "Ton sens du sacré dans l'ordinaire","La façon dont tu crées de la beauté",
+  "Ton goût pour ce qui dure","Ta façon d'être loyale",
+  "Tes moments de solitude habitée",
+  "La façon dont tu changes d'avis avec élégance","Ton rapport à l'erreur",
+  "Ta façon d'être juste","Tes convictions sur ce qui est bien",
+  "La façon dont tu prends soin de toi","Ta façon d'habiter les lieux",
+  "Tes souvenirs d'enfance que tu partages","Ta façon de garder les liens",
+  "Ton rapport à tes racines","La façon dont tu honores ta mère",
+  "Tes liens qui te construisent","Ta façon d'être sœur","Ton rapport à l'amitié",
+  "La façon dont tu protèges","Ton instinct maternel","Ta façon de vouloir du bien",
+  "Tes peines que tu portes avec dignité","La façon dont tu te relèves",
+  "Ta foi en les bonnes choses","Tes rêves pour nous",
+  "La façon dont tu parles de nos enfants à venir","Ton rapport à la maison",
+  "Ta façon de faire de partout un foyer","Tes petits plaisirs secrets",
+  "La façon dont tu ris d'elle-même","Ton ironie douce",
+  "Ta façon de ne pas te prendre trop au sérieux","Tes moments d'enfance qui ressurgissent",
+  "La façon dont tu joues","Ton imagination","Ta façon de créer avec peu",
+  "Tes réactions spontanées","La façon dont tu t'indigne pour les autres",
+  "Ton sens de la justice","Ta façon de parler des gens que tu aimes",
+  "Tes hésitations honnêtes","La façon dont tu demandes pardon","Ton amour du soleil",
+  "Ta façon d'accueillir la pluie","Tes saisons intérieures",
+  "La façon dont tu changes sans te perdre","Ton rapport à la liberté",
+  "Ta façon de vouloir grandir encore","Tes journées ordinaires rendues précieuses",
+  "La façon dont tu aimes les mots","Ton rapport à la langue",
+  "Ta façon de me regarder vieillir avec toi","Tes silences d'amour",
+  "La façon dont tu seras toujours toi","La façon dont tu souris en dormant",
+  "Ton rapport aux saisons","Ta façon de t'émerveiller encore",
+  "La façon dont tu portes ta force","Tes matins de douce lumière",
+  "Ton regard sur ce qui est simple","Ta façon de garder l'essentiel",
+  "La façon dont tu résistes","Tes moments de grande clarté",
+  "Tout ce que je ne sais pas encore de toi","Tout ce que je découvrirai encore"
+];
+
+const grid=document.getElementById('stars-grid');
+const ctr=document.getElementById('counter');
+let found=new Set();
+
+for(let i=0;i<200;i++){
+  const b=document.createElement('button');
+  b.className='star-btn';
+  b.setAttribute('aria-label','Raison numéro '+(i+1));
+  b.innerHTML='<span class="s-num">'+( i+1)+'</span><span class="star-glyph">✦</span>';
+  b.addEventListener('click',()=>openM(i,b));
+  grid.appendChild(b);
+}
+
+const ov=document.getElementById('overlay');
+const mtag=document.getElementById('m-tag');
+const mtxt=document.getElementById('m-text');
+const mcl=document.getElementById('m-close');
+
+function openM(i,b){
+  if(!found.has(i)){found.add(i);b.classList.add('found');ctr.textContent=found.size+' / 200 découvertes';}
+  mtag.textContent='Raison n° '+(i+1);
+  mtxt.textContent=raisons[i]||'Cette raison est trop précieuse pour des mots.';
+  ov.classList.add('open');document.body.style.overflow='hidden';
+}
+function closeM(){ov.classList.remove('open');document.body.style.overflow='';}
+mcl.addEventListener('click',closeM);
+ov.addEventListener('click',e=>{if(e.target===ov)closeM();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+</script>
+</body>
+</html>
