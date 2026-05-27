@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pour Yasmina</title>
+<title>pour charlotte</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -13,11 +13,11 @@
   --bg3:#2E2018;
   --cream:#F2EAD8;
   --cream2:#D9CEBC;
-  --brown:#8B6A4A;
-  --brown-light:#B8956A;
-  --brown-dark:#5C3D22;
+  --brown:#7A7870;
+  --brown-light:#D4C9B0;
+  --brown-dark:#4A4840;
   --text:#F2EAD8;
-  --muted:#9C8570;
+  --muted:#8A8880;
 }
 html{scroll-behavior:smooth}
 body{
@@ -37,7 +37,7 @@ nav{
 }
 .nav-logo{
   font-family:'Bebas Neue',sans-serif;
-  font-size:1.1rem;letter-spacing:0.3em;
+  font-size:0.75rem;letter-spacing:0.3em;
   color:var(--brown-light);text-decoration:none;
   opacity:0.8;
 }
@@ -61,7 +61,7 @@ nav{
   pointer-events:none;z-index:0;
 }
 
-/* ══ HERO ══ */
+/* HERO */
 #hero{
   position:relative;z-index:1;
   min-height:100vh;
@@ -78,11 +78,13 @@ nav{
   margin-bottom:2rem;opacity:0.75;
 }
 .hero-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(7rem,20vw,16rem);
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(6rem,18vw,14rem);
   line-height:0.85;
   color:var(--cream);
-  letter-spacing:0.04em;
+  letter-spacing:0.02em;
   margin-bottom:1.2rem;
 }
 .hero-title .accent{color:var(--brown-light);}
@@ -112,7 +114,7 @@ nav{
 .spotify-links{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;}
 .sp-btn{
   display:inline-flex;align-items:center;gap:0.5rem;
-  border:1px solid rgba(184,149,106,0.3);
+  border:1px solid rgba(180,170,155,0.3);
   padding:0.55rem 1.4rem;
   border-radius:2px;
   color:var(--cream2);text-decoration:none;
@@ -121,7 +123,7 @@ nav{
   transition:all 0.3s;
   background:rgba(255,255,255,0.02);
 }
-.sp-btn:hover{background:rgba(184,149,106,0.12);border-color:var(--brown-light);color:var(--cream);}
+.sp-btn:hover{background:rgba(180,170,155,0.12);border-color:var(--brown-light);color:var(--cream);}
 .sp-btn svg{fill:currentColor;width:14px;height:14px;}
 .scroll-cue{
   font-family:'Bebas Neue',sans-serif;
@@ -140,10 +142,10 @@ nav{
 .divider{
   position:relative;z-index:1;
   width:100%;max-width:500px;margin:0 auto;
-  height:1px;background:linear-gradient(to right,transparent,rgba(184,149,106,0.2),transparent);
+  height:1px;background:linear-gradient(to right,transparent,rgba(180,170,155,0.2),transparent);
 }
 
-/* ══ MON ÉTOILE ══ */
+/* MON ÉTOILE */
 #etoile{
   position:relative;z-index:1;
   padding:5rem 2rem;
@@ -157,21 +159,13 @@ nav{
 @media(max-width:680px){.etoile-inner{grid-template-columns:1fr;gap:2.5rem;}}
 .etoile-img-frame{
   width:100%;aspect-ratio:3/4;
-  border:1px solid rgba(184,149,106,0.2);
+  border:1px solid rgba(180,170,155,0.2);
   background:var(--bg3);
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;position:relative;
 }
 .etoile-img-frame img{width:100%;height:100%;object-fit:cover;opacity:0.85;}
-.etoile-img-placeholder{
-  display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:0.25;
-}
-.etoile-img-placeholder .star-big{font-size:3.5rem;color:var(--brown-light);}
-.etoile-img-placeholder p{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.4em;color:var(--muted);
-}
-.etoile-corner{position:absolute;width:14px;height:14px;border-color:rgba(184,149,106,0.35);border-style:solid;}
+.etoile-corner{position:absolute;width:14px;height:14px;border-color:rgba(180,170,155,0.35);border-style:solid;}
 .etoile-corner.tl{top:-5px;left:-5px;border-width:1px 0 0 1px;}
 .etoile-corner.tr{top:-5px;right:-5px;border-width:1px 1px 0 0;}
 .etoile-corner.bl{bottom:-5px;left:-5px;border-width:0 0 1px 1px;}
@@ -198,12 +192,12 @@ nav{
   font-family:'Bebas Neue',sans-serif;
   font-size:0.65rem;letter-spacing:0.4em;
   color:var(--brown);
-  border-top:1px solid rgba(184,149,106,0.15);
+  border-top:1px solid rgba(180,170,155,0.15);
   padding-top:1rem;width:100%;
 }
 
-/* ══ COMPLIMENTS ══ */
-#compliments{
+/* COMPLIMENTS / RAISONS */
+#compliments,#raisons{
   position:relative;z-index:1;
   padding:5rem 2rem;
   max-width:920px;margin:0 auto;
@@ -218,40 +212,6 @@ nav{
   font-style:italic;color:var(--muted);
   font-size:0.9rem;margin-top:0.3rem;opacity:0.7;
 }
-.compliments-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:1.2rem;
-}
-.compliment-card{
-  background:var(--bg2);
-  border:1px solid rgba(184,149,106,0.1);
-  padding:1.75rem 1.5rem;
-  position:relative;
-}
-.compliment-card::before{
-  content:'✦';font-size:0.55rem;
-  color:var(--brown-light);opacity:0.4;
-  position:absolute;top:1rem;right:1rem;
-}
-.compliment-num{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2.5rem;
-  color:rgba(184,149,106,0.07);
-  line-height:1;margin-bottom:0.6rem;display:block;
-}
-.compliment-text{
-  font-size:clamp(0.95rem,1.8vw,1.05rem);
-  line-height:1.85;color:var(--cream2);
-  font-style:italic;font-weight:300;
-}
-
-/* ══ 200 RAISONS ══ */
-#raisons{
-  position:relative;z-index:1;
-  padding:5rem 2rem;
-  max-width:920px;margin:0 auto;
-}
 .counter-line{
   text-align:center;
   font-family:'Bebas Neue',sans-serif;
@@ -265,13 +225,13 @@ nav{
   font-family:'Bebas Neue',sans-serif;
   font-size:0.75rem;letter-spacing:0.5em;
   color:var(--muted);
-  background:none;border:1px solid rgba(184,149,106,0.2);
+  background:none;border:1px solid rgba(180,170,155,0.2);
   padding:0.7rem 2rem;cursor:pointer;
   text-decoration:none;
   transition:all 0.3s;
   width:fit-content;
 }
-.back-btn:hover{color:var(--cream);border-color:rgba(184,149,106,0.5);}
+.back-btn:hover{color:var(--cream);border-color:rgba(180,170,155,0.5);}
 .stars-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(56px,1fr));
@@ -279,30 +239,30 @@ nav{
 }
 .star-btn{
   width:100%;aspect-ratio:1;
-  border:1px solid rgba(184,149,106,0.18);
+  border:1px solid rgba(180,170,155,0.18);
   background:rgba(255,255,255,0.015);
   border-radius:50%;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   font-family:'Bebas Neue',sans-serif;
   font-size:0.58rem;letter-spacing:0.05em;
-  color:rgba(184,149,106,0.38);
+  color:rgba(180,170,155,0.38);
   transition:all 0.3s ease;position:relative;
 }
 .star-btn:hover{
-  background:rgba(184,149,106,0.1);
-  border-color:rgba(184,149,106,0.5);
+  background:rgba(180,170,155,0.1);
+  border-color:rgba(180,170,155,0.5);
   color:var(--cream);transform:scale(1.08);
 }
 .star-btn.found{
-  background:rgba(184,149,106,0.1);
-  border-color:rgba(184,149,106,0.4);
+  background:rgba(180,170,155,0.1);
+  border-color:rgba(180,170,155,0.4);
   color:var(--brown-light);
 }
 .star-glyph{position:absolute;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;}
 .star-btn:hover .star-glyph,.star-btn.found .star-glyph{opacity:0.65;}
 .star-btn.found .s-num{opacity:0;}
 
-/* ══ MODAL ══ */
+/* MODAL */
 #overlay{
   position:fixed;inset:0;z-index:200;
   background:rgba(10,7,4,0.9);
@@ -315,7 +275,7 @@ nav{
 #overlay.open{opacity:1;pointer-events:all;}
 #modal{
   background:var(--bg2);
-  border:1px solid rgba(184,149,106,0.22);
+  border:1px solid rgba(180,170,155,0.22);
   padding:3rem;max-width:460px;width:100%;
   text-align:center;
   transform:translateY(14px);
@@ -334,7 +294,7 @@ nav{
   font-style:italic;line-height:1.85;
   color:var(--cream);font-weight:300;
 }
-.m-line{width:28px;height:1px;background:rgba(184,149,106,0.25);margin:1.8rem auto 0;}
+.m-line{width:28px;height:1px;background:rgba(180,170,155,0.25);margin:1.8rem auto 0;}
 .m-close{
   margin-top:1.3rem;
   font-family:'Bebas Neue',sans-serif;
@@ -345,7 +305,7 @@ nav{
 }
 .m-close:hover{color:var(--cream);}
 
-/* ══ FINAL ══ */
+/* FINAL */
 #final{
   position:relative;z-index:1;
   padding:6rem 2rem 8rem;
@@ -374,32 +334,28 @@ nav{
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#hero">✦ Yasmina</a>
+  <a class="nav-logo" href="#hero">✦ Explorer</a>
   <ul class="nav-links">
+    <li><a href="#compliments">30 mots</a></li>
     <li><a href="#etoile">Mon Étoile</a></li>
-    <li><a href="#compliments">Ce que je pense</a></li>
-    <li><a href="#raisons">200 Raisons</a></li>
+    <li><a href="#raisons">200 raisons</a></li>
   </ul>
 </nav>
 
 <canvas id="starfield"></canvas>
 
-<!-- ══ HERO ══ -->
+<!-- HERO -->
 <section id="hero">
-  <p class="hero-eyebrow">Pour toi et toi seule</p>
-  <h1 class="hero-title">JE<br><span class="accent">T'AIME</span></h1>
-  <p class="hero-names">Yasmina</p>
-  <p class="hero-nickname">« Charlotte »</p>
+  <p class="hero-eyebrow">Entièrement pour toi</p>
+  <h1 class="hero-title">je<br><span class="accent">t'aime</span></h1>
+  <p class="hero-names">Charlotte</p>
+  <p class="hero-nickname">ma star, ma jolie, mon amour, MA MEUF</p>
   <div class="spotify-wrap">
     <p class="spotify-label">Notre musique</p>
     <div class="spotify-links">
-      <a class="sp-btn" href="REMPLACE_PAR_TA_PLAYLIST_1" target="_blank" rel="noopener">
+      <a class="sp-btn" href="https://open.spotify.com/playlist/5MLFsAeP2kakPjItVO6MVt?si=kIDME6VOSzC_ejkgSi816A&pt=873f47ac4036127cc5c64168f81b1088&pi=zrRFl9LORsWD7" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-        Playlist pour toi
-      </a>
-      <a class="sp-btn" href="REMPLACE_PAR_TA_PLAYLIST_2" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-        Nos souvenirs
+        22h22
       </a>
     </div>
   </div>
@@ -408,16 +364,25 @@ nav{
 
 <div class="divider"></div>
 
-<!-- ══ MON ÉTOILE ══ -->
+<!-- 30 MOTS -->
+<section id="compliments">
+  <div class="section-head">
+    <h2>30 MOTS</h2>
+    <p>ce que je pense de toi, en secret</p>
+  </div>
+  <p class="counter-line" id="counter-c">0 / 30 découverts</p>
+  <div class="stars-grid" id="comp-grid"></div>
+  <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
+</section>
+
+<div class="divider"></div>
+
+<!-- MON ÉTOILE -->
 <section id="etoile">
   <div class="etoile-inner">
     <div style="position:relative;">
       <div class="etoile-img-frame">
-        <!-- REMPLACE LE BLOC CI-DESSOUS PAR : <img src="ta-photo.jpg" alt="Mon étoile"> -->
-        <div class="etoile-img-placeholder">
-          <span class="star-big">✦</span>
-          <p>Ajoute ta photo ici</p>
-        </div>
+        <img src="https://i.postimg.cc/2yD3CqsV/IMG-5034.jpg" alt="Mon étoile">
         <div class="etoile-corner tl"></div>
         <div class="etoile-corner tr"></div>
         <div class="etoile-corner bl"></div>
@@ -425,67 +390,28 @@ nav{
       </div>
     </div>
     <div>
-      <p class="etoile-name-tag">✦ Étoile Vegas · Constellation Lyra</p>
       <h2 class="etoile-title">MON<br><span>ÉTOILE</span></h2>
       <p class="etoile-body">
-        Quelque part dans la constellation de la Lyre, une étoile porte désormais ton nom.
-        Pas par hasard — parce que la Lyre est l'instrument d'Orphée, celui qui descendit aux Enfers
-        pour ramener Eurydice, la femme qu'il aimait plus que tout.
+        quelque part dans la constellation de la Lyre, une étoile porte désormais ton nom.
+        pas par hasard — mais parce que la Lyre est l'instrument d'Orphée -
+        celle dont les cordes savaient persuader les pierres de frémir et les fleuves de ralentir leur course.
       </p>
       <p class="etoile-body">
-        Il joua si bien que les dieux s'arrêtèrent d'écouter. La mort elle-même se tut.
-        Et on lui permit de la reprendre — à condition de ne pas se retourner.
-        Il se retourna, parce que l'amour ne sait pas attendre.
+        il joua si bien que les dieux s'arrêtèrent d'écouter. la mort elle-même se tut.
+        on lui permit de reprendre eurydice sa bien-aimée — à condition de ne pas se retourner.
+        mais il se retourna, parce que l'amour ne sait pas attendre.
       </p>
       <p class="etoile-body">
-        Moi, je n'aurais pas eu besoin de me retourner.
-        Tu es déjà là, devant moi, dans ma vie.
-        Cette étoile, c'est ma façon de dire que ton nom appartient au ciel.
+        et maintenant, il y a, dans chaque mélodie, une fracture presque invisible —
+        comme si toute beauté gardait la mémoire d'un regard trop tôt offert.
+        cette étoile, c'est ma façon de dire que ton nom appartient éternellement au ciel.
       </p>
-      <p class="etoile-ref">✦ &nbsp; Certificat étoile Vegas · Registre officiel</p>
+      <p class="etoile-ref">✦ &nbsp; Certificat étoile Vegas · Registre non-officiel</p>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- ══ CE QUE JE PENSE DE TOI ══ -->
-<section id="compliments">
-  <div class="section-head">
-    <h2>CE QUE JE PENSE DE TOI</h2>
-    <p>Six vérités que tu devrais savoir</p>
-  </div>
-  <div class="compliments-grid">
-    <div class="compliment-card">
-      <span class="compliment-num">01</span>
-      <p class="compliment-text">Tu es la personne la plus courageuse que j'aie jamais rencontrée. Pas le courage bruyant — le tien, discret et solide.</p>
-    </div>
-    <div class="compliment-card">
-      <span class="compliment-num">02</span>
-      <p class="compliment-text">Tu as une intelligence émotionnelle rare. Tu lis les gens, les situations, les silences — mieux que quiconque.</p>
-    </div>
-    <div class="compliment-card">
-      <span class="compliment-num">03</span>
-      <p class="compliment-text">La façon dont tu prends soin de ceux que tu aimes est une forme de générosité que peu de gens connaissent.</p>
-    </div>
-    <div class="compliment-card">
-      <span class="compliment-num">04</span>
-      <p class="compliment-text">Tu es belle de la façon la plus rare — de l'intérieur d'abord, ce qui rend l'extérieur encore plus lumineux.</p>
-    </div>
-    <div class="compliment-card">
-      <span class="compliment-num">05</span>
-      <p class="compliment-text">Tu m'as appris à ralentir, à regarder, à ressentir. Je suis meilleur grâce à toi, et je ne l'oublierai jamais.</p>
-    </div>
-    <div class="compliment-card">
-      <span class="compliment-num">06</span>
-      <p class="compliment-text">Dans toutes les vies que j'aurais pu vivre, je t'aurais choisie dans chacune d'elles.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══ 200 RAISONS ══ -->
+<!-- 200 RAISONS -->
 <section id="raisons">
   <div class="section-head">
     <h2>200 RAISONS</h2>
@@ -498,19 +424,21 @@ nav{
 
 <div class="divider"></div>
 
-<!-- ══ FINAL ══ -->
+<!-- FINAL -->
 <section id="final">
-  <h2>POUR<br>TOUJOURS</h2>
+  <h2>POUR<br>ENCORE LONGTEMPS</h2>
   <p>
-    Il y aurait mille autres raisons,<br>
-    mais certaines n'ont pas de mots —<br>
-    elles se vivent dans le silence<br>
-    de nos matins ensemble.
+    et je viendrais jusque d'outre-tombe, <br>
+    je viendrais graver en lettres d'or, <br>
+    exposer comme tu es le plus grand des trésors, <br>
+    et même après ma mort, <br>
+    on lira sur mon corps, <br>
+    comme je t'aime encore.
   </p>
-  <p class="sig">Pour Yasmina · Pour toujours</p>
+  <p class="sig">C'EST MA MEUF</p>
 </section>
 
-<!-- ══ MODAL ══ -->
+<!-- MODAL -->
 <div id="overlay">
   <div id="modal">
     <p class="m-tag" id="m-tag">Raison n° 1</p>
@@ -529,115 +457,291 @@ let ST=[];
 function rsz(){cv.width=innerWidth;cv.height=Math.max(document.body.scrollHeight,innerHeight);}
 function mkStars(){
   ST=[];
-  const n=Math.floor(cv.height/3.5);
+  const n=Math.floor(cv.height/2.8);
   for(let i=0;i<n;i++){
-    ST.push({x:Math.random()*cv.width,y:Math.random()*cv.height,
-      r:Math.random()*1.1+0.15,a:Math.random(),sp:Math.random()*0.004+0.001});
+    const layer=Math.random()<0.7?0:Math.random()<0.7?1:2;
+    const r=layer===0?Math.random()*0.35+0.1:layer===1?Math.random()*0.55+0.3:Math.random()*0.85+0.5;
+    const maxA=layer===0?0.22:layer===1?0.42:0.65;
+    const bandY=cv.height*0.35+(Math.random()-0.5)*cv.height*0.5;
+    const y=Math.random()<0.3?bandY+(Math.random()-0.5)*cv.height*0.2:Math.random()*cv.height;
+    ST.push({x:Math.random()*cv.width,y,r,a:Math.random()*Math.PI*2,
+      sp:(Math.random()*0.0015+0.0003)*(Math.random()<0.5?1:-1),maxA});
   }
 }
 function draw(){
   cx.clearRect(0,0,cv.width,cv.height);
   ST.forEach(s=>{
     s.a+=s.sp;
-    const al=(Math.sin(s.a)*0.5+0.5)*0.5+0.05;
+    const al=(Math.sin(s.a)*0.5+0.5)*s.maxA+0.02;
     cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    cx.fillStyle=`rgba(242,234,216,${al})`;cx.fill();
+    cx.fillStyle=`rgba(235,232,228,${al})`;cx.fill();
   });
   requestAnimationFrame(draw);
 }
 rsz();mkStars();draw();
 window.addEventListener('resize',()=>{rsz();mkStars();});
 
+// 30 MOTS
+const compliments=[
+  "Éthérée",
+  "Céleste",
+  "Séraphique",
+  "Lyrique",
+  "Nébuleuse",
+  "Vertigineuse",
+  "Onirique",
+  "Ineffable",
+  "Épiphanique",
+  "Luminescente",
+  "Envoûtante",
+  "Vaporeuse",
+  "Hypnotique",
+  "Radieuse",
+  "Élégiaque",
+  "Astrale",
+  "Magnétique",
+  "Crépusculaire",
+  "Intemporelle",
+  "Mélodieuse",
+  "Diaphane",
+  "Féerique",
+  "Incandescente",
+  "Solaire",
+  "Mystique",
+  "Éblouissante",
+  "Aérienne",
+  "Harmonieuse",
+  "Flamboyante",
+  "Sidérale"
+];
+
+const ov=document.getElementById('overlay');
+const mtag=document.getElementById('m-tag');
+const mtxt=document.getElementById('m-text');
+const mcl=document.getElementById('m-close');
+
+const cgrid=document.getElementById('comp-grid');
+const cctr=document.getElementById('counter-c');
+let cfound=new Set();
+
+for(let i=0;i<30;i++){
+  const b=document.createElement('button');
+  b.className='star-btn';
+  b.setAttribute('aria-label','Mot numéro '+(i+1));
+  b.innerHTML='<span class="s-num">'+(i+1)+'</span><span class="star-glyph">✦</span>';
+  b.addEventListener('click',()=>openC(i,b));
+  cgrid.appendChild(b);
+}
+
+function openC(i,b){
+  if(!cfound.has(i)){cfound.add(i);b.classList.add('found');cctr.textContent=cfound.size+' / 30 découverts';}
+  mtag.textContent='Mot n° '+(i+1);
+  mtxt.textContent=compliments[i];
+  ov.classList.add('open');document.body.style.overflow='hidden';
+}
+
 // 200 RAISONS
 const raisons=[
-  "Ton rire qui remplit toute la pièce","La façon dont tu prononces mon prénom",
-  "Ton courage face à tout","Tes yeux au réveil","Ta gentillesse désarmante",
-  "L'intensité avec laquelle tu aimes","Ton intelligence qui m'éblouit","Ta voix le matin",
-  "Ton sens de l'humour qui me surprend toujours","Ta façon de prendre soin des autres",
-  "Ton regard qui me dit tout","Ta tendresse inattendue","Ton sourire de côté",
-  "La chaleur de tes mains","Ta curiosité pour tout",
-  "Ta manière de danser quand personne ne regarde","Ton courage de dire la vérité",
-  "La façon dont tu t'endors","Ton parfum qui reste","Ton caractère bien trempé",
-  "Ta douceur quand ça compte","Tes silences complices","Ta façon d'aimer les petites choses",
-  "Ton regard sur le monde","Ta confiance en moi","La façon dont tu ris aux larmes",
-  "Ton instinct toujours juste","Ta présence qui apaise","Tes mains qui construisent",
-  "Ton âme profonde","Ta façon de défendre ce qui compte","Ton sérieux quand il le faut",
-  "Ta légèreté quand ça soulage","Tes contradictions qui te rendent unique",
-  "Ta façon de m'écouter vraiment","Ton énergie contagieuse",
-  "La façon dont tu t'occupes des détails","Ton regard sur les enfants","Ta patience infinie",
-  "Ton ambition discrète","La façon dont tu portes une robe","Ton intelligence émotionnelle",
-  "Tes convictions solides","Ta façon de choisir tes batailles","Ton goût sûr",
-  "La façon dont tu te souviens de tout","Ton empathie naturelle",
-  "Ta façon de me surprendre encore","La confiance que tu m'inspires","Ta fidélité absolue",
-  "Ta façon d'embrasser","Tes questions qui font réfléchir","Ta façon d'assumer qui tu es",
-  "Ton regard sur les étoiles","Ton rapport à la beauté","Ta façon de ne jamais abandonner",
-  "Tes larmes de joie","Ta façon de défendre les tiens","Ton rapport à la famille",
-  "Ta générosité sans compter","La façon dont tu portes tes forces","Ton humilité sincère",
-  "Ta façon de croire en moi","Tes rêves qui m'inspirent","Ta façon de regarder la mer",
-  "Ton rapport au silence","La façon dont tu lis","Ton soin pour les détails invisibles",
-  "Ta façon de pardonner","Ton intuition souvent juste",
-  "La façon dont tu prends les décisions","Ton sens des priorités",
-  "Ta façon de te battre sans te plaindre","La chaleur que tu portes autour de toi",
-  "Ton côté Charlotte, toujours",
-  "Ta façon de faire du quotidien quelque chose de beau",
-  "Tes petites habitudes que j'aime","La façon dont tu dis mon nom dans la nuit",
-  "Ton regard sur notre avenir","Ta façon de m'apprendre à ralentir",
-  "Ton rapport au temps","La façon dont tu t'adaptes","Ton courage de recommencer",
-  "Ta façon de vivre pleinement","Ton rire silencieux","Tes mains dans les miennes",
-  "Ta façon de choisir les batailles qui valent la peine","Ton amour de la musique",
-  "Ta façon de porter ta culture","Tes silences éloquents",
-  "Ta façon de rendre les gens meilleurs","Ton côté secret",
-  "La façon dont tu gardes les souvenirs","Ton rapport à la vérité",
-  "Ta manière de te lever chaque matin","Ton courage quotidien",
-  "La façon dont tu construis","Ton sens du sacré","Ta façon d'être présente",
-  "Tes qualités que tu ne vois pas encore","La façon dont tu m'as choisi",
-  "Ta grâce naturelle","Ton rapport à la douleur","Ta façon de traverser les tempêtes",
-  "Tes mots qui restent","Ta façon d'être à la fois forte et douce",
-  "Le fait que tu existes","Tes élans d'affection soudains",
-  "Ta façon de me connaître mieux que moi","Ton goût pour les histoires vraies",
-  "Ta façon de sourire avec les yeux","Tes petits défauts que j'aime",
-  "La façon dont tu portes ce prénom","Ta façon d'être Yasmina","Ta façon d'être Charlotte",
-  "Ton rapport à l'amour","La façon dont tu deviens meilleure chaque jour",
-  "Ton caractère trempé dans le feu doux","Ta façon de mettre du sens partout",
-  "Ton regard sur moi quand tu crois que je ne vois pas","Tes soupirs de soulagement",
-  "Ta façon de dire merci","Tes questions sur la vie","La façon dont tu tiens mes mains",
-  "Ton rapport à la mort avec sagesse","Ta façon de prier",
-  "Ton lien avec ce qui te dépasse","La façon dont tu transmets","Tes espoirs intacts",
-  "Ta façon d'imaginer le futur","Tes petites victoires que tu célèbres",
-  "Ta façon de recevoir les compliments","Ton rapport à ton corps",
-  "Ta façon de te réconcilier avec toi-même",
-  "Tes matins difficiles transformés en force","Ta façon de traverser le doute",
-  "Ton sens du sacré dans l'ordinaire","La façon dont tu crées de la beauté",
-  "Ton goût pour ce qui dure","Ta façon d'être loyale",
-  "Tes moments de solitude habitée",
-  "La façon dont tu changes d'avis avec élégance","Ton rapport à l'erreur",
-  "Ta façon d'être juste","Tes convictions sur ce qui est bien",
-  "La façon dont tu prends soin de toi","Ta façon d'habiter les lieux",
-  "Tes souvenirs d'enfance que tu partages","Ta façon de garder les liens",
-  "Ton rapport à tes racines","La façon dont tu honores ta mère",
-  "Tes liens qui te construisent","Ta façon d'être sœur","Ton rapport à l'amitié",
-  "La façon dont tu protèges","Ton instinct maternel","Ta façon de vouloir du bien",
-  "Tes peines que tu portes avec dignité","La façon dont tu te relèves",
-  "Ta foi en les bonnes choses","Tes rêves pour nous",
-  "La façon dont tu parles de nos enfants à venir","Ton rapport à la maison",
-  "Ta façon de faire de partout un foyer","Tes petits plaisirs secrets",
-  "La façon dont tu ris d'elle-même","Ton ironie douce",
-  "Ta façon de ne pas te prendre trop au sérieux","Tes moments d'enfance qui ressurgissent",
-  "La façon dont tu joues","Ton imagination","Ta façon de créer avec peu",
-  "Tes réactions spontanées","La façon dont tu t'indigne pour les autres",
-  "Ton sens de la justice","Ta façon de parler des gens que tu aimes",
-  "Tes hésitations honnêtes","La façon dont tu demandes pardon","Ton amour du soleil",
-  "Ta façon d'accueillir la pluie","Tes saisons intérieures",
-  "La façon dont tu changes sans te perdre","Ton rapport à la liberté",
-  "Ta façon de vouloir grandir encore","Tes journées ordinaires rendues précieuses",
-  "La façon dont tu aimes les mots","Ton rapport à la langue",
-  "Ta façon de me regarder vieillir avec toi","Tes silences d'amour",
-  "La façon dont tu seras toujours toi","La façon dont tu souris en dormant",
-  "Ton rapport aux saisons","Ta façon de t'émerveiller encore",
-  "La façon dont tu portes ta force","Tes matins de douce lumière",
-  "Ton regard sur ce qui est simple","Ta façon de garder l'essentiel",
-  "La façon dont tu résistes","Tes moments de grande clarté",
-  "Tout ce que je ne sais pas encore de toi","Tout ce que je découvrirai encore"
+  "Ton rire qui remplit toute la pièce",
+  "La façon dont tu prononces mon prénom",
+  "Ton intelligence émotionnelle rare",
+  "Le coin de tes yeux qui se relève quand tu rigoles",
+  "Ta gentillesse désarmante",
+  "Ton sens du bien et du juste que j'admire profondément",
+  "Ta capacité à écouter d'une façon que peu de gens savent faire — vraiment écouter",
+  "Ta voix quand t'as sommeil",
+  "Ton rapport à la beauté, aux petites choses, à la vie — c'est poétique",
+  "Mon regard sur le monde évolue quand tu es là",
+  "Ton regard qui parle quand ta voix se tait",
+  "Ta tendresse inattendue",
+  "Ton sourire, ton SOURIRE, TON SOURIRE",
+  "Comment tu remarques les petites choses que tout le monde ignore",
+  "Ta curiosité pour tout (ta cuuuuriosité)",
+  "Ta manière de croire encore aux coïncidences heureuses",
+  "Ton courage pour me parler de tout, à cœur ouvert",
+  "Les battements de ton cœur quand tu t'endors",
+  "Le parfum de ta peau qui colle sur la mienne",
+  "Ta capacité à transformer n'importe quel endroit en maison (même une voiture - MÊME des toilettes)",
+  "Ta douceur constante - dans ta voix, tes caresses, toi toute entière",
+  "Nos silences complices",
+  "Ta façon d'aimer les petites choses, que les autres trouveraient ennuyeuses",
+  "Ton regard sur le monde",
+  "La confiance que tu places en moi",
+  "La façon dont tu peux rire aux larmes, à en devenir rouge",
+  "Ton instinct et ton intuition toujours juste",
+  "Ta présence qui apaise",
+  "Tes mains qui construisent",
+  "Ton âme profonde, sincère",
+  "Ta façon de défendre ce qui compte pour toi",
+  "Ton sérieux quand il le faut",
+  "Ta légèreté qui me soulage",
+  "Nos fous rires et nos moments hyper drôles",
+  "Tu es une merveilleuse grande sœur",
+  "Ton énergie solaire, contagieuse",
+  "La façon dont tu t'occupes de moi sans que je n'aie à le demander",
+  "Ton regard quand on fait crac-crac",
+  "Ton sens du respect et des valeurs",
+  "Ton amour pour le sommeil",
+  "\"J'aime ta musicalité\"",
+  "Ta capacité à continuer même quand c'est difficile",
+  "Tes convictions solides et tes prises de positions",
+  "Ta façon de choisir tes batailles",
+  "Tu me montres que la vulnérabilité est une forme de courage",
+  "La façon dont tu te souviens des détails qui compte en ayant une mémoire de poisson rouge",
+  "Ton empathie naturelle, envers tout et tout le monde",
+  "Ta façon de me surprendre encore",
+  "Ta capacité à t'émerveiller sur un petit insecte ou un papillon",
+  "Tu choisis la bonté même quand ce n'est pas le chemin le plus facile.",
+  "Ta façon de m'embrasser",
+  "Les choses que tu as traversé et que j'admire en silence.",
+  "Ta façon d'assumer qui tu es pleinement",
+  "Ton regard sur les étoiles, mon étoile",
+  "Ton rapport aux principes de la vie que je considère importants",
+  "Nos avis concordants sur tout, comme si c'était le destin",
+  "Tes larmes de joie, après un café le matin",
+  "Ta façon de défendre les tiens",
+  "Ton rapport à la famille",
+  "Ta générosité sans compter",
+  "Ton lyrisme, telle une muse",
+  "Ton humilité sincère",
+  "Tu m'inspires : des mots, des poèmes.. des sites web",
+  "La vie a meilleur goût depuis que tu es là",
+  "Nos moments devant la mer, à parler",
+  "Ton rapport et comment t'es à l'aise même dans le silence avec moi",
+  "La façon dont tu dors hyper tôt, petite grand-mère",
+  "Parce que les trajets en voiture pour partir chez toi sont devenus mes moments préférés (et être chez toi du coup aussi)",
+  "Ta façon de pardonner, sans oublier ce qui importe",
+  "Parce que tu m'envoies 50 tiktok à longueur de soirée (et que je les regarde tous d'un coup)",
+  "C'est tellement mignon la façon dont tu n'arrives jamais à prendre une décision",
+  "Tu chantes comme un ange et je suis amoureuse de ta voix",
+  "Comment je te fais rire, même quand c'est absolument pas drôle",
+  "La chaleur que tu portes autour de toi, quand tu m'entoures d'un câlin",
+  "Ton côté Charlotte la fraise, toujours",
+  "Ta façon de faire du quotidien quelque chose de beau, même un mardi ordinaire",
+  "Tes petites habitudes que j'aime, de nos \"bonjour\" jusqu'à ta petite larmichette avant de dormir",
+  "La façon dont tu me racontes tes rêves à chaque fois",
+  "Ta façon de nous vivre pleinement, dans le présent",
+  "Ta façon de m'apprendre à ralentir et de m'éviter de trop m'avancer",
+  "Parce que tu gardes des choses significatives pour toi dans une boîte à souvenirs",
+  "La façon avec laquelle mes journées gravitent autour de toi",
+  "J'adore quand tu crois débiter et que tu perds tes mots",
+  "Tu as une mémoire des émotions que je trouve presque magique",
+  "Nos trajets en voiture, le soir, en journée, tous",
+  "Tes mains dans les miennes et tes doigts qui jouent avec les miens",
+  "Tu comprends les choses que je n'arrive pas à formuler",
+  "Ton amour de la musique",
+  "Nos discussions interminables sur le sexe",
+  "Nos passages constants de cap",
+  "Tes cheveux blonds, les boucles luxuriantes, toujours avec des antennes au vent",
+  "Tes fesses, tes cuisses, tes boobies, ta mâchoire, ton cou, ton dos, tes mains, TOUT ton corps",
+  "La façon dont tu gardes les souvenirs",
+  "Ton rapport à la vérité",
+  "Tes yeux verts (avec beaucoup de verts) qui brillent au soleil",
+  "J'adore te chatouiller (mais je me suis rendue compte que je pouvais te faire pleurer, nul)",
+  "La façon dont tu lis le tarot en y croyant spirituellement",
+  "Même nos signes astrologiques sont parfaits l'un pour l'autre",
+  "Ta façon de faire du yoga pour te reconnecter à la nature",
+  "Les qualités que tu ne vois pas encore chez toi mais je te répéterais à chaque fois",
+  "La façon dont tu m'as accepté, en prenant le risque sans demi-mesure (merci)",
+  "Ta grâce naturelle et ton élégance",
+  "Ta façon de fondre pendant nos câlins, je trouve ça trop mignon",
+  "Parce que tu n'as jamais de mal à tester de nouvelles choses en ma compagnie",
+  "Tu as des expressions à toi que j'ai commencé à utiliser sans m'en rendre compte (OUEEE)",
+  "Comment tu m'as mise à l'aise avec mon propre corps et ma capacité à recevoir",
+  "Le fait que tu ris de tes propres blagues avant même d'arriver à la chute (avec ton rire décalé en retard là)",
+  "Tes élans d'affection soudains, tes bisous soudains, tes mini-claques soudaines",
+  "Parce que tu m'as fait écouter et regarder des trucs auxquels je me serais jamais intéressée sans toi",
+  "Parce que je sais qu'on peut s'embrouiller sur un truc et que ça ne remet pas tout en question",
+  "Parce que tu corresponds parfaitement à ce que je recherche en terme de love language",
+  "Tes petits défauts que j'aime, j'aime tout de toi",
+  "T'es ma fleur, ma yasmina",
+  "Parce que tu me dis quand tu n'es pas d'accord, et je te fais confiance pour ça.",
+  "Parce que nous avons déjà des \"nous\" — des blagues à nous, des habitudes à nous, un monde à nous.",
+  "Ton rapport à l'amour (et comment tu me dis je t'aime)",
+  "Parce que je peux être malade, fatiguée, défaite — et tu me regardes pareil",
+  "Ton caractère trempé dans le feu doux",
+  "Parce que tu ne me fais pas sentir trop grande, trop petite, trop compliquée",
+  "Parce que je peux passer des heures à te regarder",
+  "Parce qu'avec toi, j'ai arrêté de me rétrécir",
+  "Ta façon de dire merci pour des choses insignifiantes, le minimum",
+  "Parce que tu penses à moi sans raison précise à 5h du matin",
+  "La façon dont tu me fais de la place — dans tes journées, dans tes pensées, dans tes plans",
+  "Dormir près de toi est une des choses les plus paisibles que je connaisse",
+  "Je m'endors en pensant à toi et je me réveille pareil",
+  "Comment nos nuits à parler jusqu'à l'aube ont compté parmi mes plus belles",
+  "Comment tu as tes peurs, tes doutes, tes cicatrices — et tu avances quand même",
+  "Comment tu t'autorises à être triste, et ça te rend humaine et vraie",
+  "Parce que tu finis parfois mes phrases et moi les tiennes",
+  "Comment nous pouvons passer des heures ensemble sans nous ennuyer",
+  "Comment on est à l'aise pour tout et c'est ce qui rend tout merveilleux avec toi",
+  "Ton rapport à ton corps et comment tu m'y autorises petit à petit",
+  "Parce que t'es mon meilleur coup, le meilleur sexe de ma vie",
+  "Parce que tous les critères de mon je t'aime sont atteints",
+  "Parce que je me retrouve rarement aussi obsédée par quelqu'un",
+  "Parce que tu m'apprends petit à petit à recevoir de l'amour sans m'excuser",
+  "La façon dont tu ES art et art est toi (reprends le dessin s'il te plaît)",
+  "Sans toi, mes journées n'ont pas de sens, pas de soleil",
+  "Parce que tu me montres que je mérite d'être choisie",
+  "Parce qu'aimer une femme, c'est aussi s'aimer un peu soi-même",
+  "Parce que je veux voyager avec toi",
+  "Parce que je veux encore plein de premières fois avec toi",
+  "Parce qu'il y a des choses entre nous que parfois seul le silence peut contenir",
+  "Ta façon d'habiter une pièce quand tu t'y trouves",
+  "Parce qu'il suffit que tu sois dans la même pièce pour que tout aille mieux",
+  "Ta voiture orange, faut pas l'oublier",
+  "Pour Baloo, Grizou et Pinky aussi",
+  "Ta façon de conserver des liens même quand les souvenirs ne sont pas heureux, car le sens du sacré prime chez toi",
+  "Ton rapport à l'amitié et comment tu gères les tiennes",
+  "Parce que je ne sais pas exactement quand je suis TOMBÉE AMOUREUSE de toi, et je trouve ça magnifique",
+  "Parce que tu es devenue une évidence",
+  "Parce que tu t'entends avec toutes les parties de mon entourage",
+  "Parce que je ne peux pas imaginer ne pas t'avoir rencontrée",
+  "J'aime ton rythme de vie, ton cadre de vie et je trouve ça super important",
+  "Ta façon de me faire des massages et de me craquer le dos",
+  "Parce que tu fais les meilleures papouilles au monde et que tu connais tous mes points faibles",
+  "Quand t'es un peu jalouse et je trouve ça trop sex",
+  "Comment tu me caches pas : tu m'aimes fort et tu l'assumes (ça me tient beaucoup à cœur)",
+  "Ta foi en les bonnes choses qui peuvent arriver et comment tu attires les énergies positives",
+  "Parce que je choisis de t'aimer chaque matin.",
+  "Parce que tu mérites d'être aimée comme tu aimes, avec toute la force et la passion qui va avec",
+  "Parce que je veux être cette personne pour toi, qui t'apporte du positif",
+  "Parce que rien de tout ça n'est parfait, et c'est parfait quand même",
+  "Tes petites habitudes de langage \"twerk, twin, REDBULL\", c'est trop mignon",
+  "La façon avec laquelle ta bizarrerie est magnifique et match parfaitement la mienne",
+  "Ton ironie douce et ton sarcasme bien placé",
+  "Ta façon de ne pas te prendre trop au sérieux",
+  "Tes moments d'enfance qui ressurgissent",
+  "La façon dont tu joues, de plus en plus souvent et j'adore ça",
+  "Ton imagination et je suis heureuse de voir que t'es à l'aise de l'exprimer avec moi",
+  "Parce que je n'ai pas fini de te découvrir, et cette idée me rend heureuse",
+  "Tes réactions totalement spontanées",
+  "La façon dont tu t'indigne pour les autres comme si c'était pour toi",
+  "Comment tu mets tes jambes sur les miennes quand on s'asseoit à côté",
+  "La magie qui passe entre nous le soir, en voiture, stationnée et que je ne comprends pas",
+  "Tes hésitations honnêtes et ta façon de prendre ton temps avec de trancher",
+  "La façon dont tu demandes pardon alors que t'as quand même rien fait",
+  "Ton rapport love/hate du soleil (je t'aime même cramée)",
+  "Ta façon d'écouter le vent comme une musique",
+  "Ton rapport mélancolique et tendre aux saisons",
+  "La manière dont tu évolues sans jamais trahir qui tu es",
+  "Ton besoin de liberté et la beauté avec laquelle tu la portes",
+  "Ta façon de toujours vouloir devenir une meilleure version de toi-même",
+  "Tes instants de lucidité qui me bouleversent parfois par leur justesse",
+  "La façon dont tu regardes par la fenêtre en voiture",
+  "Ton amour profond pour les langues, les nuances et les silences",
+  "Ta manière d'exister sans jamais être banale",
+  "Ton rire fatigué à la fin des longues journées",
+  "Tes pensées qui partent dans tous les sens et que j'écoute quand même jusqu'au bout",
+  "Ton air perdu quand tu réfléchis trop longtemps",
+  "Tes messages au milieu de la nuit que je relis encore le lendemain",
+  "Parce que tu parles à Pablo et que je ne sais pas ce que tu lui dis exactement",
+  "La façon dont tu existes un peu partout dans ma mémoire",
+  "Les secondes juste avant que tu éclates de rire",
+  "La façon dont tu existes pleinement dans chaque émotion",
+  "Les détails de toi que personne remarque autant que moi",
+  "Les moments où tu redeviens presque enfant sans t'en rendre compte",
+  "Ta présence qui reste longtemps même après ton départ",
+  "Parce que je t'aime — simplement, profondément, pour toutes ces raisons et pour toutes celles que je n'ai pas encore de mots pour dire."
 ];
 
 const grid=document.getElementById('stars-grid');
@@ -648,15 +752,10 @@ for(let i=0;i<200;i++){
   const b=document.createElement('button');
   b.className='star-btn';
   b.setAttribute('aria-label','Raison numéro '+(i+1));
-  b.innerHTML='<span class="s-num">'+( i+1)+'</span><span class="star-glyph">✦</span>';
+  b.innerHTML='<span class="s-num">'+(i+1)+'</span><span class="star-glyph">✦</span>';
   b.addEventListener('click',()=>openM(i,b));
   grid.appendChild(b);
 }
-
-const ov=document.getElementById('overlay');
-const mtag=document.getElementById('m-tag');
-const mtxt=document.getElementById('m-text');
-const mcl=document.getElementById('m-close');
 
 function openM(i,b){
   if(!found.has(i)){found.add(i);b.classList.add('found');ctr.textContent=found.size+' / 200 découvertes';}
