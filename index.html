@@ -168,7 +168,7 @@ nav{
 }
 .spotify-wrap{
   display:flex;flex-direction:column;align-items:center;gap:0.9rem;
-  margin-bottom:3.5rem;
+  margin-bottom:1.5rem;
 }
 .spotify-label{
   font-family:'Bebas Neue',sans-serif;
@@ -187,6 +187,53 @@ nav{
 }
 .sp-btn:hover{background:rgba(180,170,155,0.12);border-color:var(--brown-light);color:var(--cream);}
 .sp-btn svg{fill:currentColor;width:14px;height:14px;}
+
+/* ── VINYL ── */
+.vinyl-wrap{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;margin-bottom:3.5rem;
+  position:relative;height:130px;
+}
+.vinyl-cover{
+  width:110px;height:110px;
+  border-radius:4px;
+  object-fit:cover;
+  position:relative;z-index:2;
+  box-shadow:0 8px 32px rgba(0,0,0,0.5);
+  flex-shrink:0;
+}
+.vinyl-disc-wrap{
+  position:relative;
+  width:110px;height:110px;
+  margin-left:-22px;
+  flex-shrink:0;
+  transition:transform 0.5s ease;
+}
+.vinyl-wrap:hover .vinyl-disc-wrap{
+  transform:translateX(18px);
+}
+.vinyl-disc{
+  width:110px;height:110px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%, #1a1a1a 18%, transparent 18%),
+    repeating-radial-gradient(circle at 50% 50%, #111 0px, #1a1a1a 1.5px, #111 3px);
+  animation:spin 4s linear infinite;
+  box-shadow:0 4px 20px rgba(0,0,0,0.6);
+  position:relative;
+}
+.vinyl-disc::after{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:14px;height:14px;
+  border-radius:50%;
+  background:#D4C9B0;
+  opacity:0.6;
+}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
 .scroll-cue{
   font-family:'Bebas Neue',sans-serif;
   font-size:0.65rem;letter-spacing:0.4em;
@@ -230,11 +277,6 @@ nav{
 .etoile-corner.tr{top:-5px;right:-5px;border-width:1px 1px 0 0;}
 .etoile-corner.bl{bottom:-5px;left:-5px;border-width:0 0 1px 1px;}
 .etoile-corner.br{bottom:-5px;right:-5px;border-width:0 1px 1px 0;}
-.etoile-name-tag{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.6em;
-  color:var(--brown-light);opacity:0.6;margin-bottom:0.9rem;
-}
 .etoile-title{
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(2.2rem,5.5vw,4rem);
@@ -426,6 +468,17 @@ nav{
       </a>
     </div>
   </div>
+
+  <!-- VINYL -->
+  <a href="https://open.spotify.com/album/2ANVost0y2y52ema1E9xAZ?si=S9PGrltJTY2RYEKHYUUVNw" target="_blank" rel="noopener" style="text-decoration:none;">
+    <div class="vinyl-wrap">
+      <img class="vinyl-cover" src="thriller.jpg" alt="Thriller">
+      <div class="vinyl-disc-wrap">
+        <div class="vinyl-disc"></div>
+      </div>
+    </div>
+  </a>
+
   <p class="scroll-cue">Descends</p>
 </section>
 
@@ -520,7 +573,7 @@ nav{
 
 <script>
 // ══ CONFIG ══
-const PASSWORD = 'charlotte'; // Change ici pour modifier le mot de passe
+const PASSWORD = 'charlotte';
 const SESSION_KEY = 'charlotte_session';
 const PROGRESS_KEY = 'charlotte_progress';
 
@@ -571,7 +624,6 @@ function unlock() {
 pwBtn.addEventListener('click', unlock);
 pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
 
-// Check si déjà connectée dans cette session
 if (sessionStorage.getItem(SESSION_KEY) === '1') {
   loginPage.classList.add('hidden');
   initApp();
@@ -580,7 +632,6 @@ if (sessionStorage.getItem(SESSION_KEY) === '1') {
 // ══ APP ══
 function initApp() {
 
-  // Charger la progression depuis localStorage
   let progress = { c: [], r: [] };
   try {
     const saved = localStorage.getItem(PROGRESS_KEY);
@@ -591,7 +642,7 @@ function initApp() {
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
   }
 
-  // STARFIELD PRINCIPAL
+  // STARFIELD
   const cv = document.getElementById('starfield');
   const cx = cv.getContext('2d');
   let ST = [];
