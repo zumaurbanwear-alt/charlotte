@@ -28,7 +28,7 @@ body{
   font-family:'Cormorant Garamond',Georgia,serif;
   overflow-x:hidden;
 }
-
+ 
 /* ── LOGIN PAGE ── */
 #login-page{
   position:fixed;inset:0;z-index:999;
@@ -99,7 +99,7 @@ body{
   transition:opacity 0.3s;letter-spacing:0.1em;
 }
 .login-error.show{opacity:0.7;}
-
+ 
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;width:100%;
@@ -125,13 +125,13 @@ nav{
 }
 .nav-links a:hover{color:var(--cream);}
 @media(max-width:580px){.nav-links{display:none;}}
-
+ 
 /* ── STARFIELD ── */
 #starfield{
   position:fixed;top:0;left:0;width:100%;height:100%;
   pointer-events:none;z-index:0;
 }
-
+ 
 /* ── HERO ── */
 #hero{
   position:relative;z-index:1;
@@ -187,7 +187,7 @@ nav{
 }
 .sp-btn:hover{background:rgba(180,170,155,0.12);border-color:var(--brown-light);color:var(--cream);}
 .sp-btn svg{fill:currentColor;width:14px;height:14px;}
-
+ 
 /* ── VINYL ── */
 .vinyl-wrap{
   display:flex;align-items:center;justify-content:center;
@@ -233,7 +233,7 @@ nav{
   opacity:0.6;
 }
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-
+ 
 .scroll-cue{
   font-family:'Bebas Neue',sans-serif;
   font-size:0.65rem;letter-spacing:0.4em;
@@ -246,14 +246,14 @@ nav{
   animation:drop 2s ease-in-out infinite;
 }
 @keyframes drop{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
-
+ 
 /* ── DIVIDER ── */
 .divider{
   position:relative;z-index:1;
   width:100%;max-width:500px;margin:0 auto;
   height:1px;background:linear-gradient(to right,transparent,rgba(180,170,155,0.2),transparent);
 }
-
+ 
 /* ── MON ÉTOILE ── */
 #etoile{
   position:relative;z-index:1;
@@ -297,7 +297,7 @@ nav{
   border-top:1px solid rgba(180,170,155,0.15);
   padding-top:1rem;width:100%;
 }
-
+ 
 /* ── COMPLIMENTS / RAISONS ── */
 #compliments,#raisons{
   position:relative;z-index:1;
@@ -360,7 +360,7 @@ nav{
 .star-glyph{position:absolute;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;}
 .star-btn:hover .star-glyph,.star-btn.found .star-glyph{opacity:0.65;}
 .star-btn.found .s-num{opacity:0;}
-
+ 
 /* ── MODAL ── */
 #overlay{
   position:fixed;inset:0;z-index:200;
@@ -399,7 +399,7 @@ nav{
   background:none;border:none;transition:color 0.2s;
 }
 .m-close:hover{color:var(--cream);}
-
+ 
 /* ── FINAL ── */
 #final{
   position:relative;z-index:1;
@@ -422,10 +422,113 @@ nav{
   font-size:0.65rem;letter-spacing:0.6em;
   color:var(--brown);opacity:0.45;
 }
+ 
+/* ── TODO PAGE ── */
+#todo-page{
+  position:fixed;inset:0;z-index:90;
+  background:var(--bg);
+  overflow-y:auto;
+  display:none;
+}
+#todo-page.open{display:block;}
+#todo-inner{
+  position:relative;z-index:1;
+  padding:7rem 2rem 8rem;
+  max-width:700px;margin:0 auto;
+}
+.todo-hero{text-align:center;margin-bottom:0.8rem;}
+.todo-hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,8vw,5.5rem);
+  letter-spacing:0.06em;color:var(--cream);line-height:0.9;
+}
+.todo-names{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.55em;
+  color:var(--brown-light);opacity:0.45;
+  display:block;margin-bottom:2rem;
+}
+.todo-progress-wrap{
+  text-align:center;margin-bottom:3rem;
+}
+.todo-progress-wrap span{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.75rem;letter-spacing:0.4em;
+  color:var(--brown-light);opacity:0.6;
+}
+.todo-progress-bar{
+  width:100%;max-width:300px;height:1px;
+  background:rgba(180,170,155,0.1);
+  margin:0.8rem auto 0;position:relative;
+}
+.todo-progress-fill{
+  position:absolute;top:0;left:0;height:100%;
+  background:rgba(212,201,176,0.35);
+  transition:width 0.4s ease;
+}
+.todo-category{margin-bottom:3rem;}
+.todo-category-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.62rem;letter-spacing:0.55em;
+  color:var(--brown-light);opacity:0.4;
+  margin-bottom:1rem;padding-bottom:0.6rem;
+  border-bottom:1px solid rgba(180,170,155,0.08);
+}
+.todo-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:0.75rem 0;
+  border-bottom:1px solid rgba(180,170,155,0.05);
+  cursor:pointer;user-select:none;
+}
+.todo-check{
+  width:15px;height:15px;flex-shrink:0;margin-top:3px;
+  border:1px solid rgba(180,170,155,0.25);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.25s;
+}
+.todo-item.done .todo-check{
+  background:rgba(180,170,155,0.12);
+  border-color:rgba(180,170,155,0.45);
+}
+.todo-check::after{
+  content:'';display:none;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--brown-light);
+}
+.todo-item.done .todo-check::after{display:block;}
+.todo-label{
+  font-size:clamp(0.95rem,2vw,1.1rem);
+  font-style:italic;color:var(--cream2);
+  line-height:1.6;font-weight:300;transition:all 0.25s;
+}
+.todo-item.done .todo-label{
+  text-decoration:line-through;
+  color:var(--muted);opacity:0.45;
+}
+.nav-todo-btn{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.65rem;letter-spacing:0.3em;
+  color:var(--muted);text-decoration:none;
+  opacity:0.7;transition:color 0.2s;
+  background:none;border:none;cursor:pointer;
+  padding:0;
+}
+.nav-todo-btn:hover,.nav-todo-btn.active{color:var(--cream);opacity:1;}
+.todo-back{
+  display:flex;align-items:center;justify-content:center;
+  margin:3rem auto 0;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.75rem;letter-spacing:0.5em;
+  color:var(--muted);
+  background:none;border:1px solid rgba(180,170,155,0.2);
+  padding:0.7rem 2rem;cursor:pointer;
+  transition:all 0.3s;width:fit-content;
+}
+.todo-back:hover{color:var(--cream);border-color:rgba(180,170,155,0.5);}
 </style>
 </head>
 <body>
-
+ 
 <!-- ══ LOGIN ══ -->
 <div id="login-page">
   <canvas id="login-canvas"></canvas>
@@ -440,19 +543,20 @@ nav{
     </div>
   </div>
 </div>
-
+ 
 <!-- ══ NAV ══ -->
 <nav>
   <a class="nav-logo" href="#hero">✦ Explorer</a>
+  <button class="nav-todo-btn" id="nav-todo-btn">To Do</button>
   <ul class="nav-links">
     <li><a href="#compliments">30 mots</a></li>
     <li><a href="#etoile">Mon Étoile</a></li>
     <li><a href="#raisons">200 raisons</a></li>
   </ul>
 </nav>
-
+ 
 <canvas id="starfield"></canvas>
-
+ 
 <!-- ══ HERO ══ -->
 <section id="hero">
   <p class="hero-eyebrow">Entièrement pour toi</p>
@@ -468,7 +572,7 @@ nav{
       </a>
     </div>
   </div>
-
+ 
   <!-- VINYL -->
   <a href="https://open.spotify.com/album/2ANVost0y2y52ema1E9xAZ?si=S9PGrltJTY2RYEKHYUUVNw" target="_blank" rel="noopener" style="text-decoration:none;">
     <div class="vinyl-wrap">
@@ -478,12 +582,12 @@ nav{
       </div>
     </div>
   </a>
-
+ 
   <p class="scroll-cue">Descends</p>
 </section>
-
+ 
 <div class="divider"></div>
-
+ 
 <!-- ══ 30 MOTS ══ -->
 <section id="compliments">
   <div class="section-head">
@@ -494,9 +598,9 @@ nav{
   <div class="stars-grid" id="comp-grid"></div>
   <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
 </section>
-
+ 
 <div class="divider"></div>
-
+ 
 <!-- ══ MON ÉTOILE ══ -->
 <section id="etoile">
   <div class="etoile-inner">
@@ -530,9 +634,9 @@ nav{
     </div>
   </div>
 </section>
-
+ 
 <div class="divider"></div>
-
+ 
 <!-- ══ 200 RAISONS ══ -->
 <section id="raisons">
   <div class="section-head">
@@ -543,9 +647,9 @@ nav{
   <div class="stars-grid" id="stars-grid"></div>
   <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
 </section>
-
+ 
 <div class="divider"></div>
-
+ 
 <!-- ══ FINAL ══ -->
 <section id="final">
   <h2>POUR<br>ENCORE LONGTEMPS</h2>
@@ -559,7 +663,26 @@ nav{
   </p>
   <p class="sig">C'EST MA MEUF</p>
 </section>
-
+ 
+ 
+<!-- ══ TODO PAGE ══ -->
+<div id="todo-page">
+  <div id="todo-inner">
+    <div class="todo-hero">
+      <h1>TO DO LIST</h1>
+      <span class="todo-names">Charlotte &amp; Lily</span>
+    </div>
+    <div class="todo-progress-wrap">
+      <span id="todo-count">0 / 0 complétées</span>
+      <div class="todo-progress-bar">
+        <div class="todo-progress-fill" id="todo-fill"></div>
+      </div>
+    </div>
+    <div id="todo-list"></div>
+    <button class="todo-back" id="todo-back">← Retour au site</button>
+  </div>
+</div>
+ 
 <!-- ══ MODAL ══ -->
 <div id="overlay">
   <div id="modal">
@@ -570,13 +693,13 @@ nav{
     <button class="m-close" id="m-close">FERMER ✕</button>
   </div>
 </div>
-
+ 
 <script>
 // ══ CONFIG ══
 const PASSWORD = 'charlotte';
 const SESSION_KEY = 'charlotte_session';
 const PROGRESS_KEY = 'charlotte_progress';
-
+ 
 // ══ LOGIN STARFIELD ══
 const lc = document.getElementById('login-canvas');
 const lx = lc.getContext('2d');
@@ -601,13 +724,13 @@ function drawL() {
 }
 rsz2(); mkLStars(); drawL();
 window.addEventListener('resize', () => { rsz2(); mkLStars(); });
-
+ 
 // ══ LOGIN LOGIC ══
 const loginPage = document.getElementById('login-page');
 const pwInput = document.getElementById('pw-input');
 const pwBtn = document.getElementById('pw-btn');
 const pwError = document.getElementById('pw-error');
-
+ 
 function unlock() {
   const val = pwInput.value.trim().toLowerCase();
   if (val === PASSWORD) {
@@ -623,25 +746,25 @@ function unlock() {
 }
 pwBtn.addEventListener('click', unlock);
 pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
-
+ 
 if (sessionStorage.getItem(SESSION_KEY) === '1') {
   loginPage.classList.add('hidden');
   initApp();
 }
-
+ 
 // ══ APP ══
 function initApp() {
-
+ 
   let progress = { c: [], r: [] };
   try {
     const saved = localStorage.getItem(PROGRESS_KEY);
     if (saved) progress = JSON.parse(saved);
   } catch(e) {}
-
+ 
   function saveProgress() {
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
   }
-
+ 
   // STARFIELD
   const cv = document.getElementById('starfield');
   const cx = cv.getContext('2d');
@@ -671,13 +794,13 @@ function initApp() {
   }
   rsz(); mkStars(); draw();
   window.addEventListener('resize', () => { rsz(); mkStars(); });
-
+ 
   // MODAL
   const ov = document.getElementById('overlay');
   const mtag = document.getElementById('m-tag');
   const mtxt = document.getElementById('m-text');
   const mcl = document.getElementById('m-close');
-
+ 
   function openModal(tag, text) {
     mtag.textContent = tag;
     mtxt.textContent = text;
@@ -688,7 +811,7 @@ function initApp() {
   mcl.addEventListener('click', closeM);
   ov.addEventListener('click', e => { if (e.target === ov) closeM(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
-
+ 
   // 30 MOTS
   const compliments = [
     "Éthérée","Céleste","Séraphique","Lyrique","Nébuleuse",
@@ -698,11 +821,11 @@ function initApp() {
     "Diaphane","Féerique","Incandescente","Solaire","Mystique",
     "Éblouissante","Aérienne","Harmonieuse","Flamboyante","Sidérale"
   ];
-
+ 
   const cgrid = document.getElementById('comp-grid');
   const cctr = document.getElementById('counter-c');
   let cfound = new Set(progress.c);
-
+ 
   for (let i = 0; i < 30; i++) {
     const b = document.createElement('button');
     b.className = 'star-btn' + (cfound.has(i) ? ' found' : '');
@@ -719,7 +842,7 @@ function initApp() {
     cgrid.appendChild(b);
   }
   cctr.textContent = cfound.size + ' / 30 découverts';
-
+ 
   // 200 RAISONS
   const raisons = [
     "Ton rire qui remplit toute la pièce",
@@ -923,11 +1046,11 @@ function initApp() {
     "Ta présence qui reste longtemps même après ton départ",
     "Parce que je t'aime — simplement, profondément, pour toutes ces raisons et pour toutes celles que je n'ai pas encore de mots pour dire."
   ];
-
+ 
   const grid = document.getElementById('stars-grid');
   const ctr = document.getElementById('counter');
   let found = new Set(progress.r);
-
+ 
   for (let i = 0; i < 200; i++) {
     const b = document.createElement('button');
     b.className = 'star-btn' + (found.has(i) ? ' found' : '');
@@ -944,7 +1067,96 @@ function initApp() {
     grid.appendChild(b);
   }
   ctr.textContent = found.size + ' / 200 découvertes';
-
+ 
+ 
+  // ── TODO ──
+  const TODO_KEY = 'charlotte_todo';
+  const categories = [
+    { title: '✦ Random à faire', items: [
+      "Meilleure librairie de Casa","Les autres Oracles","Magasin vintage",
+      "La grotte d'Ali Baba","Concept store","Billard","Prendre le tram",
+      "Massages","Le meilleur câlin du monde",
+      "Un film dans la voiture","Pottery painting","Karting",
+      "Apprendre à fabriquer les fleurs","Tous les films Stitch",
+      "Barbie (finir Barbie...)","Bowling","Moonlamp","Petites voitures pour les gosses",
+      "Journée Spa","Le truc des bisous rouge à lèvres","Flower walk","Aller au souk"
+    ]},
+    { title: '✦ Manger', items: [
+      "Glacier Baggli","Chez Aicha la vietnamienne","Loqma","Miga","Picks",
+      "Pizza Di Papi","Chocochino","Frita guy","Pancakes and waffle","Sushi Hiro",
+      "Rosanne","Nelly Burger","Sora Sushi","Route Us","Sea food boil","Loony"
+    ]},
+    { title: '✦ Side Quest', items: [
+      "Écrire un son ensemble","Découvrir les fleurs de charlotte","Manger des bêtises",
+      "Chef Charlotte l'apprenti cuisinière","Chef Lily l'apprenti pâtissière",
+      "Charlotte le papillon de la nage","Charlotte la whineuse","Peindre ensemble"
+    ]},
+    { title: '✦ Movies — aller beaucoup au cinéma', items: [
+      "Labyrinthe","Reminders of us","Les lignes courbes de dieu",
+      "Hamnet","Shutter Island","From Paris"
+    ]},
+    { title: '✦ Les exceptionnels', items: [
+      "Saut en parachute à Benslimane"
+    ]},
+    { title: '✦ Chez Charlotte', items: [
+      "À compléter..."
+    ]}
+  ];
+ 
+  let todoState = {};
+  try { const s = localStorage.getItem(TODO_KEY); if(s) todoState = JSON.parse(s); } catch(e){}
+  function saveTodo(){ localStorage.setItem(TODO_KEY, JSON.stringify(todoState)); }
+ 
+  const todoListEl = document.getElementById('todo-list');
+  const todoCount = document.getElementById('todo-count');
+  const todoFill = document.getElementById('todo-fill');
+  const todoPage = document.getElementById('todo-page');
+  const todoBackBtn = document.getElementById('todo-back');
+  const navTodoBtn = document.getElementById('nav-todo-btn');
+  let totalItems = 0;
+ 
+  categories.forEach((cat, ci) => {
+    const catEl = document.createElement('div');
+    catEl.className = 'todo-category';
+    const titleEl = document.createElement('p');
+    titleEl.className = 'todo-category-title';
+    titleEl.textContent = cat.title;
+    catEl.appendChild(titleEl);
+    cat.items.forEach((item, ii) => {
+      const key = ci + '-' + ii;
+      totalItems++;
+      const row = document.createElement('div');
+      row.className = 'todo-item' + (todoState[key] ? ' done' : '');
+      row.innerHTML = '<div class="todo-check"></div><span class="todo-label">' + item + '</span>';
+      row.addEventListener('click', () => {
+        todoState[key] = !todoState[key];
+        row.classList.toggle('done', todoState[key]);
+        saveTodo(); updateProgress();
+      });
+      catEl.appendChild(row);
+    });
+    todoListEl.appendChild(catEl);
+  });
+ 
+  function updateProgress(){
+    const done = Object.values(todoState).filter(Boolean).length;
+    todoCount.textContent = done + ' / ' + totalItems + ' complétées';
+    todoFill.style.width = (done / totalItems * 100) + '%';
+  }
+  updateProgress();
+ 
+  navTodoBtn.addEventListener('click', () => {
+    todoPage.classList.add('open');
+    navTodoBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+  todoBackBtn.addEventListener('click', () => {
+    todoPage.classList.remove('open');
+    navTodoBtn.classList.remove('active');
+    document.body.style.overflow = '';
+    document.getElementById('todo-inner').scrollTop = 0;
+  });
+ 
 } // end initApp
 </script>
 </body>
