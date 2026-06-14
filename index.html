@@ -10,526 +10,213 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#1C1410;
-  --bg2:#231A13;
-  --bg3:#2E2018;
-  --cream:#F2EAD8;
-  --cream2:#D9CEBC;
-  --brown:#7A7870;
-  --brown-light:#D4C9B0;
-  --brown-dark:#4A4840;
-  --text:#F2EAD8;
-  --muted:#8A8880;
+  --bg:#1C1410;--bg2:#231A13;--bg3:#2E2018;
+  --cream:#F2EAD8;--cream2:#D9CEBC;
+  --brown:#7A7870;--brown-light:#D4C9B0;--brown-dark:#4A4840;
+  --text:#F2EAD8;--muted:#8A8880;
 }
 html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Cormorant Garamond',Georgia,serif;
-  overflow-x:hidden;
-}
- 
-/* ── LOGIN PAGE ── */
-#login-page{
-  position:fixed;inset:0;z-index:999;
-  background:var(--bg);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;padding:2rem;
-}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;}
+
+/* LOGIN */
+#login-page{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;}
 #login-page.hidden{display:none;}
-#login-canvas{
-  position:absolute;inset:0;pointer-events:none;z-index:0;
-}
+#login-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;}
 .login-inner{position:relative;z-index:1;}
-.login-star{
-  font-size:1.2rem;color:var(--brown-light);
-  opacity:0.5;margin-bottom:2.5rem;
-  animation:pulse 3s ease-in-out infinite;
-}
+.login-star{font-size:1.2rem;color:var(--brown-light);opacity:0.5;margin-bottom:2.5rem;animation:pulse 3s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:0.3}50%{opacity:0.7}}
-.login-title{
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-style:italic;font-weight:300;
-  font-size:clamp(3rem,10vw,6rem);
-  line-height:0.9;color:var(--cream);
-  margin-bottom:0.5rem;
-}
-.login-sub{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.7rem;letter-spacing:0.5em;
-  color:var(--muted);opacity:0.6;
-  margin-bottom:3rem;
-}
-.login-form{
-  display:flex;flex-direction:column;
-  align-items:center;gap:1rem;
-  width:100%;max-width:280px;margin:0 auto;
-}
-.login-input{
-  width:100%;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(212,201,176,0.2);
-  padding:0.8rem 1.2rem;
-  color:var(--cream);
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.9rem;letter-spacing:0.3em;
-  text-align:center;outline:none;
-  transition:border-color 0.3s;
-  border-radius:0;
-  -webkit-appearance:none;
-}
+.login-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(3rem,10vw,6rem);line-height:0.9;color:var(--cream);margin-bottom:0.5rem;}
+.login-sub{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:0.5em;color:var(--muted);opacity:0.6;margin-bottom:3rem;}
+.login-form{display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%;max-width:280px;margin:0 auto;}
+.login-input{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(212,201,176,0.2);padding:0.8rem 1.2rem;color:var(--cream);font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.3em;text-align:center;outline:none;transition:border-color 0.3s;border-radius:0;-webkit-appearance:none;}
 .login-input::placeholder{color:var(--muted);opacity:0.5;}
 .login-input:focus{border-color:rgba(212,201,176,0.5);}
-.login-btn{
-  width:100%;
-  background:none;
-  border:1px solid rgba(212,201,176,0.25);
-  padding:0.8rem 2rem;
-  color:var(--cream2);
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.8rem;letter-spacing:0.4em;
-  cursor:pointer;
-  transition:all 0.3s;
-}
+.login-btn{width:100%;background:none;border:1px solid rgba(212,201,176,0.25);padding:0.8rem 2rem;color:var(--cream2);font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.4em;cursor:pointer;transition:all 0.3s;}
 .login-btn:hover{background:rgba(212,201,176,0.08);border-color:rgba(212,201,176,0.5);}
-.login-error{
-  font-size:0.75rem;font-style:italic;
-  color:var(--muted);opacity:0;
-  transition:opacity 0.3s;letter-spacing:0.1em;
-}
+.login-error{font-size:0.75rem;font-style:italic;color:var(--muted);opacity:0;transition:opacity 0.3s;letter-spacing:0.1em;}
 .login-error.show{opacity:0.7;}
- 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;width:100%;
-  z-index:50;
-  padding:1.2rem 2.5rem;
-  display:flex;align-items:center;justify-content:space-between;
-  background:linear-gradient(to bottom,rgba(28,20,16,0.95),transparent);
-}
-.nav-logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.75rem;letter-spacing:0.3em;
-  color:var(--brown-light);text-decoration:none;
-  opacity:0.8;
-}
-.nav-links{
-  display:flex;gap:2rem;list-style:none;
-}
-.nav-links a{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.7rem;letter-spacing:0.4em;
-  color:var(--muted);text-decoration:none;
-  transition:color 0.2s;
-}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(28,20,16,0.95),transparent);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--brown-light);text-decoration:none;opacity:0.8;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:0.4em;color:var(--muted);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover{color:var(--cream);}
 @media(max-width:580px){.nav-links{display:none;}}
- 
-/* ── STARFIELD ── */
-#starfield{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;
-}
- 
-/* ── HERO ── */
-#hero{
-  position:relative;z-index:1;
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;padding:2rem;
-  padding-top:5rem;
-}
-.hero-eyebrow{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(0.7rem,1.5vw,0.85rem);
-  letter-spacing:0.6em;
-  color:var(--brown-light);
-  margin-bottom:2rem;opacity:0.75;
-}
-.hero-title{
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-style:italic;font-weight:300;
-  font-size:clamp(6rem,18vw,14rem);
-  line-height:0.85;color:var(--cream);
-  letter-spacing:0.02em;margin-bottom:1.2rem;
-}
+.nav-todo-btn{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.3em;color:var(--muted);opacity:0.7;transition:color 0.2s;background:none;border:none;cursor:pointer;padding:0;}
+.nav-todo-btn:hover,.nav-todo-btn.active{color:var(--cream);opacity:1;}
+
+/* STARFIELD */
+#starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+
+/* HERO */
+#hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;padding-top:5rem;}
+.hero-eyebrow{font-family:'Bebas Neue',sans-serif;font-size:clamp(0.7rem,1.5vw,0.85rem);letter-spacing:0.6em;color:var(--brown-light);margin-bottom:2rem;opacity:0.75;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(6rem,18vw,14rem);line-height:0.85;color:var(--cream);letter-spacing:0.02em;margin-bottom:1.2rem;}
 .hero-title .accent{color:var(--brown-light);}
-.hero-names{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(1.4rem,4.5vw,3rem);
-  letter-spacing:0.25em;color:var(--brown-light);margin-bottom:0.4rem;
-}
-.hero-nickname{
-  font-size:clamp(0.85rem,1.8vw,1rem);
-  font-style:italic;color:var(--muted);
-  letter-spacing:0.2em;margin-bottom:3rem;
-}
-.spotify-wrap{
-  display:flex;flex-direction:column;align-items:center;gap:0.9rem;
-  margin-bottom:1.5rem;
-}
-.spotify-label{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.75rem;letter-spacing:0.5em;
-  color:var(--brown);opacity:0.7;
-}
+.hero-names{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,4.5vw,3rem);letter-spacing:0.25em;color:var(--brown-light);margin-bottom:0.4rem;}
+.hero-nickname{font-size:clamp(0.85rem,1.8vw,1rem);font-style:italic;color:var(--muted);letter-spacing:0.2em;margin-bottom:3rem;}
+.spotify-wrap{display:flex;flex-direction:column;align-items:center;gap:0.9rem;margin-bottom:1.5rem;}
+.spotify-label{font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.5em;color:var(--brown);opacity:0.7;}
 .spotify-links{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;}
-.sp-btn{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  border:1px solid rgba(180,170,155,0.3);
-  padding:0.55rem 1.4rem;border-radius:2px;
-  color:var(--cream2);text-decoration:none;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.8rem;letter-spacing:0.2em;
-  transition:all 0.3s;background:rgba(255,255,255,0.02);
-}
+.sp-btn{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid rgba(180,170,155,0.3);padding:0.55rem 1.4rem;border-radius:2px;color:var(--cream2);text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.2em;transition:all 0.3s;background:rgba(255,255,255,0.02);}
 .sp-btn:hover{background:rgba(180,170,155,0.12);border-color:var(--brown-light);color:var(--cream);}
 .sp-btn svg{fill:currentColor;width:14px;height:14px;}
- 
-/* ── VINYL ── */
-.vinyl-wrap{
-  display:flex;align-items:center;justify-content:center;
-  gap:0;margin-bottom:3.5rem;
-  position:relative;height:130px;
-}
-.vinyl-cover{
-  width:110px;height:110px;
-  border-radius:4px;
-  object-fit:cover;
-  position:relative;z-index:2;
-  box-shadow:0 8px 32px rgba(0,0,0,0.5);
-  flex-shrink:0;
-}
-.vinyl-disc-wrap{
-  position:relative;
-  width:110px;height:110px;
-  margin-left:-22px;
-  flex-shrink:0;
-  transition:transform 0.5s ease;
-}
-.vinyl-wrap:hover .vinyl-disc-wrap{
-  transform:translateX(18px);
-}
-.vinyl-disc{
-  width:110px;height:110px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 50% 50%, #1a1a1a 18%, transparent 18%),
-    repeating-radial-gradient(circle at 50% 50%, #111 0px, #1a1a1a 1.5px, #111 3px);
-  animation:spin 4s linear infinite;
-  box-shadow:0 4px 20px rgba(0,0,0,0.6);
-  position:relative;
-}
-.vinyl-disc::after{
-  content:'';
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:14px;height:14px;
-  border-radius:50%;
-  background:#D4C9B0;
-  opacity:0.6;
-}
+
+/* VINYL */
+.vinyl-wrap{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:3.5rem;position:relative;height:130px;}
+.vinyl-cover{width:110px;height:110px;border-radius:4px;object-fit:cover;position:relative;z-index:2;box-shadow:0 8px 32px rgba(0,0,0,0.5);flex-shrink:0;}
+.vinyl-disc-wrap{position:relative;width:110px;height:110px;margin-left:-22px;flex-shrink:0;transition:transform 0.5s ease;}
+.vinyl-wrap:hover .vinyl-disc-wrap{transform:translateX(18px);}
+.vinyl-disc{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#1a1a1a 18%,transparent 18%),repeating-radial-gradient(circle at 50% 50%,#111 0px,#1a1a1a 1.5px,#111 3px);animation:spin 4s linear infinite;box-shadow:0 4px 20px rgba(0,0,0,0.6);position:relative;}
+.vinyl-disc::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#D4C9B0;opacity:0.6;}
 @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
- 
-.scroll-cue{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.4em;
-  color:var(--muted);opacity:0.4;
-  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
-}
-.scroll-cue::after{
-  content:'';width:1px;height:36px;
-  background:var(--muted);opacity:0.4;
-  animation:drop 2s ease-in-out infinite;
-}
+.scroll-cue{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--muted);opacity:0.4;display:flex;flex-direction:column;align-items:center;gap:0.4rem;}
+.scroll-cue::after{content:'';width:1px;height:36px;background:var(--muted);opacity:0.4;animation:drop 2s ease-in-out infinite;}
 @keyframes drop{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
- 
-/* ── DIVIDER ── */
-.divider{
-  position:relative;z-index:1;
-  width:100%;max-width:500px;margin:0 auto;
-  height:1px;background:linear-gradient(to right,transparent,rgba(180,170,155,0.2),transparent);
-}
- 
-/* ── MON ÉTOILE ── */
-#etoile{
-  position:relative;z-index:1;
-  padding:5rem 2rem;max-width:920px;margin:0 auto;
-}
-.etoile-inner{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:center;
-}
+
+/* DIVIDER */
+.divider{position:relative;z-index:1;width:100%;max-width:500px;margin:0 auto;height:1px;background:linear-gradient(to right,transparent,rgba(180,170,155,0.2),transparent);}
+
+/* ÉTOILE */
+#etoile{position:relative;z-index:1;padding:5rem 2rem;max-width:920px;margin:0 auto;}
+.etoile-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
 @media(max-width:680px){.etoile-inner{grid-template-columns:1fr;gap:2.5rem;}}
-.etoile-img-frame{
-  width:100%;aspect-ratio:4/5;
-  border:1px solid rgba(180,170,155,0.2);
-  background:var(--bg3);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;position:relative;
-}
+.etoile-img-frame{width:100%;aspect-ratio:4/5;border:1px solid rgba(180,170,155,0.2);background:var(--bg3);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
 .etoile-img-frame img{width:100%;height:100%;object-fit:cover;opacity:0.85;}
 .etoile-corner{position:absolute;width:14px;height:14px;border-color:rgba(180,170,155,0.35);border-style:solid;}
 .etoile-corner.tl{top:-5px;left:-5px;border-width:1px 0 0 1px;}
 .etoile-corner.tr{top:-5px;right:-5px;border-width:1px 1px 0 0;}
 .etoile-corner.bl{bottom:-5px;left:-5px;border-width:0 0 1px 1px;}
 .etoile-corner.br{bottom:-5px;right:-5px;border-width:0 1px 1px 0;}
-.etoile-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.2rem,5.5vw,4rem);
-  line-height:0.9;color:var(--cream);
-  margin-bottom:1.8rem;letter-spacing:0.04em;
-}
+.etoile-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5.5vw,4rem);line-height:0.9;color:var(--cream);margin-bottom:1.8rem;letter-spacing:0.04em;}
 .etoile-title span{color:var(--brown-light);}
-.etoile-body{
-  font-size:clamp(0.9rem,1.8vw,1.05rem);
-  line-height:2;color:var(--cream2);
-  opacity:0.85;font-weight:300;margin-bottom:1.2rem;
-}
-.etoile-ref{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.4em;
-  color:var(--brown);
-  border-top:1px solid rgba(180,170,155,0.15);
-  padding-top:1rem;width:100%;
-}
- 
-/* ── COMPLIMENTS / RAISONS ── */
-#compliments,#raisons{
-  position:relative;z-index:1;
-  padding:5rem 2rem;max-width:920px;margin:0 auto;
-}
+.etoile-body{font-size:clamp(0.9rem,1.8vw,1.05rem);line-height:2;color:var(--cream2);opacity:0.85;font-weight:300;margin-bottom:1.2rem;}
+.etoile-ref{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--brown);border-top:1px solid rgba(180,170,155,0.15);padding-top:1rem;width:100%;}
+
+/* COMPLIMENTS / RAISONS */
+#compliments,#raisons{position:relative;z-index:1;padding:5rem 2rem;max-width:920px;margin:0 auto;}
 .section-head{text-align:center;margin-bottom:3rem;}
-.section-head h2{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2rem,6vw,4.5rem);
-  color:var(--cream);letter-spacing:0.06em;
-}
-.section-head p{
-  font-style:italic;color:var(--muted);
-  font-size:0.9rem;margin-top:0.3rem;opacity:0.7;
-}
-.counter-line{
-  text-align:center;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.75rem;letter-spacing:0.4em;
-  color:var(--brown-light);opacity:0.6;
-  margin:1rem 0 2.5rem;
-}
-.back-btn{
-  display:flex;align-items:center;justify-content:center;
-  margin:3rem auto 0;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.75rem;letter-spacing:0.5em;
-  color:var(--muted);
-  background:none;border:1px solid rgba(180,170,155,0.2);
-  padding:0.7rem 2rem;cursor:pointer;
-  text-decoration:none;transition:all 0.3s;width:fit-content;
-}
+.section-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,4.5rem);color:var(--cream);letter-spacing:0.06em;}
+.section-head p{font-style:italic;color:var(--muted);font-size:0.9rem;margin-top:0.3rem;opacity:0.7;}
+.counter-line{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.4em;color:var(--brown-light);opacity:0.6;margin:1rem 0 2.5rem;}
+.back-btn{display:flex;align-items:center;justify-content:center;margin:3rem auto 0;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.5em;color:var(--muted);background:none;border:1px solid rgba(180,170,155,0.2);padding:0.7rem 2rem;cursor:pointer;text-decoration:none;transition:all 0.3s;width:fit-content;}
 .back-btn:hover{color:var(--cream);border-color:rgba(180,170,155,0.5);}
-.stars-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(56px,1fr));
-  gap:9px;
-}
-.star-btn{
-  width:100%;aspect-ratio:1;
-  border:1px solid rgba(180,170,155,0.18);
-  background:rgba(255,255,255,0.015);
-  border-radius:50%;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.58rem;letter-spacing:0.05em;
-  color:rgba(180,170,155,0.38);
-  transition:all 0.3s ease;position:relative;
-}
-.star-btn:hover{
-  background:rgba(180,170,155,0.1);
-  border-color:rgba(180,170,155,0.5);
-  color:var(--cream);transform:scale(1.08);
-}
-.star-btn.found{
-  background:rgba(180,170,155,0.1);
-  border-color:rgba(180,170,155,0.4);
-  color:var(--brown-light);
-}
+.stars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:9px;}
+.star-btn{width:100%;aspect-ratio:1;border:1px solid rgba(180,170,155,0.18);background:rgba(255,255,255,0.015);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:0.58rem;letter-spacing:0.05em;color:rgba(180,170,155,0.38);transition:all 0.3s ease;position:relative;}
+.star-btn:hover{background:rgba(180,170,155,0.1);border-color:rgba(180,170,155,0.5);color:var(--cream);transform:scale(1.08);}
+.star-btn.found{background:rgba(180,170,155,0.1);border-color:rgba(180,170,155,0.4);color:var(--brown-light);}
 .star-glyph{position:absolute;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;}
 .star-btn:hover .star-glyph,.star-btn.found .star-glyph{opacity:0.65;}
 .star-btn.found .s-num{opacity:0;}
- 
-/* ── MODAL ── */
-#overlay{
-  position:fixed;inset:0;z-index:200;
-  background:rgba(10,7,4,0.9);
-  backdrop-filter:blur(12px);
-  display:flex;align-items:center;justify-content:center;
-  padding:2rem;opacity:0;pointer-events:none;
-  transition:opacity 0.4s;
-}
+
+/* MODAL */
+#overlay{position:fixed;inset:0;z-index:200;background:rgba(10,7,4,0.9);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity 0.4s;}
 #overlay.open{opacity:1;pointer-events:all;}
-#modal{
-  background:var(--bg2);
-  border:1px solid rgba(180,170,155,0.22);
-  padding:3rem;max-width:460px;width:100%;
-  text-align:center;
-  transform:translateY(14px);transition:transform 0.4s;
-}
+#modal{background:var(--bg2);border:1px solid rgba(180,170,155,0.22);padding:3rem;max-width:460px;width:100%;text-align:center;transform:translateY(14px);transition:transform 0.4s;}
 #overlay.open #modal{transform:translateY(0);}
-.m-tag{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.5em;
-  color:var(--brown-light);opacity:0.6;margin-bottom:1.2rem;
-}
+.m-tag{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.5em;color:var(--brown-light);opacity:0.6;margin-bottom:1.2rem;}
 .m-star{font-size:1.2rem;color:var(--brown-light);margin-bottom:1.2rem;display:block;opacity:0.65;}
-.m-text{
-  font-size:clamp(1.1rem,2.2vw,1.4rem);
-  font-style:italic;line-height:1.85;
-  color:var(--cream);font-weight:300;
-}
+.m-text{font-size:clamp(1.1rem,2.2vw,1.4rem);font-style:italic;line-height:1.85;color:var(--cream);font-weight:300;}
 .m-line{width:28px;height:1px;background:rgba(180,170,155,0.25);margin:1.8rem auto 0;}
-.m-close{
-  margin-top:1.3rem;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.4em;
-  color:var(--muted);cursor:pointer;
-  background:none;border:none;transition:color 0.2s;
-}
+.m-close{margin-top:1.3rem;font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--muted);cursor:pointer;background:none;border:none;transition:color 0.2s;}
 .m-close:hover{color:var(--cream);}
- 
-/* ── FINAL ── */
-#final{
-  position:relative;z-index:1;
-  padding:6rem 2rem 8rem;text-align:center;
-}
-#final h2{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,10vw,8rem);
-  color:var(--cream);letter-spacing:0.06em;
-  line-height:0.9;margin-bottom:2rem;opacity:0.12;
-}
-#final p{
-  font-style:italic;
-  font-size:clamp(0.95rem,2vw,1.1rem);
-  color:var(--muted);line-height:2.1;
-  max-width:460px;margin:0 auto 2.5rem;
-}
-#final .sig{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.6em;
-  color:var(--brown);opacity:0.45;
-}
- 
-/* ── TODO PAGE ── */
-#todo-page{
-  position:fixed;inset:0;z-index:90;
-  background:var(--bg);
-  overflow-y:auto;
-  display:none;
-}
+
+/* FINAL */
+#final{position:relative;z-index:1;padding:6rem 2rem 8rem;text-align:center;}
+#final h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,8rem);color:var(--cream);letter-spacing:0.06em;line-height:0.9;margin-bottom:2rem;opacity:0.12;}
+#final p{font-style:italic;font-size:clamp(0.95rem,2vw,1.1rem);color:var(--muted);line-height:2.1;max-width:460px;margin:0 auto 2.5rem;}
+#final .sig{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.6em;color:var(--brown);opacity:0.45;}
+
+/* TODO PAGE */
+#todo-page{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;display:none;}
 #todo-page.open{display:block;}
-#todo-inner{
-  position:relative;z-index:1;
-  padding:7rem 2rem 8rem;
-  max-width:700px;margin:0 auto;
-}
+#todo-inner{position:relative;z-index:1;padding:7rem 2rem 8rem;max-width:700px;margin:0 auto;}
 .todo-hero{text-align:center;margin-bottom:0.8rem;}
-.todo-hero h1{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.5rem,8vw,5.5rem);
-  letter-spacing:0.06em;color:var(--cream);line-height:0.9;
-}
-.todo-names{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.55em;
-  color:var(--brown-light);opacity:0.45;
-  display:block;margin-bottom:2rem;
-}
-.todo-progress-wrap{
-  text-align:center;margin-bottom:3rem;
-}
-.todo-progress-wrap span{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.75rem;letter-spacing:0.4em;
-  color:var(--brown-light);opacity:0.6;
-}
-.todo-progress-bar{
-  width:100%;max-width:300px;height:1px;
-  background:rgba(180,170,155,0.1);
-  margin:0.8rem auto 0;position:relative;
-}
-.todo-progress-fill{
-  position:absolute;top:0;left:0;height:100%;
-  background:rgba(212,201,176,0.35);
-  transition:width 0.4s ease;
-}
-.todo-category{margin-bottom:3rem;}
-.todo-category-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.62rem;letter-spacing:0.55em;
-  color:var(--brown-light);opacity:0.4;
+.todo-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,8vw,5.5rem);letter-spacing:0.06em;color:var(--cream);line-height:0.9;}
+.todo-names{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.55em;color:var(--brown-light);opacity:0.45;display:block;margin-bottom:2rem;}
+.todo-progress-wrap{text-align:center;margin-bottom:3rem;}
+.todo-progress-wrap span{font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.4em;color:var(--brown-light);opacity:0.6;}
+.todo-progress-bar{width:100%;max-width:300px;height:1px;background:rgba(180,170,155,0.1);margin:0.8rem auto 0;position:relative;}
+.todo-progress-fill{position:absolute;top:0;left:0;height:100%;background:rgba(212,201,176,0.35);transition:width 0.4s ease;}
+
+/* TODO CATEGORIES */
+.todo-category{margin-bottom:2.5rem;}
+.todo-cat-header{
+  display:flex;align-items:center;justify-content:space-between;
   margin-bottom:1rem;padding-bottom:0.6rem;
   border-bottom:1px solid rgba(180,170,155,0.08);
 }
-.todo-item{
-  display:flex;align-items:flex-start;gap:1rem;
-  padding:0.75rem 0;
-  border-bottom:1px solid rgba(180,170,155,0.05);
-  cursor:pointer;user-select:none;
+.todo-category-title{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.55em;color:var(--brown-light);opacity:0.4;}
+.todo-add-item-btn{
+  font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.3em;
+  color:var(--muted);opacity:0.5;
+  background:none;border:1px solid rgba(180,170,155,0.15);
+  padding:0.25rem 0.6rem;cursor:pointer;transition:all 0.2s;
 }
-.todo-check{
-  width:15px;height:15px;flex-shrink:0;margin-top:3px;
-  border:1px solid rgba(180,170,155,0.25);
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.25s;
-}
-.todo-item.done .todo-check{
-  background:rgba(180,170,155,0.12);
-  border-color:rgba(180,170,155,0.45);
-}
-.todo-check::after{
-  content:'';display:none;
-  width:5px;height:5px;border-radius:50%;
-  background:var(--brown-light);
-}
+.todo-add-item-btn:hover{color:var(--cream);opacity:1;border-color:rgba(180,170,155,0.4);}
+
+/* TODO ITEMS */
+.todo-item{display:flex;align-items:flex-start;gap:1rem;padding:0.75rem 0;border-bottom:1px solid rgba(180,170,155,0.05);cursor:pointer;user-select:none;}
+.todo-check{width:15px;height:15px;flex-shrink:0;margin-top:3px;border:1px solid rgba(180,170,155,0.25);display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+.todo-item.done .todo-check{background:rgba(180,170,155,0.12);border-color:rgba(180,170,155,0.45);}
+.todo-check::after{content:'';display:none;width:5px;height:5px;border-radius:50%;background:var(--brown-light);}
 .todo-item.done .todo-check::after{display:block;}
-.todo-label{
-  font-size:clamp(0.95rem,2vw,1.1rem);
-  font-style:italic;color:var(--cream2);
-  line-height:1.6;font-weight:300;transition:all 0.25s;
+.todo-label{font-size:clamp(0.95rem,2vw,1.1rem);font-style:italic;color:var(--cream2);line-height:1.6;font-weight:300;transition:all 0.25s;}
+.todo-item.done .todo-label{text-decoration:line-through;color:var(--muted);opacity:0.45;}
+
+/* INLINE ADD FORMS */
+.todo-add-form{
+  display:none;align-items:center;gap:0.6rem;
+  padding:0.6rem 0;border-bottom:1px solid rgba(180,170,155,0.05);
 }
-.todo-item.done .todo-label{
-  text-decoration:line-through;
-  color:var(--muted);opacity:0.45;
+.todo-add-form.open{display:flex;}
+.todo-add-input{
+  flex:1;background:rgba(255,255,255,0.03);
+  border:none;border-bottom:1px solid rgba(180,170,155,0.2);
+  padding:0.4rem 0.2rem;color:var(--cream);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;outline:none;transition:border-color 0.2s;
 }
-.nav-todo-btn{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.65rem;letter-spacing:0.3em;
-  color:var(--muted);text-decoration:none;
-  opacity:0.7;transition:color 0.2s;
-  background:none;border:none;cursor:pointer;
-  padding:0;
+.todo-add-input:focus{border-color:rgba(180,170,155,0.5);}
+.todo-add-input::placeholder{color:var(--muted);opacity:0.4;}
+.todo-add-confirm{
+  font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.3em;
+  color:var(--brown-light);background:none;border:none;cursor:pointer;
+  opacity:0.7;transition:opacity 0.2s;padding:0.2rem 0;
 }
-.nav-todo-btn:hover,.nav-todo-btn.active{color:var(--cream);opacity:1;}
-.todo-back{
-  display:flex;align-items:center;justify-content:center;
-  margin:3rem auto 0;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.75rem;letter-spacing:0.5em;
-  color:var(--muted);
-  background:none;border:1px solid rgba(180,170,155,0.2);
-  padding:0.7rem 2rem;cursor:pointer;
-  transition:all 0.3s;width:fit-content;
+.todo-add-confirm:hover{opacity:1;}
+
+/* ADD CATEGORY */
+.todo-new-cat-wrap{margin-top:1rem;display:flex;flex-direction:column;gap:0.6rem;}
+.todo-new-cat-btn{
+  font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.4em;
+  color:var(--muted);background:none;
+  border:1px solid rgba(180,170,155,0.15);
+  padding:0.6rem 1.2rem;cursor:pointer;transition:all 0.2s;
+  width:fit-content;margin:0 auto;display:block;
 }
+.todo-new-cat-btn:hover{color:var(--cream);border-color:rgba(180,170,155,0.4);}
+.todo-new-cat-form{display:none;align-items:center;gap:0.6rem;justify-content:center;}
+.todo-new-cat-form.open{display:flex;}
+.todo-new-cat-input{
+  background:rgba(255,255,255,0.03);
+  border:none;border-bottom:1px solid rgba(180,170,155,0.2);
+  padding:0.4rem 0.4rem;color:var(--cream);
+  font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.2em;
+  outline:none;width:200px;text-align:center;
+}
+.todo-new-cat-input::placeholder{color:var(--muted);opacity:0.4;}
+.todo-new-cat-confirm{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.3em;color:var(--brown-light);background:none;border:none;cursor:pointer;opacity:0.7;}
+.todo-new-cat-confirm:hover{opacity:1;}
+
+.todo-back{display:flex;align-items:center;justify-content:center;margin:3rem auto 0;font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.5em;color:var(--muted);background:none;border:1px solid rgba(180,170,155,0.2);padding:0.7rem 2rem;cursor:pointer;transition:all 0.3s;width:fit-content;}
 .todo-back:hover{color:var(--cream);border-color:rgba(180,170,155,0.5);}
 </style>
 </head>
 <body>
- 
-<!-- ══ LOGIN ══ -->
+
+<!-- LOGIN -->
 <div id="login-page">
   <canvas id="login-canvas"></canvas>
   <div class="login-inner">
@@ -537,14 +224,14 @@ nav{
     <h1 class="login-title">coucou<br>toi</h1>
     <p class="login-sub">Entre ton prénom pour continuer</p>
     <div class="login-form">
-      <input class="login-input" id="pw-input" type="password" placeholder="••••••••••" autocomplete="off" />
+      <input class="login-input" id="pw-input" type="password" placeholder="••••••••••" autocomplete="off"/>
       <button class="login-btn" id="pw-btn">Entrer ✦</button>
       <p class="login-error" id="pw-error">Ce n'est pas le bon mot...</p>
     </div>
   </div>
 </div>
- 
-<!-- ══ NAV ══ -->
+
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="#hero">✦ Explorer</a>
   <button class="nav-todo-btn" id="nav-todo-btn">To Do</button>
@@ -554,10 +241,10 @@ nav{
     <li><a href="#raisons">200 raisons</a></li>
   </ul>
 </nav>
- 
+
 <canvas id="starfield"></canvas>
- 
-<!-- ══ HERO ══ -->
+
+<!-- HERO -->
 <section id="hero">
   <p class="hero-eyebrow">Entièrement pour toi</p>
   <h1 class="hero-title">je<br><span class="accent">t'aime</span></h1>
@@ -572,100 +259,67 @@ nav{
       </a>
     </div>
   </div>
- 
-  <!-- VINYL -->
   <a href="https://open.spotify.com/album/2ANVost0y2y52ema1E9xAZ?si=S9PGrltJTY2RYEKHYUUVNw" target="_blank" rel="noopener" style="text-decoration:none;">
     <div class="vinyl-wrap">
       <img class="vinyl-cover" src="thriller.jpg" alt="Thriller">
-      <div class="vinyl-disc-wrap">
-        <div class="vinyl-disc"></div>
-      </div>
+      <div class="vinyl-disc-wrap"><div class="vinyl-disc"></div></div>
     </div>
   </a>
- 
   <p class="scroll-cue">Descends</p>
 </section>
- 
+
 <div class="divider"></div>
- 
-<!-- ══ 30 MOTS ══ -->
+
+<!-- 30 MOTS -->
 <section id="compliments">
-  <div class="section-head">
-    <h2>30 MOTS</h2>
-    <p>ce que je pense de toi, en secret</p>
-  </div>
+  <div class="section-head"><h2>30 MOTS</h2><p>ce que je pense de toi, en secret</p></div>
   <p class="counter-line" id="counter-c">0 / 30 découverts</p>
   <div class="stars-grid" id="comp-grid"></div>
   <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
 </section>
- 
+
 <div class="divider"></div>
- 
-<!-- ══ MON ÉTOILE ══ -->
+
+<!-- MON ÉTOILE -->
 <section id="etoile">
   <div class="etoile-inner">
     <div style="position:relative;">
       <div class="etoile-img-frame">
         <img src="https://i.postimg.cc/2yD3CqsV/IMG-5034.jpg" alt="Mon étoile">
-        <div class="etoile-corner tl"></div>
-        <div class="etoile-corner tr"></div>
-        <div class="etoile-corner bl"></div>
-        <div class="etoile-corner br"></div>
+        <div class="etoile-corner tl"></div><div class="etoile-corner tr"></div>
+        <div class="etoile-corner bl"></div><div class="etoile-corner br"></div>
       </div>
     </div>
     <div>
       <h2 class="etoile-title">MON<br><span>ÉTOILE</span></h2>
-      <p class="etoile-body">
-        quelque part dans la constellation de la Lyre, une étoile porte désormais ton nom.
-        pas par hasard — mais parce que la Lyre est l'instrument d'Orphée -
-        celle dont les cordes savaient persuader les pierres de frémir et les fleuves de ralentir leur course.
-      </p>
-      <p class="etoile-body">
-        il joua si bien que les dieux s'arrêtèrent d'écouter. la mort elle-même se tut.
-        on lui permit de reprendre eurydice sa bien-aimée — à condition de ne pas se retourner.
-        mais il se retourna, parce que l'amour ne sait pas attendre.
-      </p>
-      <p class="etoile-body">
-        et maintenant, il y a, dans chaque mélodie, une fracture presque invisible —
-        comme si toute beauté gardait la mémoire d'un regard trop tôt offert.
-        cette étoile, c'est ma façon de dire que ton nom appartient éternellement au ciel.
-      </p>
+      <p class="etoile-body">quelque part dans la constellation de la Lyre, une étoile porte désormais ton nom. pas par hasard — mais parce que la Lyre est l'instrument d'Orphée - celle dont les cordes savaient persuader les pierres de frémir et les fleuves de ralentir leur course.</p>
+      <p class="etoile-body">il joua si bien que les dieux s'arrêtèrent d'écouter. la mort elle-même se tut. on lui permit de reprendre eurydice sa bien-aimée — à condition de ne pas se retourner. mais il se retourna, parce que l'amour ne sait pas attendre.</p>
+      <p class="etoile-body">et maintenant, il y a, dans chaque mélodie, une fracture presque invisible — comme si toute beauté gardait la mémoire d'un regard trop tôt offert. cette étoile, c'est ma façon de dire que ton nom appartient éternellement au ciel.</p>
       <p class="etoile-ref">✦ &nbsp; Certificat étoile Vegas · Registre non-officiel</p>
     </div>
   </div>
 </section>
- 
+
 <div class="divider"></div>
- 
-<!-- ══ 200 RAISONS ══ -->
+
+<!-- 200 RAISONS -->
 <section id="raisons">
-  <div class="section-head">
-    <h2>200 RAISONS</h2>
-    <p>chaque étoile cache une raison de t'aimer</p>
-  </div>
+  <div class="section-head"><h2>200 RAISONS</h2><p>chaque étoile cache une raison de t'aimer</p></div>
   <p class="counter-line" id="counter">0 / 200 découvertes</p>
   <div class="stars-grid" id="stars-grid"></div>
   <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
 </section>
- 
+
 <div class="divider"></div>
- 
-<!-- ══ FINAL ══ -->
+
+<!-- FINAL -->
 <section id="final">
   <h2>POUR<br>ENCORE LONGTEMPS</h2>
-  <p>
-    et je viendrais jusque d'outre-tombe, <br>
-    je viendrais graver en lettres d'or, <br>
-    exposer comme tu es le plus grand des trésors, <br>
-    et même après ma mort, <br>
-    on lira sur mon corps, <br>
-    comme je t'aime encore.
-  </p>
+  <p>et je viendrais jusque d'outre-tombe, <br>je viendrais graver en lettres d'or, <br>exposer comme tu es le plus grand des trésors, <br>et même après ma mort, <br>on lira sur mon corps, <br>comme je t'aime encore.</p>
   <p class="sig">C'EST MA MEUF</p>
 </section>
- 
- 
-<!-- ══ TODO PAGE ══ -->
+
+<!-- TODO PAGE -->
 <div id="todo-page">
   <div id="todo-inner">
     <div class="todo-hero">
@@ -674,16 +328,21 @@ nav{
     </div>
     <div class="todo-progress-wrap">
       <span id="todo-count">0 / 0 complétées</span>
-      <div class="todo-progress-bar">
-        <div class="todo-progress-fill" id="todo-fill"></div>
-      </div>
+      <div class="todo-progress-bar"><div class="todo-progress-fill" id="todo-fill"></div></div>
     </div>
     <div id="todo-list"></div>
+    <div class="todo-new-cat-wrap">
+      <button class="todo-new-cat-btn" id="new-cat-btn">+ Nouvelle catégorie</button>
+      <div class="todo-new-cat-form" id="new-cat-form">
+        <input class="todo-new-cat-input" id="new-cat-input" type="text" placeholder="Nom de la catégorie"/>
+        <button class="todo-new-cat-confirm" id="new-cat-confirm">Ajouter ✦</button>
+      </div>
+    </div>
     <button class="todo-back" id="todo-back">← Retour au site</button>
   </div>
 </div>
- 
-<!-- ══ MODAL ══ -->
+
+<!-- MODAL -->
 <div id="overlay">
   <div id="modal">
     <p class="m-tag" id="m-tag">Raison n° 1</p>
@@ -693,420 +352,78 @@ nav{
     <button class="m-close" id="m-close">FERMER ✕</button>
   </div>
 </div>
- 
+
 <script>
-// ══ CONFIG ══
 const PASSWORD = 'charlotte';
 const SESSION_KEY = 'charlotte_session';
 const PROGRESS_KEY = 'charlotte_progress';
- 
-// ══ LOGIN STARFIELD ══
-const lc = document.getElementById('login-canvas');
-const lx = lc.getContext('2d');
-let lst = [];
-function rsz2() { lc.width = innerWidth; lc.height = innerHeight; }
-function mkLStars() {
-  lst = [];
-  for (let i = 0; i < 160; i++) {
-    const r = Math.random() * 0.9 + 0.1;
-    lst.push({ x: Math.random() * lc.width, y: Math.random() * lc.height, r, a: Math.random() * Math.PI * 2, sp: (Math.random() * 0.001 + 0.0003) * (Math.random() < 0.5 ? 1 : -1), maxA: Math.random() * 0.4 + 0.05 });
-  }
-}
-function drawL() {
-  lx.clearRect(0, 0, lc.width, lc.height);
-  lst.forEach(s => {
-    s.a += s.sp;
-    const al = (Math.sin(s.a) * 0.5 + 0.5) * s.maxA + 0.02;
-    lx.beginPath(); lx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    lx.fillStyle = `rgba(235,232,228,${al})`; lx.fill();
-  });
-  requestAnimationFrame(drawL);
-}
-rsz2(); mkLStars(); drawL();
-window.addEventListener('resize', () => { rsz2(); mkLStars(); });
- 
-// ══ LOGIN LOGIC ══
-const loginPage = document.getElementById('login-page');
-const pwInput = document.getElementById('pw-input');
-const pwBtn = document.getElementById('pw-btn');
-const pwError = document.getElementById('pw-error');
- 
-function unlock() {
-  const val = pwInput.value.trim().toLowerCase();
-  if (val === PASSWORD) {
-    sessionStorage.setItem(SESSION_KEY, '1');
-    loginPage.classList.add('hidden');
-    initApp();
-  } else {
-    pwError.classList.add('show');
-    pwInput.value = '';
-    pwInput.focus();
-    setTimeout(() => pwError.classList.remove('show'), 2500);
-  }
-}
-pwBtn.addEventListener('click', unlock);
-pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
- 
-if (sessionStorage.getItem(SESSION_KEY) === '1') {
-  loginPage.classList.add('hidden');
-  initApp();
-}
- 
-// ══ APP ══
-function initApp() {
- 
-  let progress = { c: [], r: [] };
-  try {
-    const saved = localStorage.getItem(PROGRESS_KEY);
-    if (saved) progress = JSON.parse(saved);
-  } catch(e) {}
- 
-  function saveProgress() {
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  }
- 
+const TODO_KEY = 'charlotte_todo';
+const TODO_CATS_KEY = 'charlotte_todo_cats';
+
+// LOGIN STARFIELD
+const lc=document.getElementById('login-canvas'),lx=lc.getContext('2d');let lst=[];
+function rsz2(){lc.width=innerWidth;lc.height=innerHeight;}
+function mkLStars(){lst=[];for(let i=0;i<160;i++){const r=Math.random()*0.9+0.1;lst.push({x:Math.random()*lc.width,y:Math.random()*lc.height,r,a:Math.random()*Math.PI*2,sp:(Math.random()*0.001+0.0003)*(Math.random()<0.5?1:-1),maxA:Math.random()*0.4+0.05});}}
+function drawL(){lx.clearRect(0,0,lc.width,lc.height);lst.forEach(s=>{s.a+=s.sp;const al=(Math.sin(s.a)*0.5+0.5)*s.maxA+0.02;lx.beginPath();lx.arc(s.x,s.y,s.r,0,Math.PI*2);lx.fillStyle=`rgba(235,232,228,${al})`;lx.fill();});requestAnimationFrame(drawL);}
+rsz2();mkLStars();drawL();window.addEventListener('resize',()=>{rsz2();mkLStars();});
+
+// LOGIN
+const loginPage=document.getElementById('login-page'),pwInput=document.getElementById('pw-input'),pwBtn=document.getElementById('pw-btn'),pwError=document.getElementById('pw-error');
+function unlock(){const val=pwInput.value.trim().toLowerCase();if(val===PASSWORD){sessionStorage.setItem(SESSION_KEY,'1');loginPage.classList.add('hidden');initApp();}else{pwError.classList.add('show');pwInput.value='';pwInput.focus();setTimeout(()=>pwError.classList.remove('show'),2500);}}
+pwBtn.addEventListener('click',unlock);pwInput.addEventListener('keydown',e=>{if(e.key==='Enter')unlock();});
+if(sessionStorage.getItem(SESSION_KEY)==='1'){loginPage.classList.add('hidden');initApp();}
+
+function initApp(){
+  let progress={c:[],r:[]};
+  try{const s=localStorage.getItem(PROGRESS_KEY);if(s)progress=JSON.parse(s);}catch(e){}
+  function saveProgress(){localStorage.setItem(PROGRESS_KEY,JSON.stringify(progress));}
+
   // STARFIELD
-  const cv = document.getElementById('starfield');
-  const cx = cv.getContext('2d');
-  let ST = [];
-  function rsz() { cv.width = innerWidth; cv.height = Math.max(document.body.scrollHeight, innerHeight); }
-  function mkStars() {
-    ST = [];
-    const n = Math.floor(cv.height / 2.8);
-    for (let i = 0; i < n; i++) {
-      const layer = Math.random() < 0.7 ? 0 : Math.random() < 0.7 ? 1 : 2;
-      const r = layer === 0 ? Math.random() * 0.35 + 0.1 : layer === 1 ? Math.random() * 0.55 + 0.3 : Math.random() * 0.85 + 0.5;
-      const maxA = layer === 0 ? 0.22 : layer === 1 ? 0.42 : 0.65;
-      const bandY = cv.height * 0.35 + (Math.random() - 0.5) * cv.height * 0.5;
-      const y = Math.random() < 0.3 ? bandY + (Math.random() - 0.5) * cv.height * 0.2 : Math.random() * cv.height;
-      ST.push({ x: Math.random() * cv.width, y, r, a: Math.random() * Math.PI * 2, sp: (Math.random() * 0.0015 + 0.0003) * (Math.random() < 0.5 ? 1 : -1), maxA });
-    }
-  }
-  function draw() {
-    cx.clearRect(0, 0, cv.width, cv.height);
-    ST.forEach(s => {
-      s.a += s.sp;
-      const al = (Math.sin(s.a) * 0.5 + 0.5) * s.maxA + 0.02;
-      cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      cx.fillStyle = `rgba(235,232,228,${al})`; cx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  rsz(); mkStars(); draw();
-  window.addEventListener('resize', () => { rsz(); mkStars(); });
- 
+  const cv=document.getElementById('starfield'),cx=cv.getContext('2d');let ST=[];
+  function rsz(){cv.width=innerWidth;cv.height=Math.max(document.body.scrollHeight,innerHeight);}
+  function mkStars(){ST=[];const n=Math.floor(cv.height/2.8);for(let i=0;i<n;i++){const layer=Math.random()<0.7?0:Math.random()<0.7?1:2;const r=layer===0?Math.random()*0.35+0.1:layer===1?Math.random()*0.55+0.3:Math.random()*0.85+0.5;const maxA=layer===0?0.22:layer===1?0.42:0.65;const bandY=cv.height*0.35+(Math.random()-0.5)*cv.height*0.5;const y=Math.random()<0.3?bandY+(Math.random()-0.5)*cv.height*0.2:Math.random()*cv.height;ST.push({x:Math.random()*cv.width,y,r,a:Math.random()*Math.PI*2,sp:(Math.random()*0.0015+0.0003)*(Math.random()<0.5?1:-1),maxA});}}
+  function draw(){cx.clearRect(0,0,cv.width,cv.height);ST.forEach(s=>{s.a+=s.sp;const al=(Math.sin(s.a)*0.5+0.5)*s.maxA+0.02;cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=`rgba(235,232,228,${al})`;cx.fill();});requestAnimationFrame(draw);}
+  rsz();mkStars();draw();window.addEventListener('resize',()=>{rsz();mkStars();});
+
   // MODAL
-  const ov = document.getElementById('overlay');
-  const mtag = document.getElementById('m-tag');
-  const mtxt = document.getElementById('m-text');
-  const mcl = document.getElementById('m-close');
- 
-  function openModal(tag, text) {
-    mtag.textContent = tag;
-    mtxt.textContent = text;
-    ov.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeM() { ov.classList.remove('open'); document.body.style.overflow = ''; }
-  mcl.addEventListener('click', closeM);
-  ov.addEventListener('click', e => { if (e.target === ov) closeM(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
- 
+  const ov=document.getElementById('overlay'),mtag=document.getElementById('m-tag'),mtxt=document.getElementById('m-text'),mcl=document.getElementById('m-close');
+  function openModal(tag,text){mtag.textContent=tag;mtxt.textContent=text;ov.classList.add('open');document.body.style.overflow='hidden';}
+  function closeM(){ov.classList.remove('open');document.body.style.overflow='';}
+  mcl.addEventListener('click',closeM);ov.addEventListener('click',e=>{if(e.target===ov)closeM();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
+
   // 30 MOTS
-  const compliments = [
-    "Éthérée","Céleste","Séraphique","Lyrique","Nébuleuse",
-    "Vertigineuse","Onirique","Ineffable","Épiphanique","Luminescente",
-    "Envoûtante","Vaporeuse","Hypnotique","Radieuse","Élégiaque",
-    "Astrale","Magnétique","Crépusculaire","Intemporelle","Mélodieuse",
-    "Diaphane","Féerique","Incandescente","Solaire","Mystique",
-    "Éblouissante","Aérienne","Harmonieuse","Flamboyante","Sidérale"
-  ];
- 
-  const cgrid = document.getElementById('comp-grid');
-  const cctr = document.getElementById('counter-c');
-  let cfound = new Set(progress.c);
- 
-  for (let i = 0; i < 30; i++) {
-    const b = document.createElement('button');
-    b.className = 'star-btn' + (cfound.has(i) ? ' found' : '');
-    b.setAttribute('aria-label', 'Mot numéro ' + (i + 1));
-    b.innerHTML = '<span class="s-num">' + (i + 1) + '</span><span class="star-glyph">✦</span>';
-    b.addEventListener('click', () => {
-      if (!cfound.has(i)) {
-        cfound.add(i); b.classList.add('found');
-        progress.c = Array.from(cfound); saveProgress();
-        cctr.textContent = cfound.size + ' / 30 découverts';
-      }
-      openModal('Mot n° ' + (i + 1), compliments[i]);
-    });
-    cgrid.appendChild(b);
-  }
-  cctr.textContent = cfound.size + ' / 30 découverts';
- 
+  const compliments=["Éthérée","Céleste","Séraphique","Lyrique","Nébuleuse","Vertigineuse","Onirique","Ineffable","Épiphanique","Luminescente","Envoûtante","Vaporeuse","Hypnotique","Radieuse","Élégiaque","Astrale","Magnétique","Crépusculaire","Intemporelle","Mélodieuse","Diaphane","Féerique","Incandescente","Solaire","Mystique","Éblouissante","Aérienne","Harmonieuse","Flamboyante","Sidérale"];
+  const cgrid=document.getElementById('comp-grid'),cctr=document.getElementById('counter-c');let cfound=new Set(progress.c);
+  for(let i=0;i<30;i++){const b=document.createElement('button');b.className='star-btn'+(cfound.has(i)?' found':'');b.setAttribute('aria-label','Mot numéro '+(i+1));b.innerHTML='<span class="s-num">'+(i+1)+'</span><span class="star-glyph">✦</span>';b.addEventListener('click',()=>{if(!cfound.has(i)){cfound.add(i);b.classList.add('found');progress.c=Array.from(cfound);saveProgress();cctr.textContent=cfound.size+' / 30 découverts';}openModal('Mot n° '+(i+1),compliments[i]);});cgrid.appendChild(b);}
+  cctr.textContent=cfound.size+' / 30 découverts';
+
   // 200 RAISONS
-  const raisons = [
-    "Ton rire qui remplit toute la pièce",
-    "La façon dont tu prononces mon prénom",
-    "Ton intelligence émotionnelle rare",
-    "Le coin de tes yeux qui se relève quand tu rigoles",
-    "Ta gentillesse désarmante",
-    "Ton sens du bien et du juste que j'admire profondément",
-    "Ta capacité à écouter d'une façon que peu de gens savent faire — vraiment écouter",
-    "Ta voix quand t'as sommeil",
-    "Ton rapport à la beauté, aux petites choses, à la vie — c'est poétique",
-    "Mon regard sur le monde évolue quand tu es là",
-    "Ton regard qui parle quand ta voix se tait",
-    "Ta tendresse inattendue",
-    "Ton sourire, ton SOURIRE, TON SOURIRE",
-    "Comment tu remarques les petites choses que tout le monde ignore",
-    "Ta curiosité pour tout (ta cuuuuriosité)",
-    "Ta manière de croire encore aux coïncidences heureuses",
-    "Ton courage pour me parler de tout, à cœur ouvert",
-    "Les battements de ton cœur quand tu t'endors",
-    "Le parfum de ta peau qui colle sur la mienne",
-    "Ta capacité à transformer n'importe quel endroit en maison (même une voiture - MÊME des toilettes)",
-    "Ta douceur constante - dans ta voix, tes caresses, toi toute entière",
-    "Nos silences complices",
-    "Ta façon d'aimer les petites choses, que les autres trouveraient ennuyeuses",
-    "Ton regard sur le monde",
-    "La confiance que tu places en moi",
-    "La façon dont tu peux rire aux larmes, à en devenir rouge",
-    "Ton instinct et ton intuition toujours juste",
-    "Ta présence qui apaise",
-    "Tes mains qui font les meilleures papouilles du monde",
-    "Ton âme profonde, sincère",
-    "Ta façon de défendre ce qui compte pour toi",
-    "Ton sérieux quand il le faut",
-    "Ta légèreté qui me fait toujours passer à autre chose",
-    "Nos fous rires et nos moments hyper drôles",
-    "Tu es une merveilleuse grande sœur",
-    "Ton énergie solaire, contagieuse",
-    "La façon dont tu t'occupes de moi sans que je n'aie à le demander",
-    "Ton regard quand on fait crac-crac",
-    "Ton sens du respect et des valeurs",
-    "Ton amour pour le sommeil",
-    "\"J'aime ta musicalité\"",
-    "Ta capacité à continuer même quand c'est difficile",
-    "Tes convictions solides et tes prises de positions",
-    "Ta façon de choisir tes batailles",
-    "Tu me montres que la vulnérabilité est une forme de courage",
-    "La façon dont tu te souviens des détails qui compte en ayant une mémoire de poisson rouge",
-    "Ton empathie naturelle, envers tout et tout le monde",
-    "Ta façon de me surprendre encore",
-    "Ta capacité à t'émerveiller sur un petit insecte ou un papillon",
-    "Tu choisis la bonté même quand ce n'est pas le chemin le plus facile.",
-    "Ta façon de m'embrasser",
-    "Les choses que tu as traversé et que j'admire en silence.",
-    "Ta façon d'assumer qui tu es pleinement",
-    "Ton regard sur les étoiles, mon étoile",
-    "Ton rapport aux principes de la vie qui rejoignent les miens",
-    "Nos avis concordants sur tout, comme si c'était le destin",
-    "Tes larmes de joie, après un café le matin",
-    "Ta façon de défendre les tiens",
-    "Ton rapport à la famille",
-    "Ta générosité sans compter",
-    "Ton lyrisme, ma muse",
-    "Ton humilité sincère",
-    "Tu m'inspires : des mots, des poèmes.. des sites web",
-    "La vie a meilleur goût depuis que tu es là",
-    "Nos moments devant la mer, à parler",
-    "Comment t'es à l'aise même dans le silence avec moi",
-    "La façon dont tu dors hyper tôt, petite grand-mère",
-    "Parce que les trajets en voiture pour partir chez toi sont devenus mes moments préférés (et être chez toi du coup aussi)",
-    "Ta façon de pardonner, sans oublier ce qui importe",
-    "Parce que tu m'envoies 50 tiktok à longueur de soirée (et que je les regarde tous d'un coup)",
-    "C'est tellement mignon la façon dont tu n'arrives jamais à prendre une décision",
-    "Tu chantes comme un ange et je suis amoureuse de ta voix",
-    "Comment je te fais rire, même quand c'est absolument pas drôle",
-    "La chaleur que tu portes autour de toi, quand tu m'entoures d'un câlin",
-    "Ton côté Charlotte la fraise, toujours",
-    "Ta façon de faire du quotidien quelque chose de beau, même un mardi ordinaire",
-    "Tes petites habitudes que j'aime, de nos \"bonjour\" jusqu'à ta petite larmichette avant de dormir",
-    "La façon dont tu me racontes tes rêves à chaque fois",
-    "Ta façon de nous vivre pleinement, dans le présent",
-    "Ta façon de m'apprendre à ralentir et de m'éviter de trop m'avancer",
-    "Parce que tu gardes des choses significatives pour toi dans une boîte à souvenirs",
-    "La façon avec laquelle mes journées gravitent autour de toi",
-    "J'adore quand tu crois débiter et que tu perds tes mots",
-    "Tu as une mémoire des émotions que je trouve presque magique",
-    "Nos trajets en voiture, le soir, en journée, tous",
-    "Tes mains dans les miennes et tes doigts qui jouent avec les miens",
-    "Tu comprends les choses que je n'arrive pas à formuler",
-    "Ton amour de la musique",
-    "Nos discussions interminables sur le sexe",
-    "Nos passages constants de cap",
-    "Tes cheveux blonds, les boucles luxuriantes, toujours avec des antennes au vent",
-    "Tes fesses, tes cuisses, tes boobies, ta mâchoire, ton cou, ton dos, tes mains, TOUT ton corps",
-    "La façon dont tu gardes les souvenirs",
-    "Ton rapport à la vérité",
-    "Tes yeux verts (avec beaucoup de verts) qui brillent au soleil",
-    "J'adore te chatouiller (mais je me suis rendue compte que je pouvais te faire pleurer, nul)",
-    "La façon dont tu lis le tarot en y croyant spirituellement",
-    "Même nos signes astrologiques sont parfaits l'un pour l'autre",
-    "Ta façon de faire du yoga pour te reconnecter à la nature",
-    "Les qualités que tu ne vois pas encore chez toi mais je te répéterais à chaque fois",
-    "La façon dont tu m'as accepté, en prenant le risque sans demi-mesure (merci)",
-    "Ta grâce naturelle et ton élégance",
-    "Ta façon de fondre pendant nos câlins, je trouve ça trop mignon",
-    "Parce que tu n'as jamais de mal à tester de nouvelles choses en ma compagnie",
-    "Tu as des expressions à toi que j'ai commencé à utiliser sans m'en rendre compte (OUEEE)",
-    "Comment tu m'as mise à l'aise avec mon propre corps et ma capacité à recevoir",
-    "Le fait que tu ris de tes propres blagues avant même d'arriver à la chute (avec ton rire décalé en retard là)",
-    "Tes élans d'affection soudains, tes bisous soudains, tes mini-claques soudaines",
-    "Parce que tu m'as fait écouter et regarder des trucs auxquels je me serais jamais intéressée sans toi",
-    "Parce que je sais qu'on peut s'embrouiller sur un truc et que ça ne remet pas tout en question",
-    "Parce que tu corresponds parfaitement à ce que je recherche en terme de love language",
-    "Tes petits défauts que j'aime, j'aime tout de toi",
-    "T'es ma fleur, ma yasmina",
-    "Parce que tu me dis quand tu n'es pas d'accord, et je te fais confiance pour ça.",
-    "Parce que nous avons déjà des \"nous\" — des blagues à nous, des habitudes à nous, un monde à nous.",
-    "Ton rapport à l'amour (et comment tu me dis je t'aime)",
-    "Parce que je peux être malade, fatiguée, défaite — et tu me regardes pareil",
-    "Ton caractère trempé dans le feu doux",
-    "Parce que tu ne me fais pas sentir trop grande, trop petite, trop compliquée",
-    "Parce que je peux passer des heures à te regarder",
-    "Parce qu'avec toi, j'ai arrêté de me rétrécir",
-    "Ta façon de dire merci pour des choses insignifiantes, le minimum",
-    "Parce que tu penses à moi sans raison précise à 5h du matin",
-    "La façon dont tu me fais de la place — dans tes journées, dans tes pensées, dans tes plans",
-    "Dormir près de toi est une des choses les plus paisibles que je connaisse",
-    "Je m'endors en pensant à toi et je me réveille pareil",
-    "Comment nos nuits à parler jusqu'à l'aube ont compté parmi mes plus belles",
-    "Comment tu as tes peurs, tes doutes, tes cicatrices — et tu avances quand même",
-    "Comment tu t'autorises à être triste, et ça te rend humaine et vraie",
-    "Parce que tu finis parfois mes phrases et moi les tiennes",
-    "Comment nous pouvons passer des heures ensemble sans nous ennuyer",
-    "Comment on est à l'aise pour tout et c'est ce qui rend tout merveilleux avec toi",
-    "Ton rapport à ton corps et comment tu m'y autorises petit à petit",
-    "Parce que t'es mon meilleur coup, le meilleur sexe de ma vie",
-    "Parce que tous les critères de mon je t'aime sont atteints",
-    "Parce que je me retrouve rarement aussi obsédée par quelqu'un",
-    "Parce que tu m'apprends petit à petit à recevoir de l'amour sans m'excuser",
-    "La façon dont tu ES art et art est toi (reprends le dessin s'il te plaît)",
-    "Sans toi, mes journées n'ont pas de sens, pas de soleil",
-    "Parce que tu me montres que je mérite d'être choisie",
-    "Parce qu'aimer une femme, c'est aussi s'aimer un peu soi-même",
-    "Parce que je veux voyager avec toi",
-    "Parce que je veux encore plein de premières fois avec toi",
-    "Parce qu'il y a des choses entre nous que parfois seul le silence peut contenir",
-    "Ta façon d'habiter une pièce quand tu t'y trouves",
-    "Parce qu'il suffit que tu sois dans la même pièce pour que tout aille mieux",
-    "Ta voiture orange, faut pas l'oublier",
-    "Pour Baloo, Grizou et Pinky aussi",
-    "Ta façon de conserver des liens même quand les souvenirs ne sont pas heureux, car le sens du sacré prime chez toi",
-    "Ton rapport à l'amitié et comment tu gères les tiennes",
-    "Parce que je ne sais pas exactement quand je suis TOMBÉE AMOUREUSE de toi, et je trouve ça magnifique",
-    "Parce que tu es devenue une évidence",
-    "Parce que tu t'entends avec toutes les parties de mon entourage",
-    "Parce que je ne peux pas imaginer ne pas t'avoir rencontrée",
-    "J'aime ton rythme de vie, ton cadre de vie et je trouve ça super important",
-    "Ta façon de me faire des massages et de me craquer le dos",
-    "Parce que tu fais les meilleures papouilles au monde et que tu connais tous mes points faibles",
-    "Quand t'es un peu jalouse et je trouve ça trop sex",
-    "Comment tu me caches pas : tu m'aimes fort et tu l'assumes (ça me tient beaucoup à cœur)",
-    "Ta foi en les bonnes choses qui peuvent arriver et comment tu attires les énergies positives",
-    "Parce que je choisis de t'aimer chaque matin.",
-    "Parce que tu mérites d'être aimée comme tu aimes, avec toute la force et la passion qui va avec",
-    "Parce que je veux être cette personne pour toi, qui t'apporte du positif",
-    "Parce que rien de tout ça n'est parfait, et c'est parfait quand même",
-    "Tes petites habitudes de langage \"twerk, twin, REDBULL\", c'est trop mignon",
-    "La façon avec laquelle ta bizarrerie est magnifique et match parfaitement la mienne",
-    "Ton ironie douce et ton sarcasme bien placé",
-    "Ta façon de ne pas te prendre trop au sérieux",
-    "Tes moments d'enfance qui ressurgissent",
-    "La façon dont tu joues, de plus en plus souvent et j'adore ça",
-    "Ton imagination et je suis heureuse de voir que t'es à l'aise de l'exprimer avec moi",
-    "Parce que je n'ai pas fini de te découvrir, et cette idée me rend heureuse",
-    "Tes réactions totalement spontanées",
-    "La façon dont tu t'indigne pour les autres comme si c'était pour toi",
-    "Comment tu mets tes jambes sur les miennes quand on s'asseoit à côté",
-    "La magie qui passe entre nous le soir, en voiture, stationnée et que je ne comprends pas",
-    "Tes hésitations honnêtes et ta façon de prendre ton temps avec de trancher",
-    "La façon dont tu demandes pardon alors que t'as quand même rien fait",
-    "Ton rapport love/hate du soleil (je t'aime même cramée)",
-    "Ta façon d'écouter le vent comme une musique",
-    "Ton rapport mélancolique et tendre aux saisons",
-    "La manière dont tu évolues sans jamais trahir qui tu es",
-    "Ton besoin de liberté et la beauté avec laquelle tu la portes",
-    "Ta façon de toujours vouloir devenir une meilleure version de toi-même",
-    "Tes instants de lucidité qui me bouleversent parfois par leur justesse",
-    "La façon dont tu regardes par la fenêtre en voiture",
-    "Ton amour profond pour les langues, les nuances et les silences",
-    "Ta manière d'exister sans jamais être banale",
-    "Ton rire fatigué à la fin des longues journées",
-    "Tes pensées qui partent dans tous les sens et que j'écoute quand même jusqu'au bout",
-    "Ton air perdu quand tu réfléchis trop longtemps",
-    "Tes messages au milieu de la nuit que je relis encore le lendemain",
-    "Parce que tu parles à Pablo et que je ne sais pas ce que tu lui dis exactement",
-    "La façon dont tu existes un peu partout dans ma mémoire",
-    "Les secondes juste avant que tu éclates de rire",
-    "La façon dont tu existes pleinement dans chaque émotion",
-    "Les détails de toi que personne remarque autant que moi",
-    "Les moments où tu redeviens presque enfant sans t'en rendre compte",
-    "Ta présence qui reste longtemps même après ton départ",
-    "Parce que je t'aime — simplement, profondément, pour toutes ces raisons et pour toutes celles que je n'ai pas encore de mots pour dire."
-  ];
- 
-  const grid = document.getElementById('stars-grid');
-  const ctr = document.getElementById('counter');
-  let found = new Set(progress.r);
- 
-  for (let i = 0; i < 200; i++) {
-    const b = document.createElement('button');
-    b.className = 'star-btn' + (found.has(i) ? ' found' : '');
-    b.setAttribute('aria-label', 'Raison numéro ' + (i + 1));
-    b.innerHTML = '<span class="s-num">' + (i + 1) + '</span><span class="star-glyph">✦</span>';
-    b.addEventListener('click', () => {
-      if (!found.has(i)) {
-        found.add(i); b.classList.add('found');
-        progress.r = Array.from(found); saveProgress();
-        ctr.textContent = found.size + ' / 200 découvertes';
-      }
-      openModal('Raison n° ' + (i + 1), raisons[i] || 'Cette raison est trop précieuse pour des mots.');
-    });
-    grid.appendChild(b);
-  }
-  ctr.textContent = found.size + ' / 200 découvertes';
- 
- 
+  const raisons=["Ton rire qui remplit toute la pièce","La façon dont tu prononces mon prénom","Ton intelligence émotionnelle rare","Le coin de tes yeux qui se relève quand tu rigoles","Ta gentillesse désarmante","Ton sens du bien et du juste que j'admire profondément","Ta capacité à écouter d'une façon que peu de gens savent faire — vraiment écouter","Ta voix quand t'as sommeil","Ton rapport à la beauté, aux petites choses, à la vie — c'est poétique","Mon regard sur le monde évolue quand tu es là","Ton regard qui parle quand ta voix se tait","Ta tendresse inattendue","Ton sourire, ton SOURIRE, TON SOURIRE","Comment tu remarques les petites choses que tout le monde ignore","Ta curiosité pour tout (ta cuuuuriosité)","Ta manière de croire encore aux coïncidences heureuses","Ton courage pour me parler de tout, à cœur ouvert","Les battements de ton cœur quand tu t'endors","Le parfum de ta peau qui colle sur la mienne","Ta capacité à transformer n'importe quel endroit en maison (même une voiture - MÊME des toilettes)","Ta douceur constante - dans ta voix, tes caresses, toi toute entière","Nos silences complices","Ta façon d'aimer les petites choses, que les autres trouveraient ennuyeuses","Ton regard sur le monde","La confiance que tu places en moi","La façon dont tu peux rire aux larmes, à en devenir rouge","Ton instinct et ton intuition toujours juste","Ta présence qui apaise","Tes mains qui font les meilleures papouilles du monde","Ton âme profonde, sincère","Ta façon de défendre ce qui compte pour toi","Ton sérieux quand il le faut","Ta légèreté qui me fait toujours passer à autre chose","Nos fous rires et nos moments hyper drôles","Tu es une merveilleuse grande sœur","Ton énergie solaire, contagieuse","La façon dont tu t'occupes de moi sans que je n'aie à le demander","Ton regard quand on fait crac-crac","Ton sens du respect et des valeurs","Ton amour pour le sommeil","\"J'aime ta musicalité\"","Ta capacité à continuer même quand c'est difficile","Tes convictions solides et tes prises de positions","Ta façon de choisir tes batailles","Tu me montres que la vulnérabilité est une forme de courage","La façon dont tu te souviens des détails qui compte en ayant une mémoire de poisson rouge","Ton empathie naturelle, envers tout et tout le monde","Ta façon de me surprendre encore","Ta capacité à t'émerveiller sur un petit insecte ou un papillon","Tu choisis la bonté même quand ce n'est pas le chemin le plus facile.","Ta façon de m'embrasser","Les choses que tu as traversé et que j'admire en silence.","Ta façon d'assumer qui tu es pleinement","Ton regard sur les étoiles, mon étoile","Ton rapport aux principes de la vie qui rejoignent les miens","Nos avis concordants sur tout, comme si c'était le destin","Tes larmes de joie, après un café le matin","Ta façon de défendre les tiens","Ton rapport à la famille","Ta générosité sans compter","Ton lyrisme, ma muse","Ton humilité sincère","Tu m'inspires : des mots, des poèmes.. des sites web","La vie a meilleur goût depuis que tu es là","Nos moments devant la mer, à parler","Comment t'es à l'aise même dans le silence avec moi","La façon dont tu dors hyper tôt, petite grand-mère","Parce que les trajets en voiture pour partir chez toi sont devenus mes moments préférés (et être chez toi du coup aussi)","Ta façon de pardonner, sans oublier ce qui importe","Parce que tu m'envoies 50 tiktok à longueur de soirée (et que je les regarde tous d'un coup)","C'est tellement mignon la façon dont tu n'arrives jamais à prendre une décision","Tu chantes comme un ange et je suis amoureuse de ta voix","Comment je te fais rire, même quand c'est absolument pas drôle","La chaleur que tu portes autour de toi, quand tu m'entoures d'un câlin","Ton côté Charlotte la fraise, toujours","Ta façon de faire du quotidien quelque chose de beau, même un mardi ordinaire","Tes petites habitudes que j'aime, de nos \"bonjour\" jusqu'à ta petite larmichette avant de dormir","La façon dont tu me racontes tes rêves à chaque fois","Ta façon de nous vivre pleinement, dans le présent","Ta façon de m'apprendre à ralentir et de m'éviter de trop m'avancer","Parce que tu gardes des choses significatives pour toi dans une boîte à souvenirs","La façon avec laquelle mes journées gravitent autour de toi","J'adore quand tu crois débiter et que tu perds tes mots","Tu as une mémoire des émotions que je trouve presque magique","Nos trajets en voiture, le soir, en journée, tous","Tes mains dans les miennes et tes doigts qui jouent avec les miens","Tu comprends les choses que je n'arrive pas à formuler","Ton amour de la musique","Nos discussions interminables sur le sexe","Nos passages constants de cap","Tes cheveux blonds, les boucles luxuriantes, toujours avec des antennes au vent","Tes fesses, tes cuisses, tes boobies, ta mâchoire, ton cou, ton dos, tes mains, TOUT ton corps","La façon dont tu gardes les souvenirs","Ton rapport à la vérité","Tes yeux verts (avec beaucoup de verts) qui brillent au soleil","J'adore te chatouiller (mais je me suis rendue compte que je pouvais te faire pleurer, nul)","La façon dont tu lis le tarot en y croyant spirituellement","Même nos signes astrologiques sont parfaits l'un pour l'autre","Ta façon de faire du yoga pour te reconnecter à la nature","Les qualités que tu ne vois pas encore chez toi mais je te répéterais à chaque fois","La façon dont tu m'as accepté, en prenant le risque sans demi-mesure (merci)","Ta grâce naturelle et ton élégance","Ta façon de fondre pendant nos câlins, je trouve ça trop mignon","Parce que tu n'as jamais de mal à tester de nouvelles choses en ma compagnie","Tu as des expressions à toi que j'ai commencé à utiliser sans m'en rendre compte (OUEEE)","Comment tu m'as mise à l'aise avec mon propre corps et ma capacité à recevoir","Le fait que tu ris de tes propres blagues avant même d'arriver à la chute (avec ton rire décalé en retard là)","Tes élans d'affection soudains, tes bisous soudains, tes mini-claques soudaines","Parce que tu m'as fait écouter et regarder des trucs auxquels je me serais jamais intéressée sans toi","Parce que je sais qu'on peut s'embrouiller sur un truc et que ça ne remet pas tout en question","Parce que tu corresponds parfaitement à ce que je recherche en terme de love language","Tes petits défauts que j'aime, j'aime tout de toi","T'es ma fleur, ma yasmina","Parce que tu me dis quand tu n'es pas d'accord, et je te fais confiance pour ça.","Parce que nous avons déjà des \"nous\" — des blagues à nous, des habitudes à nous, un monde à nous.","Ton rapport à l'amour (et comment tu me dis je t'aime)","Parce que je peux être malade, fatiguée, défaite — et tu me regardes pareil","Ton caractère trempé dans le feu doux","Parce que tu ne me fais pas sentir trop grande, trop petite, trop compliquée","Parce que je peux passer des heures à te regarder","Parce qu'avec toi, j'ai arrêté de me rétrécir","Ta façon de dire merci pour des choses insignifiantes, le minimum","Parce que tu penses à moi sans raison précise à 5h du matin","La façon dont tu me fais de la place — dans tes journées, dans tes pensées, dans tes plans","Dormir près de toi est une des choses les plus paisibles que je connaisse","Je m'endors en pensant à toi et je me réveille pareil","Comment nos nuits à parler jusqu'à l'aube ont compté parmi mes plus belles","Comment tu as tes peurs, tes doutes, tes cicatrices — et tu avances quand même","Comment tu t'autorises à être triste, et ça te rend humaine et vraie","Parce que tu finis parfois mes phrases et moi les tiennes","Comment nous pouvons passer des heures ensemble sans nous ennuyer","Comment on est à l'aise pour tout et c'est ce qui rend tout merveilleux avec toi","Ton rapport à ton corps et comment tu m'y autorises petit à petit","Parce que t'es mon meilleur coup, le meilleur sexe de ma vie","Parce que tous les critères de mon je t'aime sont atteints","Parce que je me retrouve rarement aussi obsédée par quelqu'un","Parce que tu m'apprends petit à petit à recevoir de l'amour sans m'excuser","La façon dont tu ES art et art est toi (reprends le dessin s'il te plaît)","Sans toi, mes journées n'ont pas de sens, pas de soleil","Parce que tu me montres que je mérite d'être choisie","Parce qu'aimer une femme, c'est aussi s'aimer un peu soi-même","Parce que je veux voyager avec toi","Parce que je veux encore plein de premières fois avec toi","Parce qu'il y a des choses entre nous que parfois seul le silence peut contenir","Ta façon d'habiter une pièce quand tu t'y trouves","Parce qu'il suffit que tu sois dans la même pièce pour que tout aille mieux","Ta voiture orange, faut pas l'oublier","Pour Baloo, Grizou et Pinky aussi","Ta façon de conserver des liens même quand les souvenirs ne sont pas heureux, car le sens du sacré prime chez toi","Ton rapport à l'amitié et comment tu gères les tiennes","Parce que je ne sais pas exactement quand je suis TOMBÉE AMOUREUSE de toi, et je trouve ça magnifique","Parce que tu es devenue une évidence","Parce que tu t'entends avec toutes les parties de mon entourage","Parce que je ne peux pas imaginer ne pas t'avoir rencontrée","J'aime ton rythme de vie, ton cadre de vie et je trouve ça super important","Ta façon de me faire des massages et de me craquer le dos","Parce que tu fais les meilleures papouilles au monde et que tu connais tous mes points faibles","Quand t'es un peu jalouse et je trouve ça trop sex","Comment tu me caches pas : tu m'aimes fort et tu l'assumes (ça me tient beaucoup à cœur)","Ta foi en les bonnes choses qui peuvent arriver et comment tu attires les énergies positives","Parce que je choisis de t'aimer chaque matin.","Parce que tu mérites d'être aimée comme tu aimes, avec toute la force et la passion qui va avec","Parce que je veux être cette personne pour toi, qui t'apporte du positif","Parce que rien de tout ça n'est parfait, et c'est parfait quand même","Tes petites habitudes de langage \"twerk, twin, REDBULL\", c'est trop mignon","La façon avec laquelle ta bizarrerie est magnifique et match parfaitement la mienne","Ton ironie douce et ton sarcasme bien placé","Ta façon de ne pas te prendre trop au sérieux","Tes moments d'enfance qui ressurgissent","La façon dont tu joues, de plus en plus souvent et j'adore ça","Ton imagination et je suis heureuse de voir que t'es à l'aise de l'exprimer avec moi","Parce que je n'ai pas fini de te découvrir, et cette idée me rend heureuse","Tes réactions totalement spontanées","La façon dont tu t'indigne pour les autres comme si c'était pour toi","Comment tu mets tes jambes sur les miennes quand on s'asseoit à côté","La magie qui passe entre nous le soir, en voiture, stationnée et que je ne comprends pas","Tes hésitations honnêtes et ta façon de prendre ton temps avec de trancher","La façon dont tu demandes pardon alors que t'as quand même rien fait","Ton rapport love/hate du soleil (je t'aime même cramée)","Ta façon d'écouter le vent comme une musique","Ton rapport mélancolique et tendre aux saisons","La manière dont tu évolues sans jamais trahir qui tu es","Ton besoin de liberté et la beauté avec laquelle tu la portes","Ta façon de toujours vouloir devenir une meilleure version de toi-même","Tes instants de lucidité qui me bouleversent parfois par leur justesse","La façon dont tu regardes par la fenêtre en voiture","Ton amour profond pour les langues, les nuances et les silences","Ta manière d'exister sans jamais être banale","Ton rire fatigué à la fin des longues journées","Tes pensées qui partent dans tous les sens et que j'écoute quand même jusqu'au bout","Ton air perdu quand tu réfléchis trop longtemps","Tes messages au milieu de la nuit que je relis encore le lendemain","Parce que tu parles à Pablo et que je ne sais pas ce que tu lui dis exactement","La façon dont tu existes un peu partout dans ma mémoire","Les secondes juste avant que tu éclates de rire","La façon dont tu existes pleinement dans chaque émotion","Les détails de toi que personne remarque autant que moi","Les moments où tu redeviens presque enfant sans t'en rendre compte","Ta présence qui reste longtemps même après ton départ","Parce que je t'aime — simplement, profondément, pour toutes ces raisons et pour toutes celles que je n'ai pas encore de mots pour dire."];
+  const grid=document.getElementById('stars-grid'),ctr=document.getElementById('counter');let found=new Set(progress.r);
+  for(let i=0;i<200;i++){const b=document.createElement('button');b.className='star-btn'+(found.has(i)?' found':'');b.setAttribute('aria-label','Raison numéro '+(i+1));b.innerHTML='<span class="s-num">'+(i+1)+'</span><span class="star-glyph">✦</span>';b.addEventListener('click',()=>{if(!found.has(i)){found.add(i);b.classList.add('found');progress.r=Array.from(found);saveProgress();ctr.textContent=found.size+' / 200 découvertes';}openModal('Raison n° '+(i+1),raisons[i]||'Cette raison est trop précieuse pour des mots.');});grid.appendChild(b);}
+  ctr.textContent=found.size+' / 200 découvertes';
+
   // ── TODO ──
-  const TODO_KEY = 'charlotte_todo';
-  const categories = [
-    { title: '✦ Random à faire', items: [
-      "Meilleure librairie de Casa","Les autres Oracles","Magasin vintage",
-      "La grotte d'Ali Baba","Concept store","Billard","Prendre le tram",
-      "Massages","Le meilleur câlin du monde",
-      "Un film dans la voiture","Pottery painting","Karting",
-      "Apprendre à fabriquer les fleurs","Tous les films Stitch",
-      "Barbie (finir Barbie...)","Bowling","Moonlamp","Petites voitures pour les gosses",
-      "Journée Spa","Le truc des bisous rouge à lèvres","Flower walk","Aller au souk"
-    ]},
-    { title: '✦ Manger', items: [
-      "Glacier Baggli","Chez Aicha la vietnamienne","Loqma","Miga","Picks",
-      "Pizza Di Papi","Chocochino","Frita guy","Pancakes and waffle","Sushi Hiro",
-      "Rosanne","Nelly Burger","Sora Sushi","Route Us","Sea food boil","Loony"
-    ]},
-    { title: '✦ Side Quest', items: [
-      "Écrire un son ensemble","Découvrir les fleurs de charlotte","Manger des bêtises",
-      "Chef Charlotte l'apprenti cuisinière","Chef Lily l'apprenti pâtissière",
-      "Charlotte le papillon de la nage","Charlotte la whineuse","Peindre ensemble"
-    ]},
-    { title: '✦ Movies — aller beaucoup au cinéma', items: [
-      "Labyrinthe","Reminders of us","Les lignes courbes de dieu",
-      "Hamnet","Shutter Island","From Paris"
-    ]},
-    { title: '✦ Les exceptionnels', items: [
-      "Saut en parachute à Benslimane"
-    ]},
-    { title: '✦ Chez Charlotte', items: [
-      "À compléter..."
-    ]}
+  // Categories de base dans le code (toi tu modifies ça)
+  const baseCats = [
+    { title: '✦ Random à faire', items: ["Meilleure librairie de Casa","Les autres Oracles","Magasin vintage","La grotte d'Ali Baba","Concept store","Billard","Prendre le tram","Massages","Le meilleur câlin du monde","Un film dans la voiture","Pottery painting","Karting","Apprendre à fabriquer les fleurs","Tous les films Stitch","Barbie (finir Barbie...)","Bowling","Moonlamp","Petites voitures pour les gosses","Journée Spa","Le truc des bisous rouge à lèvres","Flower walk","Aller au souk"]},
+    { title: '✦ Manger', items: ["Glacier Baggli","Chez Aicha la vietnamienne","Loqma","Miga","Picks","Pizza Di Papi","Chocochino","Frita guy","Pancakes and waffle","Sushi Hiro","Rosanne","Nelly Burger","Sora Sushi","Route Us","Sea food boil","Loony"]},
+    { title: '✦ Side Quest', items: ["Écrire un son ensemble","Découvrir les fleurs de charlotte","Manger des bêtises","Chef Charlotte l'apprenti cuisinière","Chef Lily l'apprenti pâtissière","Charlotte le papillon de la nage","Charlotte la whineuse","Peindre ensemble"]},
+    { title: '✦ Movies — aller beaucoup au cinéma', items: ["Labyrinthe","Reminders of us","Les lignes courbes de dieu","Hamnet","Shutter Island","From Paris"]},
+    { title: '✦ Les exceptionnels', items: ["Saut en parachute à Benslimane"]},
+    { title: '✦ Chez Charlotte', items: ["À compléter..."]}
   ];
- 
+
+  // Charger les cats custom ajoutées par elle (stockées séparément)
+  let customCats = [];
+  try { const s = localStorage.getItem(TODO_CATS_KEY); if(s) customCats = JSON.parse(s); } catch(e){}
+  function saveCustomCats(){ localStorage.setItem(TODO_CATS_KEY, JSON.stringify(customCats)); }
+
+  // État des cases cochées
   let todoState = {};
   try { const s = localStorage.getItem(TODO_KEY); if(s) todoState = JSON.parse(s); } catch(e){}
   function saveTodo(){ localStorage.setItem(TODO_KEY, JSON.stringify(todoState)); }
- 
+
   const todoListEl = document.getElementById('todo-list');
   const todoCount = document.getElementById('todo-count');
   const todoFill = document.getElementById('todo-fill');
@@ -1114,37 +431,121 @@ function initApp() {
   const todoBackBtn = document.getElementById('todo-back');
   const navTodoBtn = document.getElementById('nav-todo-btn');
   let totalItems = 0;
- 
-  categories.forEach((cat, ci) => {
+
+  function buildCategory(cat, ci, isCustom) {
     const catEl = document.createElement('div');
     catEl.className = 'todo-category';
+
+    // Header avec titre + bouton +
+    const header = document.createElement('div');
+    header.className = 'todo-cat-header';
     const titleEl = document.createElement('p');
     titleEl.className = 'todo-category-title';
     titleEl.textContent = cat.title;
-    catEl.appendChild(titleEl);
+    const addBtn = document.createElement('button');
+    addBtn.className = 'todo-add-item-btn';
+    addBtn.textContent = '+ ajouter';
+    header.appendChild(titleEl);
+    header.appendChild(addBtn);
+    catEl.appendChild(header);
+
+    // Inline add form
+    const addForm = document.createElement('div');
+    addForm.className = 'todo-add-form';
+    const addInput = document.createElement('input');
+    addInput.className = 'todo-add-input';
+    addInput.type = 'text';
+    addInput.placeholder = 'Nouveau truc...';
+    const addConfirm = document.createElement('button');
+    addConfirm.className = 'todo-add-confirm';
+    addConfirm.textContent = 'Ajouter ✦';
+    addForm.appendChild(addInput);
+    addForm.appendChild(addConfirm);
+    catEl.appendChild(addForm);
+
+    addBtn.addEventListener('click', () => {
+      addForm.classList.toggle('open');
+      if(addForm.classList.contains('open')) addInput.focus();
+    });
+
+    function addItem(text) {
+      text = text.trim();
+      if(!text) return;
+      cat.items.push(text);
+      if(isCustom) saveCustomCats();
+      const ii = cat.items.length - 1;
+      const key = ci + '-' + ii;
+      totalItems++;
+      appendItem(catEl, addForm, text, key);
+      updateProgress();
+      addInput.value = '';
+      addForm.classList.remove('open');
+    }
+
+    addConfirm.addEventListener('click', () => addItem(addInput.value));
+    addInput.addEventListener('keydown', e => { if(e.key === 'Enter') addItem(addInput.value); });
+
+    // Items existants
     cat.items.forEach((item, ii) => {
       const key = ci + '-' + ii;
       totalItems++;
-      const row = document.createElement('div');
-      row.className = 'todo-item' + (todoState[key] ? ' done' : '');
-      row.innerHTML = '<div class="todo-check"></div><span class="todo-label">' + item + '</span>';
-      row.addEventListener('click', () => {
-        todoState[key] = !todoState[key];
-        row.classList.toggle('done', todoState[key]);
-        saveTodo(); updateProgress();
-      });
-      catEl.appendChild(row);
+      appendItem(catEl, addForm, item, key);
     });
+
     todoListEl.appendChild(catEl);
-  });
- 
+    return catEl;
+  }
+
+  function appendItem(catEl, addForm, item, key) {
+    const row = document.createElement('div');
+    row.className = 'todo-item' + (todoState[key] ? ' done' : '');
+    row.innerHTML = '<div class="todo-check"></div><span class="todo-label">' + item + '</span>';
+    row.addEventListener('click', () => {
+      todoState[key] = !todoState[key];
+      row.classList.toggle('done', todoState[key]);
+      saveTodo(); updateProgress();
+    });
+    catEl.insertBefore(row, addForm);
+  }
+
+  // Build all base + custom categories
+  const allCats = [...baseCats, ...customCats];
+  allCats.forEach((cat, ci) => buildCategory(cat, ci, ci >= baseCats.length));
+
   function updateProgress(){
     const done = Object.values(todoState).filter(Boolean).length;
     todoCount.textContent = done + ' / ' + totalItems + ' complétées';
-    todoFill.style.width = (done / totalItems * 100) + '%';
+    todoFill.style.width = totalItems ? (done / totalItems * 100) + '%' : '0%';
   }
   updateProgress();
- 
+
+  // Nouvelle catégorie
+  const newCatBtn = document.getElementById('new-cat-btn');
+  const newCatForm = document.getElementById('new-cat-form');
+  const newCatInput = document.getElementById('new-cat-input');
+  const newCatConfirm = document.getElementById('new-cat-confirm');
+
+  newCatBtn.addEventListener('click', () => {
+    newCatForm.classList.toggle('open');
+    if(newCatForm.classList.contains('open')) newCatInput.focus();
+  });
+
+  function addCategory() {
+    const name = newCatInput.value.trim();
+    if(!name) return;
+    const newCat = { title: '✦ ' + name, items: [] };
+    customCats.push(newCat);
+    saveCustomCats();
+    const ci = allCats.length;
+    allCats.push(newCat);
+    buildCategory(newCat, ci, true);
+    newCatInput.value = '';
+    newCatForm.classList.remove('open');
+  }
+  newCatConfirm.addEventListener('click', addCategory);
+  newCatInput.addEventListener('keydown', e => { if(e.key === 'Enter') addCategory(); });
+
+  // Ouvrir / fermer todo
   navTodoBtn.addEventListener('click', () => {
     todoPage.classList.add('open');
     navTodoBtn.classList.add('active');
@@ -1156,7 +557,7 @@ function initApp() {
     document.body.style.overflow = '';
     document.getElementById('todo-inner').scrollTop = 0;
   });
- 
+
 } // end initApp
 </script>
 </body>
