@@ -282,6 +282,12 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
   <p class="scroll-cue">Descends</p>
 </section>
 
+<div style="position:relative;z-index:1;text-align:center;padding:3rem 2rem 0;">
+  <p style="font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.55em;color:var(--muted);opacity:0.5;margin-bottom:0.5rem;">Tu es dans ma vie depuis</p>
+  <p id="day-count" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(3.5rem,10vw,7rem);line-height:1;color:var(--cream);opacity:0.9;"></p>
+  <p style="font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.55em;color:var(--muted);opacity:0.5;margin-top:0.4rem;">jours</p>
+</div>
+
 <div class="divider"></div>
 
 <!-- 30 MOTS -->
@@ -391,6 +397,12 @@ function initApp(){
   let progress={c:[],r:[]};
   try{const s=localStorage.getItem(PROGRESS_KEY);if(s)progress=JSON.parse(s);}catch(e){}
   function saveProgress(){localStorage.setItem(PROGRESS_KEY,JSON.stringify(progress));}
+
+  // COMPTE-JOURS
+  const start = new Date('2024-12-31');
+  const today = new Date();
+  const days = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+  document.getElementById('day-count').textContent = days;
 
   // STARFIELD
   const cv=document.getElementById('starfield'),cx=cv.getContext('2d');let ST=[];
