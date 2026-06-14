@@ -154,7 +154,21 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
   background:none;border:1px solid rgba(180,170,155,0.15);
   padding:0.25rem 0.6rem;cursor:pointer;transition:all 0.2s;
 }
-.todo-add-item-btn:hover{color:var(--cream);opacity:1;border-color:rgba(180,170,155,0.4);}
+.todo-item.custom{padding-right:0;}
+.todo-delete-item{
+  margin-left:auto;flex-shrink:0;
+  font-family:'Bebas Neue',sans-serif;font-size:0.55rem;letter-spacing:0.2em;
+  color:var(--muted);opacity:0;background:none;border:none;cursor:pointer;
+  padding:0 0 0 0.5rem;transition:opacity 0.2s,color 0.2s;
+}
+.todo-item:hover .todo-delete-item{opacity:0.4;}
+.todo-delete-item:hover{opacity:1 !important;color:var(--cream);}
+.todo-delete-cat{
+  font-family:'Bebas Neue',sans-serif;font-size:0.55rem;letter-spacing:0.2em;
+  color:var(--muted);opacity:0.3;background:none;border:none;cursor:pointer;
+  margin-left:0.5rem;transition:opacity 0.2s,color 0.2s;
+}
+.todo-delete-cat:hover{opacity:1;color:var(--cream);}
 
 /* TODO ITEMS */
 .todo-item{display:flex;align-items:flex-start;gap:1rem;padding:0.75rem 0;border-bottom:1px solid rgba(180,170,155,0.05);cursor:pointer;user-select:none;}
@@ -447,6 +461,25 @@ function initApp(){
     addBtn.textContent = '+ ajouter';
     header.appendChild(titleEl);
     header.appendChild(addBtn);
+    // Delete category button (only for custom cats)
+    if(isCustom){
+      const delCatBtn = document.createElement('button');
+      delCatBtn.className = 'todo-delete-cat';
+      delCatBtn.textContent = '✕';
+      delCatBtn.title = 'Supprimer la catégorie';
+      delCatBtn.addEventListener('click', () => {
+        if(!confirm('Supprimer cette catégorie ?')) return;
+        const idx = customCats.indexOf(cat);
+        if(idx > -1){ customCats.splice(idx, 1); saveCustomCats(); }
+        // Remove all todo states for this cat
+        Object.keys(todoState).forEach(k => { if(k.startsWith(ci+'-')) delete todoState[k]; });
+        saveTodo();
+        catEl.remove();
+        totalItems = Math.max(0, totalItems - cat.items.length);
+        updateProgress();
+      });
+      header.appendChild(delCatBtn);
+    }
     catEl.appendChild(header);
 
     // Inline add form
@@ -476,7 +509,7 @@ function initApp(){
       const ii = cat.items.length - 1;
       const key = ci + '-' + ii;
       totalItems++;
-      appendItem(catEl, addForm, text, key);
+      appendItem(catEl, addForm, text, key, true);
       updateProgress();
       addInput.value = '';
       addForm.classList.remove('open');
@@ -489,17 +522,33 @@ function initApp(){
     cat.items.forEach((item, ii) => {
       const key = ci + '-' + ii;
       totalItems++;
-      appendItem(catEl, addForm, item, key);
+      appendItem(catEl, addForm, item, key, isCustom);
     });
 
     todoListEl.appendChild(catEl);
     return catEl;
   }
 
-  function appendItem(catEl, addForm, item, key) {
+  function appendItem(catEl, addForm, item, key, isCustomItem) {
     const row = document.createElement('div');
-    row.className = 'todo-item' + (todoState[key] ? ' done' : '');
+    row.className = 'todo-item' + (todoState[key] ? ' done' : '') + (isCustomItem ? ' custom' : '');
     row.innerHTML = '<div class="todo-check"></div><span class="todo-label">' + item + '</span>';
+    // Delete button for custom items
+    if(isCustomItem){
+      const delBtn = document.createElement('button');
+      delBtn.className = 'todo-delete-item';
+      delBtn.textContent = '✕';
+      delBtn.title = 'Supprimer';
+      delBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        delete todoState[key];
+        saveTodo();
+        row.remove();
+        totalItems = Math.max(0, totalItems - 1);
+        updateProgress();
+      });
+      row.appendChild(delBtn);
+    }
     row.addEventListener('click', () => {
       todoState[key] = !todoState[key];
       row.classList.toggle('done', todoState[key]);
