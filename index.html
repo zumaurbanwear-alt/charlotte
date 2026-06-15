@@ -45,6 +45,13 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
 @media(max-width:580px){.nav-links{display:none;}}
 .nav-todo-btn{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.3em;color:var(--muted);opacity:0.7;transition:color 0.2s;background:none;border:none;cursor:pointer;padding:0;}
 .nav-todo-btn:hover,.nav-todo-btn.active{color:var(--cream);opacity:1;}
+.nav-sound-btn{
+  font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.3em;
+  color:var(--muted);opacity:0.4;
+  background:none;border:none;cursor:pointer;padding:0;
+  transition:color 0.3s,opacity 0.3s;
+}
+.nav-sound-btn.on{color:var(--brown-light);opacity:0.9;}
 
 /* STARFIELD */
 #starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
@@ -128,7 +135,45 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
 #final p{font-style:italic;font-size:clamp(0.95rem,2vw,1.1rem);color:var(--muted);line-height:2.1;max-width:460px;margin:0 auto 2.5rem;}
 #final .sig{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.6em;color:var(--brown);opacity:0.45;}
 
-/* TODO PAGE */
+/* LETTRES PAGE */
+#lettres-page{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;display:none;}
+#lettres-page.open{display:block;}
+#lettres-inner{position:relative;z-index:1;padding:7rem 2rem 8rem;max-width:760px;margin:0 auto;}
+.lettres-hero{text-align:center;margin-bottom:4rem;}
+.lettres-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,8vw,5.5rem);letter-spacing:0.06em;color:var(--cream);line-height:0.9;}
+.lettres-hero p{font-style:italic;color:var(--muted);font-size:0.9rem;margin-top:0.5rem;opacity:0.6;}
+.envelopes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1.5rem;}
+.envelope-btn{
+  aspect-ratio:4/3;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(180,170,155,0.2);
+  cursor:pointer;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0.5rem;transition:all 0.3s;
+  padding:1rem;
+}
+.envelope-btn:hover{background:rgba(180,170,155,0.06);border-color:rgba(180,170,155,0.4);}
+.envelope-btn.opened{
+  background:rgba(180,170,155,0.08);
+  border-color:rgba(180,170,155,0.35);
+}
+.envelope-icon{font-size:2rem;transition:transform 0.3s;line-height:1;}
+.envelope-btn:hover .envelope-icon{transform:translateY(-3px);}
+.envelope-num{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.4em;color:var(--muted);opacity:0.5;}
+.envelope-btn.opened .envelope-icon{color:var(--brown-light);opacity:0.9;}
+
+/* LETTRE MODAL */
+#lettre-overlay{position:fixed;inset:0;z-index:300;background:rgba(10,7,4,0.92);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity 0.4s;}
+#lettre-overlay.open{opacity:1;pointer-events:all;}
+#lettre-modal{background:var(--bg2);border:1px solid rgba(180,170,155,0.2);padding:3rem 3.5rem;max-width:520px;width:100%;transform:translateY(16px);transition:transform 0.4s;position:relative;max-height:80vh;overflow-y:auto;}
+#lettre-overlay.open #lettre-modal{transform:translateY(0);}
+.lettre-num{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.5em;color:var(--brown-light);opacity:0.5;margin-bottom:1.5rem;}
+.lettre-content{font-size:clamp(1rem,2vw,1.15rem);font-style:italic;line-height:2;color:var(--cream2);font-weight:300;white-space:pre-wrap;}
+.lettre-sig{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.4em;color:var(--brown-light);opacity:0.4;margin-top:2rem;}
+.lettre-line{width:28px;height:1px;background:rgba(180,170,155,0.2);margin:1.8rem 0;}
+.lettre-close{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--muted);cursor:pointer;background:none;border:none;transition:color 0.2s;display:block;margin-top:1.5rem;}
+.lettre-close:hover{color:var(--cream);}
+
 #todo-page{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;display:none;}
 #todo-page.open{display:block;}
 #todo-inner{position:relative;z-index:1;padding:7rem 2rem 8rem;max-width:700px;margin:0 auto;}
@@ -248,7 +293,11 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#hero">✦ Explorer</a>
-  <button class="nav-todo-btn" id="nav-todo-btn">To Do</button>
+  <div style="display:flex;gap:1.5rem;align-items:center;">
+    <button class="nav-sound-btn" id="nav-sound-btn">OFF</button>
+    <button class="nav-todo-btn" id="nav-todo-btn">To Do</button>
+    <button class="nav-todo-btn" id="nav-lettres-btn">Lettres</button>
+  </div>
   <ul class="nav-links">
     <li><a href="#compliments">30 mots</a></li>
     <li><a href="#etoile">Mon Étoile</a></li>
@@ -279,16 +328,13 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
       <div class="vinyl-disc-wrap"><div class="vinyl-disc"></div></div>
     </div>
   </a>
+  <div style="margin-bottom:2.5rem;text-align:center;">
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.55em;color:var(--muted);opacity:0.45;margin-bottom:0.4rem;">Tu es dans ma vie depuis</p>
+    <p id="day-count" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(3rem,9vw,6rem);line-height:1;color:var(--cream);opacity:0.85;"></p>
+    <p style="font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.55em;color:var(--muted);opacity:0.45;margin-top:0.3rem;">jours</p>
+  </div>
   <p class="scroll-cue">Descends</p>
 </section>
-
-<div style="position:relative;z-index:1;text-align:center;padding:3rem 2rem 0;">
-  <p style="font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.55em;color:var(--muted);opacity:0.5;margin-bottom:0.5rem;">Tu es dans ma vie depuis</p>
-  <p id="day-count" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(3.5rem,10vw,7rem);line-height:1;color:var(--cream);opacity:0.9;"></p>
-  <p style="font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.55em;color:var(--muted);opacity:0.5;margin-top:0.4rem;">jours</p>
-</div>
-
-<div class="divider"></div>
 
 <!-- 30 MOTS -->
 <section id="compliments">
@@ -297,8 +343,6 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
   <div class="stars-grid" id="comp-grid"></div>
   <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
 </section>
-
-<div class="divider"></div>
 
 <!-- MON ÉTOILE -->
 <section id="etoile">
@@ -320,8 +364,6 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- 200 RAISONS -->
 <section id="raisons">
   <div class="section-head"><h2>200 RAISONS</h2><p>chaque étoile cache une raison de t'aimer</p></div>
@@ -330,14 +372,35 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
   <a href="#hero" class="back-btn">↑ &nbsp; Retour en haut</a>
 </section>
 
-<div class="divider"></div>
-
 <!-- FINAL -->
 <section id="final">
   <h2>POUR<br>ENCORE LONGTEMPS</h2>
   <p>et je viendrais jusque d'outre-tombe, <br>je viendrais graver en lettres d'or, <br>exposer comme tu es le plus grand des trésors, <br>et même après ma mort, <br>on lira sur mon corps, <br>comme je t'aime encore.</p>
   <p class="sig">C'EST MA MEUF</p>
 </section>
+
+<!-- LETTRES PAGE -->
+<div id="lettres-page">
+  <div id="lettres-inner">
+    <div class="lettres-hero">
+      <h1>MES LETTRES</h1>
+      <p>chaque enveloppe garde quelque chose pour toi</p>
+    </div>
+    <div class="envelopes-grid" id="envelopes-grid"></div>
+    <button class="todo-back" id="lettres-back" style="margin-top:4rem;">← Retour au site</button>
+  </div>
+</div>
+
+<!-- LETTRE MODAL -->
+<div id="lettre-overlay">
+  <div id="lettre-modal">
+    <p class="lettre-num" id="lettre-num">Lettre n° 1</p>
+    <p class="lettre-content" id="lettre-content"></p>
+    <div class="lettre-line"></div>
+    <p class="lettre-sig">Lily ✦</p>
+    <button class="lettre-close" id="lettre-close">FERMER ✕</button>
+  </div>
+</div>
 
 <!-- TODO PAGE -->
 <div id="todo-page">
@@ -617,6 +680,100 @@ function initApp(){
     navTodoBtn.classList.remove('active');
     document.body.style.overflow = '';
     document.getElementById('todo-inner').scrollTop = 0;
+  });
+
+  // ── LETTRES ──
+  const LETTRES_KEY = 'charlotte_lettres';
+
+  // ════════════════════════════════════════
+  // AJOUTE TES LETTRES ICI
+  // Pour chaque lettre : { title: "Lettre n° X", text: `ton texte ici` }
+  const lettres = [
+    {
+      title: "Lettre n° 1",
+      text: `Charlotte,
+
+Cette lettre est la première d'une longue série — du moins, c'est ce que je me promets.
+
+Il y a des choses que je n'arrive pas toujours à te dire de vive voix. Pas parce que je ne les ressens pas, mais parce que certaines émotions ont besoin d'un peu de silence autour d'elles pour exister vraiment. Alors j'ai décidé de t'écrire. Ici, dans cet endroit que j'ai construit pour toi, il y aura des lettres. Pas à des occasions précises, pas à des dates fixes — juste quand quelque chose en moi aura besoin de prendre la forme de mots pour toi.
+
+Je ne sais pas exactement ce que je t'écrirai. Peut-être des choses que j'observe et que je garde pour moi. Peut-être des moments qu'on a vécus et que je veux immortaliser quelque part. Peut-être juste des je t'aime, dit différemment à chaque fois.
+
+Considère cet endroit comme ma façon de continuer à te choisir, même dans le silence.`
+    },
+    // ── LETTRE 2 ── (décommente et remplis quand tu es prête)
+    // {
+    //   title: "Lettre n° 2",
+    //   text: `ton texte ici`
+    // },
+  ];
+  // ════════════════════════════════════════
+
+  let lettresOpened = {};
+  try { const s = localStorage.getItem(LETTRES_KEY); if(s) lettresOpened = JSON.parse(s); } catch(e){}
+  function saveLettres(){ localStorage.setItem(LETTRES_KEY, JSON.stringify(lettresOpened)); }
+
+  const envGrid = document.getElementById('envelopes-grid');
+  const lettreOverlay = document.getElementById('lettre-overlay');
+  const lettreNum = document.getElementById('lettre-num');
+  const lettreContent = document.getElementById('lettre-content');
+  const lettreClose = document.getElementById('lettre-close');
+
+  lettres.forEach((l, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'envelope-btn' + (lettresOpened[i] ? ' opened' : '');
+    btn.innerHTML = `<span class="envelope-icon">✦</span><span class="envelope-num">Lettre ${i+1}</span>`;
+    btn.addEventListener('click', () => {
+      if(!lettresOpened[i]){
+        lettresOpened[i] = true;
+        btn.classList.add('opened');
+        saveLettres();
+      }
+      lettreNum.textContent = l.title;
+      lettreContent.textContent = l.text;
+      lettreOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    envGrid.appendChild(btn);
+  });
+
+  function closeLettreModal(){ lettreOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+  lettreClose.addEventListener('click', closeLettreModal);
+  lettreOverlay.addEventListener('click', e => { if(e.target === lettreOverlay) closeLettreModal(); });
+
+  const navLettresBtn = document.getElementById('nav-lettres-btn');
+  const lettresPage = document.getElementById('lettres-page');
+  const lettresBack = document.getElementById('lettres-back');
+
+  navLettresBtn.addEventListener('click', () => {
+    lettresPage.classList.add('open');
+    navLettresBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+  lettresBack.addEventListener('click', () => {
+    lettresPage.classList.remove('open');
+    navLettresBtn.classList.remove('active');
+    document.body.style.overflow = '';
+    document.getElementById('lettres-inner').scrollTop = 0;
+  });
+
+  // ── SON AMBIANT ──
+  const audio = new Audio('birds.mp3');
+  audio.loop = true;
+  audio.volume = 0.25;
+  const soundBtn = document.getElementById('nav-sound-btn');
+  let soundOn = false;
+  soundBtn.addEventListener('click', () => {
+    soundOn = !soundOn;
+    if(soundOn){
+      audio.play();
+      soundBtn.textContent = 'ON';
+      soundBtn.classList.add('on');
+    } else {
+      audio.pause();
+      soundBtn.textContent = 'OFF';
+      soundBtn.classList.remove('on');
+    }
   });
 
 } // end initApp
