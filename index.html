@@ -469,11 +469,11 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
   <canvas id="lettres-starfield"></canvas>
   <div id="lettres-inner">
     <div class="lettres-hero">
-      <h1>MES LETTRES</h1>
-      <p>chaque enveloppe garde quelque chose pour toi</p>
+      <h1>LETTRES POUR CHARLOTTE</h1>
+      <p>chaque enveloppe garde précieusement quelque chose pour toi</p>
     </div>
     <div class="envelopes-grid" id="envelopes-grid"></div>
-    <button class="todo-back" id="lettres-back" style="margin-top:4rem;">← Retour au site</button>
+    <button class="todo-back" id="lettres-back" style="margin-top:4rem;">← Retour</button>
   </div>
 </div>
 
@@ -513,7 +513,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
         <button class="todo-new-cat-confirm" id="new-cat-confirm">Ajouter ✦</button>
       </div>
     </div>
-    <button class="todo-back" id="todo-back">← Retour au site</button>
+    <button class="todo-back" id="todo-back">← Retour</button>
   </div>
 </div>
 
@@ -554,7 +554,7 @@ function initApp(){
   function saveProgress(){localStorage.setItem(PROGRESS_KEY,JSON.stringify(progress));}
 
   // COMPTE-JOURS
-  const start = new Date('2024-12-31');
+  const start = new Date('2025-12-31');
   const today = new Date();
   const days = Math.floor((today - start) / (1000 * 60 * 60 * 24));
   const dayEl = document.getElementById('day-count');
