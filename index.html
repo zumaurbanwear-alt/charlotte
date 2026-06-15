@@ -235,7 +235,32 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
 .todo-progress-fill{position:absolute;top:0;left:0;height:100%;background:rgba(212,201,176,0.35);transition:width 0.4s ease;}
 
 /* TODO CATEGORIES */
-.todo-category{margin-bottom:2.5rem;}
+.todo-picker-wrap{text-align:center;margin-bottom:2.5rem;}
+.todo-picker-btn{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.8rem;letter-spacing:0.4em;
+  color:var(--cream);
+  background:none;
+  border:1px solid rgba(180,170,155,0.25);
+  padding:0.8rem 2rem;
+  cursor:pointer;transition:all 0.3s;
+  display:block;margin:0 auto 1rem;
+}
+.todo-picker-btn:hover{background:rgba(180,170,155,0.08);border-color:rgba(180,170,155,0.5);}
+.todo-picker-result{
+  font-size:clamp(1rem,2.5vw,1.2rem);
+  font-style:italic;color:var(--cream2);
+  line-height:1.7;font-weight:300;
+  min-height:2rem;
+  transition:opacity 0.3s;
+  max-width:500px;margin:0 auto;
+}
+.todo-picker-label{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.6rem;letter-spacing:0.45em;
+  color:var(--brown-light);opacity:0.4;
+  margin-bottom:0.6rem;display:block;
+}
 .todo-cat-header{
   display:flex;align-items:center;justify-content:space-between;
   margin-bottom:1rem;padding-bottom:0.6rem;
@@ -474,6 +499,11 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
     <div class="todo-progress-wrap">
       <span id="todo-count">0 / 0 complétées</span>
       <div class="todo-progress-bar"><div class="todo-progress-fill" id="todo-fill"></div></div>
+    </div>
+    <div class="todo-picker-wrap">
+      <span class="todo-picker-label">Et là, on fait quoi ?</span>
+      <button class="todo-picker-btn" id="todo-picker-btn">✦ &nbsp; Piocher au hasard</button>
+      <p class="todo-picker-result" id="todo-picker-result"></p>
     </div>
     <div id="todo-list"></div>
     <div class="todo-new-cat-wrap">
@@ -853,6 +883,31 @@ function initApp(){
     todoFill.style.width = totalItems ? (done / totalItems * 100) + '%' : '0%';
   }
   updateProgress();
+
+  // CE SOIR ON FAIT QUOI
+  const pickerBtn = document.getElementById('todo-picker-btn');
+  const pickerResult = document.getElementById('todo-picker-result');
+
+  pickerBtn.addEventListener('click', () => {
+    // Collecte tous les items non cochés et non supprimés
+    const available = [];
+    allCats.forEach((cat, ci) => {
+      cat.items.forEach((item, ii) => {
+        const key = ci + '-' + ii;
+        if(!todoState[key] && !deletedItems[key]) available.push(item);
+      });
+    });
+    if(available.length === 0){
+      pickerResult.textContent = 'Vous avez tout fait ! 🎉';
+      return;
+    }
+    pickerResult.style.opacity = '0';
+    setTimeout(() => {
+      const pick = available[Math.floor(Math.random() * available.length)];
+      pickerResult.textContent = pick;
+      pickerResult.style.opacity = '1';
+    }, 200);
+  });
 
   // Nouvelle catégorie
   const newCatBtn = document.getElementById('new-cat-btn');
