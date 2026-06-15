@@ -135,7 +135,54 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
 #final p{font-style:italic;font-size:clamp(0.95rem,2vw,1.1rem);color:var(--muted);line-height:2.1;max-width:460px;margin:0 auto 2.5rem;}
 #final .sig{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.6em;color:var(--brown);opacity:0.45;}
 
-/* LETTRES PAGE */
+/* SURPRISE 200 */
+#surprise-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(10,7,4,0.97);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:2rem;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.8s ease;
+}
+#surprise-overlay.open{opacity:1;pointer-events:all;}
+#surprise-canvas{position:absolute;inset:0;pointer-events:none;}
+.surprise-inner{position:relative;z-index:1;}
+.surprise-title{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:clamp(2.5rem,8vw,5rem);
+  color:var(--cream);line-height:1;
+  margin-bottom:1rem;
+  animation:fadeUp 1s ease 0.3s both;
+}
+.surprise-sub{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.7rem;letter-spacing:0.5em;
+  color:var(--brown-light);opacity:0.6;
+  margin-bottom:2.5rem;
+  animation:fadeUp 1s ease 0.6s both;
+}
+.surprise-msg{
+  font-size:clamp(1rem,2vw,1.2rem);
+  font-style:italic;color:var(--cream2);
+  line-height:2;max-width:420px;
+  font-weight:300;opacity:0.85;
+  animation:fadeUp 1s ease 0.9s both;
+  margin-bottom:3rem;
+}
+.surprise-close{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.7rem;letter-spacing:0.4em;
+  color:var(--muted);background:none;
+  border:1px solid rgba(180,170,155,0.2);
+  padding:0.7rem 2rem;cursor:pointer;
+  transition:all 0.3s;
+  animation:fadeUp 1s ease 1.2s both;
+}
+.surprise-close:hover{color:var(--cream);border-color:rgba(180,170,155,0.5);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
 #lettres-page{position:fixed;inset:0;z-index:90;background:#1C1410;overflow-y:auto;display:none;}
 #lettres-page.open{display:block;}
 #lettres-starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
@@ -381,6 +428,17 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
   <p class="sig">C'EST MA MEUF</p>
 </section>
 
+<!-- SURPRISE 200 -->
+<div id="surprise-overlay">
+  <canvas id="surprise-canvas"></canvas>
+  <div class="surprise-inner">
+    <p class="surprise-title">200 raisons.</p>
+    <p class="surprise-sub">Tu les as toutes trouvées ✦</p>
+    <p class="surprise-msg">Il y en aurait mille autres.<br>Mais certaines n'ont pas encore de mots —<br>elles se vivent, dans le silence<br>de nos matins ensemble.</p>
+    <button class="surprise-close" id="surprise-close">Fermer ✕</button>
+  </div>
+</div>
+
 <!-- LETTRES PAGE -->
 <div id="lettres-page">
   <canvas id="lettres-starfield"></canvas>
@@ -469,7 +527,17 @@ function initApp(){
   const start = new Date('2024-12-31');
   const today = new Date();
   const days = Math.floor((today - start) / (1000 * 60 * 60 * 24));
-  document.getElementById('day-count').textContent = days;
+  const dayEl = document.getElementById('day-count');
+  let current = 0;
+  const duration = 1800;
+  const step = days / (duration / 16);
+  function animateDays() {
+    current += step;
+    if(current >= days){ dayEl.textContent = days; return; }
+    dayEl.textContent = Math.floor(current);
+    requestAnimationFrame(animateDays);
+  }
+  setTimeout(animateDays, 600);
 
   // STARFIELDS OVERLAY (todo + lettres)
   function makeOverlayStars(canvasId) {
@@ -553,8 +621,79 @@ function initApp(){
   // 200 RAISONS
   const raisons=["Ton rire qui remplit toute la pièce","La façon dont tu prononces mon prénom","Ton intelligence émotionnelle rare","Le coin de tes yeux qui se relève quand tu rigoles","Ta gentillesse désarmante","Ton sens du bien et du juste que j'admire profondément","Ta capacité à écouter d'une façon que peu de gens savent faire — vraiment écouter","Ta voix quand t'as sommeil","Ton rapport à la beauté, aux petites choses, à la vie — c'est poétique","Mon regard sur le monde évolue quand tu es là","Ton regard qui parle quand ta voix se tait","Ta tendresse inattendue","Ton sourire, ton SOURIRE, TON SOURIRE","Comment tu remarques les petites choses que tout le monde ignore","Ta curiosité pour tout (ta cuuuuriosité)","Ta manière de croire encore aux coïncidences heureuses","Ton courage pour me parler de tout, à cœur ouvert","Les battements de ton cœur quand tu t'endors","Le parfum de ta peau qui colle sur la mienne","Ta capacité à transformer n'importe quel endroit en maison (même une voiture - MÊME des toilettes)","Ta douceur constante - dans ta voix, tes caresses, toi toute entière","Nos silences complices","Ta façon d'aimer les petites choses, que les autres trouveraient ennuyeuses","Ton regard sur le monde","La confiance que tu places en moi","La façon dont tu peux rire aux larmes, à en devenir rouge","Ton instinct et ton intuition toujours juste","Ta présence qui apaise","Tes mains qui font les meilleures papouilles du monde","Ton âme profonde, sincère","Ta façon de défendre ce qui compte pour toi","Ton sérieux quand il le faut","Ta légèreté qui me fait toujours passer à autre chose","Nos fous rires et nos moments hyper drôles","Tu es une merveilleuse grande sœur","Ton énergie solaire, contagieuse","La façon dont tu t'occupes de moi sans que je n'aie à le demander","Ton regard quand on fait crac-crac","Ton sens du respect et des valeurs","Ton amour pour le sommeil","\"J'aime ta musicalité\"","Ta capacité à continuer même quand c'est difficile","Tes convictions solides et tes prises de positions","Ta façon de choisir tes batailles","Tu me montres que la vulnérabilité est une forme de courage","La façon dont tu te souviens des détails qui compte en ayant une mémoire de poisson rouge","Ton empathie naturelle, envers tout et tout le monde","Ta façon de me surprendre encore","Ta capacité à t'émerveiller sur un petit insecte ou un papillon","Tu choisis la bonté même quand ce n'est pas le chemin le plus facile.","Ta façon de m'embrasser","Les choses que tu as traversé et que j'admire en silence.","Ta façon d'assumer qui tu es pleinement","Ton regard sur les étoiles, mon étoile","Ton rapport aux principes de la vie qui rejoignent les miens","Nos avis concordants sur tout, comme si c'était le destin","Tes larmes de joie, après un café le matin","Ta façon de défendre les tiens","Ton rapport à la famille","Ta générosité sans compter","Ton lyrisme, ma muse","Ton humilité sincère","Tu m'inspires : des mots, des poèmes.. des sites web","La vie a meilleur goût depuis que tu es là","Nos moments devant la mer, à parler","Comment t'es à l'aise même dans le silence avec moi","La façon dont tu dors hyper tôt, petite grand-mère","Parce que les trajets en voiture pour partir chez toi sont devenus mes moments préférés (et être chez toi du coup aussi)","Ta façon de pardonner, sans oublier ce qui importe","Parce que tu m'envoies 50 tiktok à longueur de soirée (et que je les regarde tous d'un coup)","C'est tellement mignon la façon dont tu n'arrives jamais à prendre une décision","Tu chantes comme un ange et je suis amoureuse de ta voix","Comment je te fais rire, même quand c'est absolument pas drôle","La chaleur que tu portes autour de toi, quand tu m'entoures d'un câlin","Ton côté Charlotte la fraise, toujours","Ta façon de faire du quotidien quelque chose de beau, même un mardi ordinaire","Tes petites habitudes que j'aime, de nos \"bonjour\" jusqu'à ta petite larmichette avant de dormir","La façon dont tu me racontes tes rêves à chaque fois","Ta façon de nous vivre pleinement, dans le présent","Ta façon de m'apprendre à ralentir et de m'éviter de trop m'avancer","Parce que tu gardes des choses significatives pour toi dans une boîte à souvenirs","La façon avec laquelle mes journées gravitent autour de toi","J'adore quand tu crois débiter et que tu perds tes mots","Tu as une mémoire des émotions que je trouve presque magique","Nos trajets en voiture, le soir, en journée, tous","Tes mains dans les miennes et tes doigts qui jouent avec les miens","Tu comprends les choses que je n'arrive pas à formuler","Ton amour de la musique","Nos discussions interminables sur le sexe","Nos passages constants de cap","Tes cheveux blonds, les boucles luxuriantes, toujours avec des antennes au vent","Tes fesses, tes cuisses, tes boobies, ta mâchoire, ton cou, ton dos, tes mains, TOUT ton corps","La façon dont tu gardes les souvenirs","Ton rapport à la vérité","Tes yeux verts (avec beaucoup de verts) qui brillent au soleil","J'adore te chatouiller (mais je me suis rendue compte que je pouvais te faire pleurer, nul)","La façon dont tu lis le tarot en y croyant spirituellement","Même nos signes astrologiques sont parfaits l'un pour l'autre","Ta façon de faire du yoga pour te reconnecter à la nature","Les qualités que tu ne vois pas encore chez toi mais je te répéterais à chaque fois","La façon dont tu m'as accepté, en prenant le risque sans demi-mesure (merci)","Ta grâce naturelle et ton élégance","Ta façon de fondre pendant nos câlins, je trouve ça trop mignon","Parce que tu n'as jamais de mal à tester de nouvelles choses en ma compagnie","Tu as des expressions à toi que j'ai commencé à utiliser sans m'en rendre compte (OUEEE)","Comment tu m'as mise à l'aise avec mon propre corps et ma capacité à recevoir","Le fait que tu ris de tes propres blagues avant même d'arriver à la chute (avec ton rire décalé en retard là)","Tes élans d'affection soudains, tes bisous soudains, tes mini-claques soudaines","Parce que tu m'as fait écouter et regarder des trucs auxquels je me serais jamais intéressée sans toi","Parce que je sais qu'on peut s'embrouiller sur un truc et que ça ne remet pas tout en question","Parce que tu corresponds parfaitement à ce que je recherche en terme de love language","Tes petits défauts que j'aime, j'aime tout de toi","T'es ma fleur, ma yasmina","Parce que tu me dis quand tu n'es pas d'accord, et je te fais confiance pour ça.","Parce que nous avons déjà des \"nous\" — des blagues à nous, des habitudes à nous, un monde à nous.","Ton rapport à l'amour (et comment tu me dis je t'aime)","Parce que je peux être malade, fatiguée, défaite — et tu me regardes pareil","Ton caractère trempé dans le feu doux","Parce que tu ne me fais pas sentir trop grande, trop petite, trop compliquée","Parce que je peux passer des heures à te regarder","Parce qu'avec toi, j'ai arrêté de me rétrécir","Ta façon de dire merci pour des choses insignifiantes, le minimum","Parce que tu penses à moi sans raison précise à 5h du matin","La façon dont tu me fais de la place — dans tes journées, dans tes pensées, dans tes plans","Dormir près de toi est une des choses les plus paisibles que je connaisse","Je m'endors en pensant à toi et je me réveille pareil","Comment nos nuits à parler jusqu'à l'aube ont compté parmi mes plus belles","Comment tu as tes peurs, tes doutes, tes cicatrices — et tu avances quand même","Comment tu t'autorises à être triste, et ça te rend humaine et vraie","Parce que tu finis parfois mes phrases et moi les tiennes","Comment nous pouvons passer des heures ensemble sans nous ennuyer","Comment on est à l'aise pour tout et c'est ce qui rend tout merveilleux avec toi","Ton rapport à ton corps et comment tu m'y autorises petit à petit","Parce que t'es mon meilleur coup, le meilleur sexe de ma vie","Parce que tous les critères de mon je t'aime sont atteints","Parce que je me retrouve rarement aussi obsédée par quelqu'un","Parce que tu m'apprends petit à petit à recevoir de l'amour sans m'excuser","La façon dont tu ES art et art est toi (reprends le dessin s'il te plaît)","Sans toi, mes journées n'ont pas de sens, pas de soleil","Parce que tu me montres que je mérite d'être choisie","Parce qu'aimer une femme, c'est aussi s'aimer un peu soi-même","Parce que je veux voyager avec toi","Parce que je veux encore plein de premières fois avec toi","Parce qu'il y a des choses entre nous que parfois seul le silence peut contenir","Ta façon d'habiter une pièce quand tu t'y trouves","Parce qu'il suffit que tu sois dans la même pièce pour que tout aille mieux","Ta voiture orange, faut pas l'oublier","Pour Baloo, Grizou et Pinky aussi","Ta façon de conserver des liens même quand les souvenirs ne sont pas heureux, car le sens du sacré prime chez toi","Ton rapport à l'amitié et comment tu gères les tiennes","Parce que je ne sais pas exactement quand je suis TOMBÉE AMOUREUSE de toi, et je trouve ça magnifique","Parce que tu es devenue une évidence","Parce que tu t'entends avec toutes les parties de mon entourage","Parce que je ne peux pas imaginer ne pas t'avoir rencontrée","J'aime ton rythme de vie, ton cadre de vie et je trouve ça super important","Ta façon de me faire des massages et de me craquer le dos","Parce que tu fais les meilleures papouilles au monde et que tu connais tous mes points faibles","Quand t'es un peu jalouse et je trouve ça trop sex","Comment tu me caches pas : tu m'aimes fort et tu l'assumes (ça me tient beaucoup à cœur)","Ta foi en les bonnes choses qui peuvent arriver et comment tu attires les énergies positives","Parce que je choisis de t'aimer chaque matin.","Parce que tu mérites d'être aimée comme tu aimes, avec toute la force et la passion qui va avec","Parce que je veux être cette personne pour toi, qui t'apporte du positif","Parce que rien de tout ça n'est parfait, et c'est parfait quand même","Tes petites habitudes de langage \"twerk, twin, REDBULL\", c'est trop mignon","La façon avec laquelle ta bizarrerie est magnifique et match parfaitement la mienne","Ton ironie douce et ton sarcasme bien placé","Ta façon de ne pas te prendre trop au sérieux","Tes moments d'enfance qui ressurgissent","La façon dont tu joues, de plus en plus souvent et j'adore ça","Ton imagination et je suis heureuse de voir que t'es à l'aise de l'exprimer avec moi","Parce que je n'ai pas fini de te découvrir, et cette idée me rend heureuse","Tes réactions totalement spontanées","La façon dont tu t'indigne pour les autres comme si c'était pour toi","Comment tu mets tes jambes sur les miennes quand on s'asseoit à côté","La magie qui passe entre nous le soir, en voiture, stationnée et que je ne comprends pas","Tes hésitations honnêtes et ta façon de prendre ton temps avec de trancher","La façon dont tu demandes pardon alors que t'as quand même rien fait","Ton rapport love/hate du soleil (je t'aime même cramée)","Ta façon d'écouter le vent comme une musique","Ton rapport mélancolique et tendre aux saisons","La manière dont tu évolues sans jamais trahir qui tu es","Ton besoin de liberté et la beauté avec laquelle tu la portes","Ta façon de toujours vouloir devenir une meilleure version de toi-même","Tes instants de lucidité qui me bouleversent parfois par leur justesse","La façon dont tu regardes par la fenêtre en voiture","Ton amour profond pour les langues, les nuances et les silences","Ta manière d'exister sans jamais être banale","Ton rire fatigué à la fin des longues journées","Tes pensées qui partent dans tous les sens et que j'écoute quand même jusqu'au bout","Ton air perdu quand tu réfléchis trop longtemps","Tes messages au milieu de la nuit que je relis encore le lendemain","Parce que tu parles à Pablo et que je ne sais pas ce que tu lui dis exactement","La façon dont tu existes un peu partout dans ma mémoire","Les secondes juste avant que tu éclates de rire","La façon dont tu existes pleinement dans chaque émotion","Les détails de toi que personne remarque autant que moi","Les moments où tu redeviens presque enfant sans t'en rendre compte","Ta présence qui reste longtemps même après ton départ","Parce que je t'aime — simplement, profondément, pour toutes ces raisons et pour toutes celles que je n'ai pas encore de mots pour dire."];
   const grid=document.getElementById('stars-grid'),ctr=document.getElementById('counter');let found=new Set(progress.r);
-  for(let i=0;i<200;i++){const b=document.createElement('button');b.className='star-btn'+(found.has(i)?' found':'');b.setAttribute('aria-label','Raison numéro '+(i+1));b.innerHTML='<span class="s-num">'+(i+1)+'</span><span class="star-glyph">✦</span>';b.addEventListener('click',()=>{if(!found.has(i)){found.add(i);b.classList.add('found');progress.r=Array.from(found);saveProgress();ctr.textContent=found.size+' / 200 découvertes';}openModal('Raison n° '+(i+1),raisons[i]||'Cette raison est trop précieuse pour des mots.');});grid.appendChild(b);}
+  for(let i=0;i<200;i++){const b=document.createElement('button');b.className='star-btn'+(found.has(i)?' found':'');b.setAttribute('aria-label','Raison numéro '+(i+1));b.innerHTML='<span class="s-num">'+(i+1)+'</span><span class="star-glyph">✦</span>';b.addEventListener('click',()=>{if(!found.has(i)){found.add(i);b.classList.add('found');progress.r=Array.from(found);saveProgress();ctr.textContent=found.size+' / 200 découvertes';if(found.size===200){setTimeout(showSurprise,400);}}openModal('Raison n° '+(i+1),raisons[i]||'Cette raison est trop précieuse pour des mots.');});grid.appendChild(b);}
   ctr.textContent=found.size+' / 200 découvertes';
+
+  // SURPRISE 200
+  const surpriseOverlay = document.getElementById('surprise-overlay');
+  const surpriseClose = document.getElementById('surprise-close');
+  const surpriseCanvas = document.getElementById('surprise-canvas');
+  const sc = surpriseCanvas.getContext('2d');
+  let shootingStars = [];
+
+  function showSurprise(){
+    // Ferme le modal d'abord
+    ov.classList.remove('open');
+    document.body.style.overflow = 'hidden';
+    surpriseOverlay.classList.add('open');
+    surpriseCanvas.width = innerWidth;
+    surpriseCanvas.height = innerHeight;
+    shootingStars = [];
+    for(let i=0;i<18;i++){
+      setTimeout(()=>{
+        shootingStars.push({
+          x: Math.random()*innerWidth*0.8,
+          y: Math.random()*innerHeight*0.4,
+          len: Math.random()*120+60,
+          speed: Math.random()*6+4,
+          alpha: 1,
+          angle: Math.PI/4 + (Math.random()-0.5)*0.3
+        });
+      }, i*180);
+    }
+    animateSurprise();
+  }
+
+  function animateSurprise(){
+    if(!surpriseOverlay.classList.contains('open')) return;
+    sc.clearRect(0,0,surpriseCanvas.width,surpriseCanvas.height);
+    shootingStars.forEach((s,idx)=>{
+      s.x += Math.cos(s.angle)*s.speed;
+      s.y += Math.sin(s.angle)*s.speed;
+      s.alpha -= 0.012;
+      if(s.alpha <= 0) return;
+      sc.save();
+      sc.globalAlpha = s.alpha;
+      const grad = sc.createLinearGradient(s.x,s.y,s.x-Math.cos(s.angle)*s.len,s.y-Math.sin(s.angle)*s.len);
+      grad.addColorStop(0,'rgba(212,201,176,0.9)');
+      grad.addColorStop(1,'rgba(212,201,176,0)');
+      sc.strokeStyle = grad;
+      sc.lineWidth = 1.2;
+      sc.beginPath();
+      sc.moveTo(s.x,s.y);
+      sc.lineTo(s.x-Math.cos(s.angle)*s.len,s.y-Math.sin(s.angle)*s.len);
+      sc.stroke();
+      sc.restore();
+    });
+    shootingStars = shootingStars.filter(s=>s.alpha>0);
+    // Relance des étoiles filantes en boucle
+    if(shootingStars.length < 3){
+      shootingStars.push({
+        x: Math.random()*innerWidth*0.7,
+        y: Math.random()*innerHeight*0.35,
+        len: Math.random()*120+60,
+        speed: Math.random()*5+4,
+        alpha: 1,
+        angle: Math.PI/4+(Math.random()-0.5)*0.3
+      });
+    }
+    requestAnimationFrame(animateSurprise);
+  }
+
+  surpriseClose.addEventListener('click',()=>{
+    surpriseOverlay.classList.remove('open');
+    document.body.style.overflow='';
+  });
 
   // ── TODO ──
   // Categories de base dans le code (toi tu modifies ça)
@@ -576,6 +715,11 @@ function initApp(){
   let todoState = {};
   try { const s = localStorage.getItem(TODO_KEY); if(s) todoState = JSON.parse(s); } catch(e){}
   function saveTodo(){ localStorage.setItem(TODO_KEY, JSON.stringify(todoState)); }
+
+  const TODO_DELETED_KEY = 'charlotte_todo_deleted';
+  let deletedItems = {};
+  try { const s = localStorage.getItem(TODO_DELETED_KEY); if(s) deletedItems = JSON.parse(s); } catch(e){}
+  function saveDeleted(){ localStorage.setItem(TODO_DELETED_KEY, JSON.stringify(deletedItems)); }
 
   const todoListEl = document.getElementById('todo-list');
   const todoCount = document.getElementById('todo-count');
@@ -660,8 +804,9 @@ function initApp(){
     // Items existants
     cat.items.forEach((item, ii) => {
       const key = ci + '-' + ii;
+      if(deletedItems[key]) return; // skip deleted
       totalItems++;
-      appendItem(catEl, addForm, item, key, isCustom);
+      appendItem(catEl, addForm, item, key, true);
     });
 
     todoListEl.appendChild(catEl);
@@ -681,7 +826,9 @@ function initApp(){
       delBtn.addEventListener('click', e => {
         e.stopPropagation();
         delete todoState[key];
+        deletedItems[key] = true;
         saveTodo();
+        saveDeleted();
         row.remove();
         totalItems = Math.max(0, totalItems - 1);
         updateProgress();
