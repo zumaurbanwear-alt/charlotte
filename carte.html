@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notre Carte</title>
+<link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+<link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1C1410;--bg2:#231A13;--bg3:#2E2018;
+  --cream:#F2EAD8;--cream2:#D9CEBC;
+  --brown:#7A7870;--brown-light:#D4C9B0;
+  --text:#F2EAD8;--muted:#8A8880;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;overflow:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(28,20,16,0.95),transparent);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--brown-light);text-decoration:none;opacity:0.8;}
+.nav-back{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.35em;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--cream);}
+.nav-add-btn{font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.3em;color:var(--muted);background:none;border:1px solid rgba(180,170,155,0.2);padding:0.4rem 1rem;cursor:pointer;transition:all 0.2s;}
+.nav-add-btn:hover,.nav-add-btn.active{color:var(--cream);border-color:rgba(180,170,155,0.5);}
+
+/* MAP CONTAINER */
+#map-wrap{position:fixed;inset:0;z-index:1;overflow:hidden;}
+#map-svg{width:100%;height:100%;cursor:default;}
+#map-svg.adding{cursor:crosshair;}
+
+/* CARTE TITLE */
+.map-title{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;text-align:center;pointer-events:none;}
+.map-title h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,3vw,1.4rem);letter-spacing:0.4em;color:var(--cream);opacity:0.15;}
+
+/* ADD MODE HINT */
+#add-hint{position:fixed;top:5rem;left:50%;transform:translateX(-50%);z-index:20;font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.4em;color:var(--brown-light);opacity:0.8;background:rgba(28,20,16,0.9);padding:0.5rem 1.2rem;border:1px solid rgba(180,170,155,0.2);display:none;}
+#add-hint.show{display:block;}
+
+/* PIN POPUP */
+#pin-popup{
+  position:fixed;z-index:100;
+  background:var(--bg2);
+  border:1px solid rgba(180,170,155,0.22);
+  padding:1.5rem;
+  width:260px;
+  display:none;
+  pointer-events:all;
+}
+#pin-popup.show{display:block;}
+.popup-name{font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.3em;color:var(--brown-light);margin-bottom:0.3rem;}
+.popup-text{font-size:0.95rem;font-style:italic;color:var(--cream2);line-height:1.7;font-weight:300;}
+.popup-delete{font-family:'Bebas Neue',sans-serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--muted);background:none;border:none;cursor:pointer;margin-top:1rem;display:block;transition:color 0.2s;}
+.popup-delete:hover{color:var(--cream);}
+.popup-close{position:absolute;top:0.6rem;right:0.8rem;font-family:'Bebas Neue',sans-serif;font-size:0.6rem;color:var(--muted);background:none;border:none;cursor:pointer;}
+.popup-close:hover{color:var(--cream);}
+
+/* ADD FORM MODAL */
+#add-modal{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,7,4,0.88);
+  backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;
+  padding:2rem;
+}
+#add-modal.show{display:flex;}
+#add-form{
+  background:var(--bg2);
+  border:1px solid rgba(180,170,155,0.2);
+  padding:2.5rem;
+  width:100%;max-width:400px;
+}
+.form-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.3em;color:var(--cream);margin-bottom:2rem;}
+.form-group{margin-bottom:1.2rem;}
+.form-label{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.4em;color:var(--muted);opacity:0.7;display:block;margin-bottom:0.5rem;}
+.form-input,.form-textarea{
+  width:100%;background:rgba(255,255,255,0.03);
+  border:none;border-bottom:1px solid rgba(180,170,155,0.2);
+  padding:0.5rem 0.2rem;color:var(--cream);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;outline:none;transition:border-color 0.2s;
+}
+.form-textarea{resize:none;height:80px;border:1px solid rgba(180,170,155,0.2);padding:0.5rem;margin-top:0.2rem;}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--muted);opacity:0.4;}
+.form-input:focus,.form-textarea:focus{border-color:rgba(180,170,155,0.5);}
+.form-actions{display:flex;gap:1rem;margin-top:2rem;}
+.form-submit{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:0.4em;color:var(--cream);background:none;border:1px solid rgba(180,170,155,0.3);padding:0.7rem 1.5rem;cursor:pointer;transition:all 0.2s;flex:1;}
+.form-submit:hover{background:rgba(180,170,155,0.08);border-color:rgba(180,170,155,0.6);}
+.form-cancel{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:0.4em;color:var(--muted);background:none;border:none;cursor:pointer;padding:0.7rem 1rem;transition:color 0.2s;}
+.form-cancel:hover{color:var(--cream);}
+
+/* STARFIELD */
+#starfield{position:fixed;inset:0;pointer-events:none;z-index:0;}
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a class="nav-logo" href="index.html">✦ Explorer</a>
+  <div style="display:flex;gap:1.2rem;align-items:center;">
+    <button class="nav-add-btn" id="nav-add-btn">+ Ajouter un lieu</button>
+    <a class="nav-back" href="index.html">← Retour</a>
+  </div>
+</nav>
+
+<div id="add-hint" class="show" style="display:none;">Appuie sur la carte pour placer un pin ✦</div>
+
+<div id="map-wrap">
+<svg id="map-svg" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <!-- FOND MER / OCÉAN ATLANTIQUE -->
+  <rect width="1000" height="800" fill="#0D0F14"/>
+
+  <!-- MASSE TERRESTRE CASABLANCA - forme générale -->
+  <!-- Zone principale urbaine -->
+  <path d="M120,0 L1000,0 L1000,800 L120,800 L100,750 L90,700 L85,650 L82,600 L80,550 L82,500 L88,450 L95,400 L100,350 L105,300 L108,250 L112,200 L115,150 L118,100 Z" fill="#1E1812"/>
+
+  <!-- Côte Atlantique - détails -->
+  <path d="M120,0 L118,100 L115,150 L112,200 L108,250 L105,300 L100,350 L95,400 L88,450 L82,500 L80,550 L82,600 L85,650 L90,700 L100,750 L120,800" fill="none" stroke="rgba(180,170,155,0.15)" stroke-width="1.5"/>
+
+  <!-- Vagues océan subtiles -->
+  <path d="M20,200 Q50,190 80,200 Q110,210 140,200" fill="none" stroke="rgba(140,160,180,0.08)" stroke-width="1"/>
+  <path d="M10,350 Q45,338 75,350 Q105,362 130,350" fill="none" stroke="rgba(140,160,180,0.06)" stroke-width="1"/>
+  <path d="M15,500 Q50,488 82,500 Q110,512 130,500" fill="none" stroke="rgba(140,160,180,0.07)" stroke-width="1"/>
+
+  <!-- Label OCÉAN ATLANTIQUE -->
+  <text x="50" y="400" font-family="'Cormorant Garamond',serif" font-size="11" fill="rgba(140,160,180,0.2)" font-style="italic" text-anchor="middle" transform="rotate(-90,50,400)">Océan Atlantique</text>
+
+  <!-- QUARTIERS / ZONES PRINCIPALES -->
+
+  <!-- Ain Diab / Corniche (zone côtière ouest) -->
+  <path d="M120,380 L200,370 L220,400 L210,450 L180,460 L130,450 L110,420 Z" fill="#241C15" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="165" y="415" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.25)" letter-spacing="2" text-anchor="middle">AIN DIAB</text>
+
+  <!-- Maarif -->
+  <path d="M280,300 L380,290 L400,340 L380,380 L300,390 L270,360 L265,320 Z" fill="#221A13" stroke="rgba(180,170,155,0.07)" stroke-width="0.5"/>
+  <text x="335" y="342" font-family="'Bebas Neue',sans-serif" font-size="8" fill="rgba(212,201,176,0.25)" letter-spacing="2" text-anchor="middle">MAARIF</text>
+
+  <!-- Centre Ville / Médina -->
+  <path d="M350,200 L480,190 L510,230 L500,290 L460,310 L380,300 L340,260 L330,220 Z" fill="#241B14" stroke="rgba(180,170,155,0.09)" stroke-width="0.5"/>
+  <text x="420" y="252" font-family="'Bebas Neue',sans-serif" font-size="8.5" fill="rgba(212,201,176,0.3)" letter-spacing="2" text-anchor="middle">CENTRE VILLE</text>
+
+  <!-- Médina (zone plus ancienne) -->
+  <path d="M310,160 L380,155 L390,200 L360,220 L310,215 L295,185 Z" fill="#1F1810" stroke="rgba(180,170,155,0.08)" stroke-width="0.5"/>
+  <text x="343" y="190" font-family="'Bebas Neue',sans-serif" font-size="7" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">MÉDINA</text>
+
+  <!-- Anfa -->
+  <path d="M200,280 L290,270 L305,310 L295,360 L240,375 L195,355 L185,315 Z" fill="#201910" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="248" y="325" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="2" text-anchor="middle">ANFA</text>
+
+  <!-- Oasis / Riviera -->
+  <path d="M420,320 L510,310 L530,355 L512,400 L445,412 L415,385 L412,342 Z" fill="#1F1811" stroke="rgba(180,170,155,0.07)" stroke-width="0.5"/>
+  <text x="470" y="362" font-family="'Bebas Neue',sans-serif" font-size="7" fill="rgba(212,201,176,0.22)" letter-spacing="1.5" text-anchor="middle">OASIS</text>
+
+  <!-- Sidi Maârouf / Technopark -->
+  <path d="M450,380 L560,370 L580,420 L565,470 L480,480 L440,450 L435,405 Z" fill="#1E1812" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="510" y="427" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">SIDI MAÂROUF</text>
+
+  <!-- Hay Hassani -->
+  <path d="M300,450 L430,440 L445,490 L430,540 L350,555 L290,530 L280,490 Z" fill="#1E1812" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="363" y="498" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">HAY HASSANI</text>
+
+  <!-- Oulfa / Lahraouiyine (zone sud) -->
+  <path d="M280,560 L430,550 L450,610 L435,660 L360,675 L280,650 L265,600 Z" fill="#1D1711" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="360" y="615" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">OULFA</text>
+
+  <!-- Dar Bouazza (zone sud-ouest côtière) -->
+  <path d="M120,560 L260,550 L275,600 L265,660 L200,680 L130,660 L108,620 Z" fill="#1C1710" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="193" y="618" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">DAR BOUAZZA</text>
+
+  <!-- Casa Port / Zone industrielle nord -->
+  <path d="M380,100 L520,95 L540,145 L520,190 L450,195 L380,185 L360,145 Z" fill="#1D1811" stroke="rgba(180,170,155,0.07)" stroke-width="0.5"/>
+  <text x="452" y="148" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">CASA PORT</text>
+
+  <!-- Ain Sebaa / Est -->
+  <path d="M600,180 L750,170 L770,230 L750,280 L660,295 L590,275 L575,220 Z" fill="#1D1811" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="675" y="235" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">AÏN SÉBAÂ</text>
+
+  <!-- Bernoussi / Ben Msik -->
+  <path d="M600,300 L730,285 L755,340 L740,395 L660,410 L590,390 L575,340 Z" fill="#1C1710" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="665" y="350" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.2)" letter-spacing="1.5" text-anchor="middle">BEN MSIK</text>
+
+  <!-- Sidi Maarouf extension / Californie -->
+  <path d="M600,420 L730,408 L750,460 L730,510 L650,525 L585,505 L575,455 Z" fill="#1C1710" stroke="rgba(180,170,155,0.06)" stroke-width="0.5"/>
+  <text x="663" y="467" font-family="'Bebas Neue',sans-serif" font-size="7" fill="rgba(212,201,176,0.18)" letter-spacing="1.5" text-anchor="middle">CALIFORNIE</text>
+
+  <!-- Lissasfa -->
+  <path d="M460,540 L590,530 L605,580 L590,630 L510,645 L450,625 L440,575 Z" fill="#1C1710" stroke="rgba(180,170,155,0.05)" stroke-width="0.5"/>
+  <text x="525" y="590" font-family="'Bebas Neue',sans-serif" font-size="7" fill="rgba(212,201,176,0.18)" letter-spacing="1.5" text-anchor="middle">LISSASFA</text>
+
+  <!-- Bouskoura / Sud -->
+  <path d="M620,580 L760,565 L780,625 L760,675 L680,690 L615,670 L600,620 Z" fill="#1B1610" stroke="rgba(180,170,155,0.05)" stroke-width="0.5"/>
+  <text x="690" y="630" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="rgba(212,201,176,0.18)" letter-spacing="1.5" text-anchor="middle">BOUSKOURA</text>
+
+  <!-- ROUTES PRINCIPALES -->
+
+  <!-- Boulevard Mohammed V (axe central) -->
+  <line x1="310" y1="180" x2="560" y2="260" stroke="rgba(212,201,176,0.12)" stroke-width="2.5"/>
+  <text x="430" y="215" font-family="'Cormorant Garamond',serif" font-size="7" fill="rgba(212,201,176,0.18)" font-style="italic" text-anchor="middle" transform="rotate(20,430,215)">Bd Mohammed V</text>
+
+  <!-- Autoroute Casa-Rabat (nord) -->
+  <path d="M500,100 L600,105 L700,115 L820,130 L900,145" fill="none" stroke="rgba(212,201,176,0.1)" stroke-width="3" stroke-dasharray="8,4"/>
+
+  <!-- Autoroute Casa-Marrakech (sud-est) -->
+  <path d="M550,480 L650,530 L750,590 L840,660 L900,720" fill="none" stroke="rgba(212,201,176,0.1)" stroke-width="3" stroke-dasharray="8,4"/>
+
+  <!-- Route côtière (Corniche) -->
+  <path d="M110,380 L130,400 L145,430 L148,460 L140,500 L128,540 L118,580 L112,620 L108,660" fill="none" stroke="rgba(212,201,176,0.12)" stroke-width="1.5"/>
+  <text x="88" y="500" font-family="'Cormorant Garamond',serif" font-size="6.5" fill="rgba(212,201,176,0.15)" font-style="italic" text-anchor="middle" transform="rotate(-80,88,500)">Corniche</text>
+
+  <!-- Boulevard Zerktouni -->
+  <path d="M250,310 L420,295 L520,310 L580,330" fill="none" stroke="rgba(212,201,176,0.1)" stroke-width="2"/>
+
+  <!-- Avenue Hassan II -->
+  <path d="M360,200 L380,280 L390,360 L380,450 L360,530" fill="none" stroke="rgba(212,201,176,0.09)" stroke-width="1.8"/>
+
+  <!-- Périphérique / ceinture -->
+  <path d="M520,120 L620,140 L700,180 L760,250 L780,340 L770,430 L740,510 L690,570 L630,620 L560,650 L480,660 L400,650 L330,630 L280,590 L255,550 L248,490 L260,430 L290,370 L340,315 L400,285 L470,255 L520,230" fill="none" stroke="rgba(212,201,176,0.07)" stroke-width="1.5" stroke-dasharray="5,5"/>
+
+  <!-- Quelques rues secondaires -->
+  <line x1="300" y1="300" x2="300" y2="450" stroke="rgba(212,201,176,0.06)" stroke-width="1"/>
+  <line x1="420" y1="280" x2="420" y2="480" stroke="rgba(212,201,176,0.06)" stroke-width="1"/>
+  <line x1="550" y1="250" x2="550" y2="480" stroke="rgba(212,201,176,0.06)" stroke-width="1"/>
+  <line x1="200" y1="350" x2="560" y2="350" stroke="rgba(212,201,176,0.06)" stroke-width="1"/>
+  <line x1="200" y1="430" x2="560" y2="430" stroke="rgba(212,201,176,0.06)" stroke-width="1"/>
+
+  <!-- POINTS D'INTÉRÊT FIXES -->
+
+  <!-- Hassan II Mosquée (icône) -->
+  <circle cx="190" cy="260" r="5" fill="rgba(212,201,176,0.15)" stroke="rgba(212,201,176,0.3)" stroke-width="0.8"/>
+  <text x="190" y="252" font-family="'Cormorant Garamond',serif" font-size="6.5" fill="rgba(212,201,176,0.25)" text-anchor="middle" font-style="italic">Mosquée Hassan II</text>
+
+  <!-- Port -->
+  <rect x="265" y="120" width="40" height="25" fill="rgba(212,201,176,0.04)" stroke="rgba(212,201,176,0.1)" stroke-width="0.8"/>
+  <text x="285" y="135" font-family="'Cormorant Garamond',serif" font-size="6" fill="rgba(212,201,176,0.2)" text-anchor="middle" font-style="italic">Port</text>
+
+  <!-- Aéroport (loin à droite) -->
+  <rect x="850" y="300" width="50" height="35" rx="3" fill="rgba(212,201,176,0.03)" stroke="rgba(212,201,176,0.08)" stroke-width="0.8"/>
+  <text x="875" y="320" font-family="'Bebas Neue',sans-serif" font-size="6.5" fill="rgba(212,201,176,0.2)" text-anchor="middle" letter-spacing="1">AÉROPORT</text>
+
+  <!-- BOUSSOLE -->
+  <g transform="translate(930,680)">
+    <circle cx="0" cy="0" r="18" fill="rgba(28,20,16,0.8)" stroke="rgba(180,170,155,0.2)" stroke-width="0.8"/>
+    <line x1="0" y1="-12" x2="0" y2="12" stroke="rgba(212,201,176,0.3)" stroke-width="0.8"/>
+    <line x1="-12" y1="0" x2="12" y2="0" stroke="rgba(212,201,176,0.3)" stroke-width="0.8"/>
+    <text x="0" y="-15" font-family="'Bebas Neue',sans-serif" font-size="8" fill="rgba(212,201,176,0.5)" text-anchor="middle">N</text>
+    <text x="0" y="22" font-family="'Bebas Neue',sans-serif" font-size="7" fill="rgba(212,201,176,0.25)" text-anchor="middle">S</text>
+    <text x="16" y="3" font-family="'Bebas Neue',sans-serif" font-size="7" fill="rgba(212,201,176,0.25)" text-anchor="middle">E</text>
+    <text x="-16" y="3" font-family="'Bebas Neue',sans-serif" font-size="7" fill="rgba(212,201,176,0.25)" text-anchor="middle">O</text>
+  </g>
+
+  <!-- Légende -->
+  <rect x="20" y="700" width="160" height="70" rx="2" fill="rgba(28,20,16,0.7)" stroke="rgba(180,170,155,0.1)" stroke-width="0.5"/>
+  <text x="30" y="718" font-family="'Bebas Neue',sans-serif" font-size="6.5" fill="rgba(212,201,176,0.35)" letter-spacing="2">CASABLANCA</text>
+  <line x1="30" y1="724" x2="170" y2="724" stroke="rgba(180,170,155,0.15)" stroke-width="0.5"/>
+  <line x1="30" y1="735" x2="55" y2="735" stroke="rgba(212,201,176,0.3)" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="60" y="738" font-family="'Cormorant Garamond',serif" font-size="7" fill="rgba(212,201,176,0.3)" font-style="italic">Autoroute</text>
+  <circle cx="38" cy="752" r="3" fill="rgba(212,201,176,0.5)" stroke="rgba(212,201,176,0.8)" stroke-width="0.8"/>
+  <text x="47" y="755" font-family="'Cormorant Garamond',serif" font-size="7" fill="rgba(212,201,176,0.3)" font-style="italic">Nos lieux</text>
+
+  <!-- GROUPE DES PINS (dynamique) -->
+  <g id="pins-layer"></g>
+
+</svg>
+</div>
+
+<!-- HINT -->
+<div id="add-hint">Appuie sur la carte pour placer un pin ✦</div>
+
+<!-- POPUP PIN -->
+<div id="pin-popup">
+  <button class="popup-close" id="popup-close">✕</button>
+  <p class="popup-name" id="popup-name"></p>
+  <p class="popup-text" id="popup-text"></p>
+  <button class="popup-delete" id="popup-delete">✕ Supprimer ce lieu</button>
+</div>
+
+<!-- MODAL AJOUT -->
+<div id="add-modal">
+  <div id="add-form">
+    <p class="form-title">Nouveau lieu ✦</p>
+    <div class="form-group">
+      <label class="form-label">Nom du lieu</label>
+      <input class="form-input" id="form-name" type="text" placeholder="ex: La plage, Chez toi..."/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Note (optionnel)</label>
+      <textarea class="form-textarea" id="form-text" placeholder="Un souvenir, une anecdote..."></textarea>
+    </div>
+    <div class="form-actions">
+      <button class="form-submit" id="form-submit">Placer ✦</button>
+      <button class="form-cancel" id="form-cancel">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="map-title"><h1>NOTRE CASABLANCA</h1></div>
+
+<script>
+const PINS_KEY = 'charlotte_carte_pins';
+
+// STARFIELD
+const cv = document.createElement('canvas');
+cv.id = 'starfield';
+cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:0;';
+document.body.prepend(cv);
+const cx = cv.getContext('2d');
+let ST = [];
+function rsz(){ cv.width = innerWidth; cv.height = innerHeight; }
+function mkStars(){
+  ST = [];
+  for(let i=0;i<120;i++){
+    ST.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*0.8+0.1,a:Math.random()*Math.PI*2,sp:(Math.random()*0.001+0.0003)*(Math.random()<0.5?1:-1),maxA:Math.random()*0.3+0.05});
+  }
+}
+function drawStars(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  ST.forEach(s=>{s.a+=s.sp;const al=(Math.sin(s.a)*0.5+0.5)*s.maxA+0.02;cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=`rgba(235,232,228,${al})`;cx.fill();});
+  requestAnimationFrame(drawStars);
+}
+rsz();mkStars();drawStars();
+window.addEventListener('resize',()=>{rsz();mkStars();});
+
+// PINS DATA
+// Coordonnées SVG (viewBox 1000x800)
+// Dar Bouazza: zone sud-ouest côtière ~ x:185, y:620
+// Fac Taieb Naciri: Hay Hassani ~ x:360, y:498
+// Plage Madame Choual: côte ~ x:122, y:490
+// Pathé: Maarif ~ x:335, y:342
+
+let pins = [];
+try { const s = localStorage.getItem(PINS_KEY); if(s) pins = JSON.parse(s); } catch(e){}
+
+// Pins de départ (ajoutés si vide)
+const defaultPins = [
+  { id: 'p0', x: 185, y: 625, name: 'Chez Charlotte', text: '', fixed: true },
+  { id: 'p1', x: 360, y: 498, name: 'La grande fac', text: '', fixed: true },
+  { id: 'p2', x: 122, y: 488, name: 'Notre spot', text: '', fixed: true },
+  { id: 'p3', x: 335, y: 342, name: 'Pathé', text: '', fixed: true },
+  { id: 'p4', x: 468, y: 358, name: 'Billard', text: '', fixed: true },
+  { id: 'p5', x: 248, y: 325, name: 'Anfa Park', text: '', fixed: true },
+];
+const existingIds = pins.map(p => p.id);
+const missingDefaults = defaultPins.filter(p => !existingIds.includes(p.id));
+if(pins.length === 0){
+  pins = [...defaultPins];
+} else if(missingDefaults.length > 0){
+  pins = [...missingDefaults, ...pins];
+}
+savePins();
+
+function savePins(){ localStorage.setItem(PINS_KEY, JSON.stringify(pins)); }
+
+// RENDER PINS
+const pinsLayer = document.getElementById('pins-layer');
+const svg = document.getElementById('map-svg');
+
+function renderPins(){
+  pinsLayer.innerHTML = '';
+  pins.forEach((p, idx) => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','pin-group');
+    g.style.cursor = 'pointer';
+
+    // Pin shadow
+    const shadow = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    shadow.setAttribute('cx', p.x);
+    shadow.setAttribute('cy', p.y + 2);
+    shadow.setAttribute('rx', '5');
+    shadow.setAttribute('ry', '2');
+    shadow.setAttribute('fill','rgba(0,0,0,0.3)');
+    g.appendChild(shadow);
+
+    // Pin body (épingle)
+    const pinBody = document.createElementNS('http://www.w3.org/2000/svg','path');
+    // Forme d'épingle : cercle en haut, pointe en bas
+    const px = p.x, py = p.y;
+    pinBody.setAttribute('d', `M${px},${py-18} m-6,0 a6,6 0 1,1 12,0 Q${px+6},${py-8} ${px},${py} Q${px-6},${py-8} ${px-6},${py-12} Z`);
+    pinBody.setAttribute('fill','rgba(212,201,176,0.85)');
+    pinBody.setAttribute('stroke','rgba(212,201,176,1)');
+    pinBody.setAttribute('stroke-width','0.5');
+    g.appendChild(pinBody);
+
+    // Point central du pin
+    const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('cx', px);
+    dot.setAttribute('cy', py - 18);
+    dot.setAttribute('r', '2.5');
+    dot.setAttribute('fill','rgba(28,20,16,0.8)');
+    g.appendChild(dot);
+
+    // Label
+    const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+    label.setAttribute('x', px + 10);
+    label.setAttribute('y', py - 14);
+    label.setAttribute('font-family',"'Bebas Neue',sans-serif");
+    label.setAttribute('font-size','8');
+    label.setAttribute('fill','rgba(212,201,176,0.7)');
+    label.setAttribute('letter-spacing','1');
+    label.textContent = p.name.toUpperCase().substring(0,22) + (p.name.length > 22 ? '...' : '');
+    g.appendChild(label);
+
+    g.addEventListener('click', (e) => { e.stopPropagation(); showPopup(p, idx, e); });
+    pinsLayer.appendChild(g);
+  });
+}
+renderPins();
+
+// POPUP
+const popup = document.getElementById('pin-popup');
+const popupName = document.getElementById('popup-name');
+const popupText = document.getElementById('popup-text');
+const popupDelete = document.getElementById('popup-delete');
+const popupClose = document.getElementById('popup-close');
+let activeIdx = -1;
+
+function showPopup(p, idx, e){
+  activeIdx = idx;
+  popupName.textContent = p.name;
+  popupText.textContent = p.text || '— aucune note —';
+  // Position
+  const vw = window.innerWidth, vh = window.innerHeight;
+  let left = e.clientX + 15, top = e.clientY - 20;
+  if(left + 280 > vw) left = e.clientX - 275;
+  if(top + 150 > vh) top = vh - 160;
+  popup.style.left = left + 'px';
+  popup.style.top = top + 'px';
+  popup.classList.add('show');
+}
+popupClose.addEventListener('click', () => popup.classList.remove('show'));
+popupDelete.addEventListener('click', () => {
+  if(activeIdx < 0) return;
+  pins.splice(activeIdx, 1);
+  savePins();
+  renderPins();
+  popup.classList.remove('show');
+});
+document.getElementById('map-wrap').addEventListener('click', () => popup.classList.remove('show'));
+
+// ADD MODE
+const addBtn = document.getElementById('nav-add-btn');
+const addHint = document.getElementById('add-hint');
+const addModal = document.getElementById('add-modal');
+const formName = document.getElementById('form-name');
+const formText = document.getElementById('form-text');
+const formSubmit = document.getElementById('form-submit');
+const formCancel = document.getElementById('form-cancel');
+let addMode = false;
+let pendingCoords = null;
+
+addBtn.addEventListener('click', () => {
+  addMode = !addMode;
+  addBtn.classList.toggle('active', addMode);
+  addHint.classList.toggle('show', addMode);
+  svg.classList.toggle('adding', addMode);
+});
+
+svg.addEventListener('click', (e) => {
+  if(!addMode) return;
+  // Convertir coords écran → SVG viewBox
+  const rect = svg.getBoundingClientRect();
+  const scaleX = 1000 / rect.width;
+  const scaleY = 800 / rect.height;
+  const svgX = (e.clientX - rect.left) * scaleX;
+  const svgY = (e.clientY - rect.top) * scaleY;
+  pendingCoords = { x: Math.round(svgX), y: Math.round(svgY) };
+  formName.value = '';
+  formText.value = '';
+  addModal.classList.add('show');
+  setTimeout(() => formName.focus(), 100);
+});
+
+formSubmit.addEventListener('click', () => {
+  const name = formName.value.trim();
+  if(!name || !pendingCoords) return;
+  pins.push({ id: 'p'+ Date.now(), x: pendingCoords.x, y: pendingCoords.y, name, text: formText.value.trim() });
+  savePins();
+  renderPins();
+  addModal.classList.remove('show');
+  addMode = false;
+  addBtn.classList.remove('active');
+  addHint.classList.remove('show');
+  svg.classList.remove('adding');
+});
+
+formCancel.addEventListener('click', () => { addModal.classList.remove('show'); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape'){ addModal.classList.remove('show'); popup.classList.remove('show'); }});
+</script>
+</body>
+</html>
