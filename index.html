@@ -727,7 +727,7 @@ function initApp(){
   });
 
   // ── TODO ──
-  // Categories de base dans le code (toi tu modifies ça)
+  // Categories de base dans le code
   const baseCats = [
     { title: '✦ Random à faire', items: ["Meilleure librairie de Casa","Les autres Oracles","Magasin vintage","La grotte d'Ali Baba","Concept store","Billard","Prendre le tram","Massages","Le meilleur câlin du monde","Un film dans la voiture","Pottery painting","Karting","Apprendre à fabriquer les fleurs","Tous les films Stitch","Barbie (finir Barbie...)","Bowling","Moonlamp","Petites voitures pour les gosses","Journée Spa","Le truc des bisous rouge à lèvres","Flower walk","Aller au souk"]},
     { title: '✦ Manger', items: ["Glacier Baggli","Chez Aicha la vietnamienne","Loqma","Miga","Picks","Pizza Di Papi","Chocochino","Frita guy","Pancakes and waffle","Sushi Hiro","Rosanne","Nelly Burger","Sora Sushi","Route Us","Sea food boil","Loony"]},
@@ -885,7 +885,7 @@ function initApp(){
   }
   updateProgress();
 
-  // CE SOIR ON FAIT QUOI
+  // ON FAIT QUOI
   const pickerBtn = document.getElementById('todo-picker-btn');
   const pickerResult = document.getElementById('todo-picker-result');
 
@@ -899,7 +899,7 @@ function initApp(){
       });
     });
     if(available.length === 0){
-      pickerResult.textContent = 'Vous avez tout fait ! 🎉';
+      pickerResult.textContent = 'On a tout fait !';
       return;
     }
     pickerResult.style.opacity = '0';
@@ -953,8 +953,8 @@ function initApp(){
   const LETTRES_KEY = 'charlotte_lettres';
 
   // ════════════════════════════════════════
-  // AJOUTE TES LETTRES ICI
-  // Pour chaque lettre : { title: "Lettre n° X", text: `ton texte ici` }
+  // AJOUTER LETTRES ICI
+  // Pour chaque lettre : { title: "Lettre n° X", text: `texte ici` }
   const lettres = [
     {
       title: "Lettre n° 1",
@@ -968,10 +968,10 @@ Je ne sais pas exactement ce que je t'écrirai. Peut-être des choses que j'obse
 
 Considère cet endroit comme ma façon de continuer à te choisir, même dans le silence.`
     },
-    // ── LETTRE 2 ── (décommente et remplis quand tu es prête)
+    // ── LETTRE 2 ──
     // {
     //   title: "Lettre n° 2",
-    //   text: `ton texte ici`
+    //   text: `texte ici`
     // },
   ];
   // ════════════════════════════════════════
