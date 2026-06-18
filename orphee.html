@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orphée & Eurydice</title>
+<link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+<link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1C1410;--bg2:#231A13;
+  --cream:#F2EAD8;--cream2:#D9CEBC;
+  --brown:#7A7870;--brown-light:#D4C9B0;
+  --muted:#8A8880;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--cream);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;}
+
+#starfield{position:fixed;inset:0;pointer-events:none;z-index:0;}
+
+nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(28,20,16,0.95),transparent);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--brown-light);text-decoration:none;opacity:0.8;}
+.nav-back{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.35em;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-back:hover{color:var(--cream);}
+
+#game{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:6rem 2rem 5rem;
+  max-width:600px;margin:0 auto;
+  text-align:center;
+  gap:0;
+}
+
+/* ILLUSTRATION */
+.illustration{
+  width:200px;height:160px;
+  margin-bottom:2.5rem;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity 1s ease 0.2s, transform 1s ease 0.2s;
+}
+.illustration.show{opacity:1;transform:translateY(0);}
+
+.act-tag{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:0.6rem;letter-spacing:0.6em;
+  color:var(--brown-light);opacity:0.45;
+  margin-bottom:2rem;
+}
+.narration{
+  font-size:clamp(1.05rem,2.8vw,1.35rem);
+  font-style:italic;font-weight:300;
+  line-height:2;color:var(--cream);
+  margin-bottom:2.8rem;
+  opacity:0;transform:translateY(10px);
+  transition:opacity 0.9s ease 0.4s,transform 0.9s ease 0.4s;
+}
+.narration.show{opacity:1;transform:translateY(0);}
+.narration em{color:var(--brown-light);font-style:normal;}
+
+.choices{
+  display:flex;flex-direction:column;gap:0.9rem;
+  width:100%;max-width:400px;
+  opacity:0;transition:opacity 0.6s ease 0.9s;
+}
+.choices.show{opacity:1;}
+.choice-btn{
+  background:none;border:1px solid rgba(180,170,155,0.2);
+  padding:0.9rem 1.4rem;color:var(--cream2);
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:clamp(0.95rem,2vw,1.05rem);
+  font-weight:300;line-height:1.6;cursor:pointer;
+  transition:all 0.3s;text-align:center;
+}
+.choice-btn:hover{background:rgba(180,170,155,0.07);border-color:rgba(212,201,176,0.45);color:var(--cream);}
+
+/* ENDING */
+.ending{opacity:0;transform:translateY(14px);transition:opacity 1.2s ease,transform 1.2s ease;display:none;}
+.ending.show{opacity:1;transform:translateY(0);}
+.ending-illus{width:200px;height:160px;margin:0 auto 2.5rem;}
+.ending-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.8rem,6vw,3rem);color:var(--cream);line-height:1.1;margin-bottom:2rem;}
+.ending-text{font-size:clamp(1rem,2.3vw,1.2rem);font-style:italic;font-weight:300;line-height:2.1;color:var(--cream2);opacity:0.88;margin-bottom:2.5rem;}
+.ending-text em{color:var(--brown-light);font-style:normal;}
+.ending-sig{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.5em;color:var(--brown-light);opacity:0.4;margin-bottom:3rem;}
+.restart-btn{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.4em;color:var(--muted);background:none;border:1px solid rgba(180,170,155,0.18);padding:0.65rem 1.6rem;cursor:pointer;transition:all 0.3s;}
+.restart-btn:hover{color:var(--cream);border-color:rgba(180,170,155,0.5);}
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+<nav>
+  <a class="nav-logo" href="index.html">✦ Explorer</a>
+  <a class="nav-back" href="index.html">← Retour</a>
+</nav>
+
+<div id="game">
+  <div class="illustration" id="illustration">
+    <!-- SVG injecté dynamiquement -->
+  </div>
+  <p class="act-tag" id="act-tag"></p>
+  <p class="narration" id="narration"></p>
+  <div class="choices" id="choices"></div>
+  <div class="ending" id="ending">
+    <svg class="ending-illus" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" id="ending-svg"></svg>
+    <h2 class="ending-title" id="ending-title"></h2>
+    <p class="ending-text" id="ending-text"></p>
+    <p class="ending-sig">Lily ✦</p>
+    <button class="restart-btn" id="restart-btn">Recommencer ↺</button>
+  </div>
+</div>
+
+<script>
+// ── STARFIELD ──
+const cv=document.getElementById('starfield'),cx=cv.getContext('2d');let ST=[];
+function rsz(){cv.width=innerWidth;cv.height=Math.max(document.body.scrollHeight,innerHeight);}
+function mkS(){ST=[];for(let i=0;i<180;i++){const l=Math.random()<0.7?0:Math.random()<0.7?1:2;const r=l===0?Math.random()*0.35+0.1:l===1?Math.random()*0.55+0.3:Math.random()*0.85+0.5;const mA=l===0?0.2:l===1?0.38:0.62;ST.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r,a:Math.random()*Math.PI*2,sp:(Math.random()*0.0015+0.0003)*(Math.random()<0.5?1:-1),mA});}}
+function drawS(){cx.clearRect(0,0,cv.width,cv.height);ST.forEach(s=>{s.a+=s.sp;const al=(Math.sin(s.a)*0.5+0.5)*s.mA+0.02;cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=`rgba(235,232,228,${al})`;cx.fill();});requestAnimationFrame(drawS);}
+rsz();mkS();drawS();window.addEventListener('resize',()=>{rsz();mkS();});
+
+// ── ILLUSTRATIONS SVG ──
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+// Lyre animée — cordes qui vibrent
+const lyresvg = `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+  <defs>
+    <style>
+      .string { stroke: rgba(212,201,176,0.55); stroke-width:0.8; fill:none; }
+      @keyframes vib1{0%,100%{d:path("M88,48 Q82,80 88,112")}50%{d:path("M88,48 Q78,80 88,112")}}
+      @keyframes vib2{0%,100%{d:path("M96,44 Q90,80 96,116")}50%{d:path("M96,44 Q86,80 96,116")}}
+      @keyframes vib3{0%,100%{d:path("M104,44 Q110,80 104,116")}50%{d:path("M104,44 Q114,80 104,116")}}
+      @keyframes vib4{0%,100%{d:path("M112,48 Q118,80 112,112")}50%{d:path("M112,48 Q122,80 112,112")}}
+      @keyframes glow{0%,100%{opacity:0.18}50%{opacity:0.38}}
+    </style>
+  </defs>
+  <!-- Lueur douce derrière -->
+  <ellipse cx="100" cy="80" rx="38" ry="42" fill="rgba(212,201,176,0.04)" style="animation:glow 3s ease-in-out infinite"/>
+  <!-- Corps de la lyre -->
+  <path d="M70,60 Q60,80 70,105 Q82,130 100,132 Q118,130 130,105 Q140,80 130,60" fill="none" stroke="rgba(212,201,176,0.35)" stroke-width="1.5"/>
+  <!-- Bras gauche -->
+  <path d="M72,65 Q68,45 80,35 Q90,28 100,30" fill="none" stroke="rgba(212,201,176,0.4)" stroke-width="1.5"/>
+  <!-- Bras droit -->
+  <path d="M128,65 Q132,45 120,35 Q110,28 100,30" fill="none" stroke="rgba(212,201,176,0.4)" stroke-width="1.5"/>
+  <!-- Barre transversale -->
+  <line x1="80" y1="35" x2="120" y2="35" stroke="rgba(212,201,176,0.5)" stroke-width="1.5"/>
+  <!-- Cordes animées -->
+  <path class="string" d="M88,48 Q82,80 88,112" style="animation:vib1 1.8s ease-in-out infinite"/>
+  <path class="string" d="M96,44 Q90,80 96,116" style="animation:vib2 2.1s ease-in-out infinite 0.2s"/>
+  <path class="string" d="M104,44 Q110,80 104,116" style="animation:vib3 1.9s ease-in-out infinite 0.4s"/>
+  <path class="string" d="M112,48 Q118,80 112,112" style="animation:vib4 2.3s ease-in-out infinite 0.1s"/>
+  <!-- Étoiles autour -->
+  <circle cx="55" cy="45" r="1" fill="rgba(212,201,176,0.4)" style="animation:glow 2.5s ease-in-out infinite"/>
+  <circle cx="148" cy="52" r="0.8" fill="rgba(212,201,176,0.35)" style="animation:glow 3.2s ease-in-out infinite 0.5s"/>
+  <circle cx="62" cy="110" r="0.7" fill="rgba(212,201,176,0.3)" style="animation:glow 2.8s ease-in-out infinite 1s"/>
+  <circle cx="142" cy="105" r="1" fill="rgba(212,201,176,0.35)" style="animation:glow 2s ease-in-out infinite 0.3s"/>
+  <circle cx="100" cy="148" r="0.6" fill="rgba(212,201,176,0.25)" style="animation:glow 3s ease-in-out infinite 0.8s"/>
+</svg>`;
+
+// Deux silhouettes dans l'obscurité — acte II
+const darknesssvg = `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+  <defs>
+    <style>
+      @keyframes floatL{0%,100%{transform:translateX(0)}50%{transform:translateX(-3px)}}
+      @keyframes floatR{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+      @keyframes glowS{0%,100%{opacity:0.15}50%{opacity:0.45}}
+      @keyframes pulse2{0%,100%{opacity:0.3}50%{opacity:0.7}}
+    </style>
+  </defs>
+  <!-- Brume de fond -->
+  <ellipse cx="100" cy="100" rx="70" ry="35" fill="rgba(212,201,176,0.03)"/>
+  <!-- Sol suggéré -->
+  <line x1="30" y1="128" x2="170" y2="128" stroke="rgba(212,201,176,0.08)" stroke-width="0.5"/>
+  <!-- Silhouette gauche (Orphée) -->
+  <g style="animation:floatL 4s ease-in-out infinite;transform-origin:65px 128px">
+    <circle cx="65" cy="80" r="7" fill="none" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="65" y1="87" x2="65" y2="115" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="65" y1="97" x2="55" y2="108" stroke="rgba(212,201,176,0.3)" stroke-width="1"/>
+    <line x1="65" y1="97" x2="75" y2="108" stroke="rgba(212,201,176,0.3)" stroke-width="1"/>
+    <line x1="65" y1="115" x2="58" y2="128" stroke="rgba(212,201,176,0.3)" stroke-width="1"/>
+    <line x1="65" y1="115" x2="72" y2="128" stroke="rgba(212,201,176,0.3)" stroke-width="1"/>
+    <!-- Mini lyre dans la main -->
+    <path d="M75,104 Q72,110 75,116" fill="none" stroke="rgba(212,201,176,0.25)" stroke-width="0.8"/>
+    <path d="M75,104 Q78,101 81,102 Q84,103 81,106 Q78,108 75,116" fill="none" stroke="rgba(212,201,176,0.25)" stroke-width="0.8"/>
+  </g>
+  <!-- Silhouette droite (Eurydice) — légèrement éthérée -->
+  <g style="animation:floatR 4.5s ease-in-out infinite 0.5s;transform-origin:135px 128px;opacity:0.75">
+    <circle cx="135" cy="80" r="7" fill="none" stroke="rgba(212,201,176,0.28)" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="135" y1="87" x2="135" y2="115" stroke="rgba(212,201,176,0.28)" stroke-width="1" stroke-dasharray="3,2"/>
+    <line x1="135" y1="97" x2="125" y2="108" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <line x1="135" y1="97" x2="145" y2="108" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <line x1="135" y1="115" x2="128" y2="128" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <line x1="135" y1="115" x2="142" y2="128" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <!-- Cheveux longs suggérés -->
+    <path d="M129,80 Q126,90 128,100" fill="none" stroke="rgba(212,201,176,0.18)" stroke-width="0.8"/>
+  </g>
+  <!-- Mélodie — vagues entre les deux -->
+  <path d="M82,100 Q88,95 94,100 Q100,105 106,100 Q112,95 118,100 Q124,105 128,100" fill="none" stroke="rgba(212,201,176,0.2)" stroke-width="0.8" style="animation:glowS 2.5s ease-in-out infinite"/>
+  <!-- Étoiles éparses -->
+  <circle cx="40" cy="50" r="0.8" fill="rgba(212,201,176,0.35)" style="animation:pulse2 3s infinite"/>
+  <circle cx="160" cy="45" r="1" fill="rgba(212,201,176,0.3)" style="animation:pulse2 2.5s infinite 0.5s"/>
+  <circle cx="100" cy="35" r="0.7" fill="rgba(212,201,176,0.4)" style="animation:pulse2 3.5s infinite 1s"/>
+  <circle cx="55" cy="145" r="0.6" fill="rgba(212,201,176,0.2)" style="animation:pulse2 2.8s infinite 0.3s"/>
+  <circle cx="155" cy="140" r="0.8" fill="rgba(212,201,176,0.25)" style="animation:pulse2 3.2s infinite 0.8s"/>
+</svg>`;
+
+// Acte III — marche, regard, éclat
+const walksvg = `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+  <defs>
+    <style>
+      @keyframes walkL{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+      @keyframes walkR{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
+      @keyframes sparkle{0%{opacity:0;transform:scale(0)}40%{opacity:0.8;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+      @keyframes glowP{0%,100%{opacity:0.08}50%{opacity:0.2}}
+    </style>
+  </defs>
+  <!-- Chemin / sol -->
+  <path d="M20,130 Q100,125 180,130" fill="none" stroke="rgba(212,201,176,0.1)" stroke-width="0.8"/>
+  <!-- Lueur chemin -->
+  <ellipse cx="100" cy="130" rx="65" ry="8" fill="rgba(212,201,176,0.04)" style="animation:glowP 3s ease-in-out infinite"/>
+  <!-- Orphée (devant, à gauche) -->
+  <g style="animation:walkL 3s ease-in-out infinite;transform-origin:75px 130px">
+    <circle cx="75" cy="82" r="7" fill="none" stroke="rgba(212,201,176,0.4)" stroke-width="1"/>
+    <line x1="75" y1="89" x2="75" y2="115" stroke="rgba(212,201,176,0.4)" stroke-width="1"/>
+    <line x1="75" y1="98" x2="65" y2="110" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="75" y1="98" x2="85" y2="107" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="75" y1="115" x2="68" y2="130" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="75" y1="115" x2="82" y2="130" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+  </g>
+  <!-- Eurydice (derrière, à droite, un peu éthérée) -->
+  <g style="animation:walkR 3.5s ease-in-out infinite 0.4s;transform-origin:115px 130px;opacity:0.7">
+    <circle cx="115" cy="90" r="6" fill="none" stroke="rgba(212,201,176,0.3)" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="115" y1="96" x2="115" y2="118" stroke="rgba(212,201,176,0.28)" stroke-width="1"/>
+    <line x1="115" y1="105" x2="107" y2="115" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <line x1="115" y1="105" x2="123" y2="115" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <line x1="115" y1="118" x2="109" y2="130" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <line x1="115" y1="118" x2="121" y2="130" stroke="rgba(212,201,176,0.25)" stroke-width="1"/>
+    <!-- Robe/cheveux flottants -->
+    <path d="M109,90 Q105,100 107,112" fill="none" stroke="rgba(212,201,176,0.18)" stroke-width="0.8"/>
+    <path d="M113,96 Q110,108 111,118" fill="none" stroke="rgba(212,201,176,0.12)" stroke-width="0.6"/>
+  </g>
+  <!-- Éclats d'étoiles au centre — le regard -->
+  <g transform="translate(95,86)">
+    <line x1="0" y1="-10" x2="0" y2="-5" stroke="rgba(212,201,176,0.6)" stroke-width="0.8" style="animation:sparkle 2.5s ease-in-out infinite"/>
+    <line x1="7" y1="-7" x2="4" y2="-3" stroke="rgba(212,201,176,0.5)" stroke-width="0.8" style="animation:sparkle 2.5s ease-in-out infinite 0.2s"/>
+    <line x1="10" y1="0" x2="5" y2="0" stroke="rgba(212,201,176,0.55)" stroke-width="0.8" style="animation:sparkle 2.5s ease-in-out infinite 0.4s"/>
+    <line x1="7" y1="7" x2="4" y2="3" stroke="rgba(212,201,176,0.45)" stroke-width="0.8" style="animation:sparkle 2.5s ease-in-out infinite 0.6s"/>
+    <line x1="-7" y1="-7" x2="-4" y2="-3" stroke="rgba(212,201,176,0.5)" stroke-width="0.8" style="animation:sparkle 2.5s ease-in-out infinite 0.1s"/>
+    <line x1="-10" y1="0" x2="-5" y2="0" stroke="rgba(212,201,176,0.45)" stroke-width="0.8" style="animation:sparkle 2.5s ease-in-out infinite 0.3s"/>
+    <circle cx="0" cy="0" r="1.5" fill="rgba(212,201,176,0.7)" style="animation:sparkle 2.5s ease-in-out infinite"/>
+  </g>
+  <!-- Étoiles fond -->
+  <circle cx="30" cy="40" r="0.8" fill="rgba(212,201,176,0.3)" style="animation:walkL 4s infinite"/>
+  <circle cx="170" cy="35" r="1" fill="rgba(212,201,176,0.28)" style="animation:walkL 3.5s infinite 1s"/>
+  <circle cx="100" cy="25" r="0.7" fill="rgba(212,201,176,0.35)" style="animation:walkL 5s infinite 0.5s"/>
+  <circle cx="50" cy="148" r="0.6" fill="rgba(212,201,176,0.2)" style="animation:walkL 3.8s infinite 0.8s"/>
+  <circle cx="155" cy="145" r="0.8" fill="rgba(212,201,176,0.22)" style="animation:walkL 4.2s infinite 0.3s"/>
+</svg>`;
+
+// Fin — étoile dans la Lyre, deux silhouettes unies
+const endsvg = `<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+  <defs>
+    <style>
+      @keyframes rise{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+      @keyframes twinkle{0%,100%{opacity:0.2;r:1}50%{opacity:0.9;r:2}}
+      @keyframes orbit{0%{transform:rotate(0deg) translateX(28px) rotate(0deg)}100%{transform:rotate(360deg) translateX(28px) rotate(-360deg)}}
+      @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+    </style>
+  </defs>
+  <!-- Constellation Lyre (simplifiée) -->
+  <g opacity="0.5">
+    <circle cx="100" cy="38" r="1.5" fill="rgba(212,201,176,0.9)" style="animation:twinkle 2s ease-in-out infinite"/>
+    <circle cx="88" cy="52" r="1" fill="rgba(212,201,176,0.7)" style="animation:twinkle 2.5s ease-in-out infinite 0.3s"/>
+    <circle cx="112" cy="52" r="1" fill="rgba(212,201,176,0.7)" style="animation:twinkle 2.8s ease-in-out infinite 0.6s"/>
+    <circle cx="85" cy="65" r="0.8" fill="rgba(212,201,176,0.6)" style="animation:twinkle 3s ease-in-out infinite 0.2s"/>
+    <circle cx="115" cy="65" r="0.8" fill="rgba(212,201,176,0.6)" style="animation:twinkle 2.3s ease-in-out infinite 0.9s"/>
+    <line x1="100" y1="38" x2="88" y2="52" stroke="rgba(212,201,176,0.15)" stroke-width="0.5"/>
+    <line x1="100" y1="38" x2="112" y2="52" stroke="rgba(212,201,176,0.15)" stroke-width="0.5"/>
+    <line x1="88" y1="52" x2="85" y2="65" stroke="rgba(212,201,176,0.12)" stroke-width="0.5"/>
+    <line x1="112" y1="52" x2="115" y2="65" stroke="rgba(212,201,176,0.12)" stroke-width="0.5"/>
+    <line x1="85" y1="65" x2="115" y2="65" stroke="rgba(212,201,176,0.12)" stroke-width="0.5"/>
+    <!-- Vega — l'étoile de Charlotte -->
+    <circle cx="100" cy="38" r="3" fill="none" stroke="rgba(212,201,176,0.25)" stroke-width="0.5" style="animation:twinkle 1.8s ease-in-out infinite"/>
+  </g>
+  <!-- Deux silhouettes ensemble, proches -->
+  <g style="animation:rise 5s ease-in-out infinite;transform-origin:100px 130px">
+    <!-- Lui -->
+    <circle cx="90" cy="88" r="6" fill="none" stroke="rgba(212,201,176,0.4)" stroke-width="1"/>
+    <line x1="90" y1="94" x2="90" y2="118" stroke="rgba(212,201,176,0.4)" stroke-width="1"/>
+    <line x1="90" y1="103" x2="82" y2="112" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="90" y1="103" x2="97" y2="110" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="90" y1="118" x2="84" y2="130" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <line x1="90" y1="118" x2="96" y2="130" stroke="rgba(212,201,176,0.35)" stroke-width="1"/>
+    <!-- Elle -->
+    <circle cx="110" cy="88" r="6" fill="none" stroke="rgba(212,201,176,0.35)" stroke-width="1" stroke-dasharray="2,1.5"/>
+    <line x1="110" y1="94" x2="110" y2="118" stroke="rgba(212,201,176,0.32)" stroke-width="1"/>
+    <line x1="110" y1="103" x2="103" y2="110" stroke="rgba(212,201,176,0.28)" stroke-width="1"/>
+    <line x1="110" y1="103" x2="118" y2="112" stroke="rgba(212,201,176,0.28)" stroke-width="1"/>
+    <line x1="110" y1="118" x2="104" y2="130" stroke="rgba(212,201,176,0.28)" stroke-width="1"/>
+    <line x1="110" y1="118" x2="116" y2="130" stroke="rgba(212,201,176,0.28)" stroke-width="1"/>
+    <!-- Cheveux elle -->
+    <path d="M104,88 Q100,98 102,110" fill="none" stroke="rgba(212,201,176,0.18)" stroke-width="0.8"/>
+    <!-- Mains jointes -->
+    <line x1="97" y1="110" x2="103" y2="110" stroke="rgba(212,201,176,0.5)" stroke-width="1.2"/>
+  </g>
+  <!-- Sol -->
+  <line x1="55" y1="130" x2="145" y2="130" stroke="rgba(212,201,176,0.08)" stroke-width="0.5"/>
+  <!-- Étoiles fond -->
+  <circle cx="35" cy="55" r="0.7" fill="rgba(212,201,176,0.3)" style="animation:twinkle 3.5s infinite"/>
+  <circle cx="165" cy="48" r="0.8" fill="rgba(212,201,176,0.28)" style="animation:twinkle 2.8s infinite 1s"/>
+  <circle cx="45" cy="140" r="0.6" fill="rgba(212,201,176,0.2)" style="animation:twinkle 4s infinite 0.5s"/>
+  <circle cx="158" cy="138" r="0.7" fill="rgba(212,201,176,0.22)" style="animation:twinkle 3.2s infinite 0.8s"/>
+</svg>`;
+
+// ── SCÈNES ──
+const scenes = {
+  intro:      { act:'Acte I — La Lyre',      svg: lyresvg,     text:`Il jouait seul, au bord de l'eau,\net les pierres s'arrêtaient de tomber pour l'écouter.\nTu n'étais pas censée passer par là ce soir-là.\nMais quelque chose — une note, un silence —\nt'a fait ralentir.`, choices:[{label:"Tu t'approches",next:'approach'},{label:"Tu restes dans l'ombre",next:'shadow'}]},
+  approach:   { act:'Acte I — La Lyre',      svg: lyresvg,     text:`Tu t'avances, et la musique change.\nComme si elle t'avait attendue.\nIl lève les yeux — il n'est pas surpris,\nil est <em>soulagé</em>.\nComme si ta présence était la note manquante.`, choices:[{label:'Tu lui souris',next:'smile'},{label:'Tu ne dis rien',next:'silence_a'}]},
+  shadow:     { act:'Acte I — La Lyre',      svg: lyresvg,     text:`Tu restes où tu es.\nMais la mélodie s'étire vers toi,\ncontourne les arbres,\ntraverse l'air comme une question.\nIl ne te voit pas encore.\nMais il joue <em>pour toi</em>.`, choices:[{label:'Tu fais un pas',next:'smile'},{label:'Tu fermes les yeux',next:'silence_a'}]},
+  smile:      { act:'Acte I — La Lyre',      svg: lyresvg,     text:`Un sourire,\net il range sa lyre.\nPas parce que la musique est finie —\nmais parce qu'il a trouvé\nquelque chose de plus beau\nà regarder.`, choices:[{label:'Continuer',next:'act2'}]},
+  silence_a:  { act:'Acte I — La Lyre',      svg: lyresvg,     text:`Le silence entre vous\nn'est pas un vide.\nC'est un espace que vous avez créé ensemble,\nsans le chercher, sans le nommer.\nIl pose sa lyre.\nCe regard-là ne s'oubliera pas.`, choices:[{label:'Continuer',next:'act2'}]},
+  act2:       { act:'Acte II — L'Obscurité', svg: darknesssvg, text:`Il y a des nuits qui tombent plus vite que d'habitude.\nTu t'es retrouvée seule,\ndans un endroit sans bords, sans couleurs, sans son.\n\nL'obscurité n'était pas cruelle.\nElle était juste <em>silencieuse</em>.\nEt dans ce silence — un son, très loin.`, choices:[{label:'Tu suis la mélodie',next:'follow'},{label:"Tu attends qu'elle vienne à toi",next:'wait'}]},
+  follow:     { act:'Acte II — L'Obscurité', svg: darknesssvg, text:`Tu avances.\nLe sol n'est pas certain sous tes pieds\nmais la musique, elle, ne ment pas.\nElle grandit à chaque pas.\nElle te dit : <em>par ici, encore un peu.</em>\nEt tu lui fais confiance.`, choices:[{label:'Continuer',next:'act3'}]},
+  wait:       { act:'Acte II — L'Obscurité', svg: darknesssvg, text:`Tu t'arrêtes.\nEt la mélodie — comme si elle t'avait sentie —\nchange de direction.\nElle vient vers toi.\nLentement, puis soudainement,\ncomme l'amour.`, choices:[{label:'Continuer',next:'act3'}]},
+  act3:       { act:'Acte III — Le Regard',  svg: walksvg,     text:`Il remontait devant toi.\nLes dieux avaient posé leur seule condition :\n<em>ne pas se retourner.</em>\n\nIl avançait.\nTes pas résonnaient derrière lui.\nMais le silence entre vous\nétait trop lourd à porter.`, choices:[{label:'Tu espères qu'il tienne',next:'turn_hope'},{label:'Tu sais déjà ce qu'il va faire',next:'turn_know'}]},
+  turn_hope:  { act:'Acte III — Le Regard',  svg: walksvg,     text:`Il n'a pas tenu.\nIl s'est retourné.\n\nMais dans cette version-là,\nce n'est pas la fin de l'histoire.\nC'est juste la preuve\nqu'il t'aimait trop\npour ne pas le faire.`, choices:[{label:'Voir la fin',next:'end'}]},
+  turn_know:  { act:'Acte III — Le Regard',  svg: walksvg,     text:`Tu le savais.\nEt pourtant, quand il s'est retourné,\ntu as vu dans ses yeux\nnon pas une erreur —\nmais une certitude.\nIl avait besoin de s'assurer\nque tu étais <em>réelle</em>.`, choices:[{label:'Voir la fin',next:'end'}]},
+  end: { act:'', svg:'', text:'', choices:[] }
+};
+
+const endingData = {
+  title: 'Cette fois,\nil ne se retourne pas.',
+  text: `Cette fois, il savait que tu étais là.\nPas parce qu'il t'entendait —\nmais parce qu'il te <em>portait</em>.\n\nTu n'avais pas besoin des Enfers\nni d'une condition des dieux\npour comprendre ce que vous étiez l'une pour l'autre.\n\nIl suffisait d'une note,\nd'une nuit,\nd'un regard posé au bon endroit.\n\nEt quelque part dans la constellation de la Lyre,\nune étoile porte ton nom.\nNon pas parce que tu es perdue —\nmais parce que tu appartiens <em>au ciel</em>.`
+};
+
+// ── ENGINE ──
+const illustEl  = document.getElementById('illustration');
+const actTag    = document.getElementById('act-tag');
+const narration = document.getElementById('narration');
+const choicesEl = document.getElementById('choices');
+const endingEl  = document.getElementById('ending');
+const endingSvg = document.getElementById('ending-svg');
+const endTitle  = document.getElementById('ending-title');
+const endText   = document.getElementById('ending-text');
+const restartBtn= document.getElementById('restart-btn');
+
+function showScene(key) {
+  if(key === 'end'){ showEnding(); return; }
+  const scene = scenes[key];
+  if(!scene) return;
+
+  illustEl.classList.remove('show');
+  narration.classList.remove('show');
+  choicesEl.classList.remove('show');
+
+  setTimeout(() => {
+    actTag.textContent = scene.act;
+    illustEl.innerHTML = scene.svg;
+    narration.innerHTML = scene.text.replace(/\n/g,'<br>');
+    choicesEl.innerHTML = '';
+    scene.choices.forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.textContent = c.label;
+      btn.addEventListener('click', () => {
+        illustEl.classList.remove('show');
+        narration.classList.remove('show');
+        choicesEl.classList.remove('show');
+        setTimeout(() => showScene(c.next), 450);
+      });
+      choicesEl.appendChild(btn);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      illustEl.classList.add('show');
+      narration.classList.add('show');
+      choicesEl.classList.add('show');
+    }));
+  }, 480);
+}
+
+function showEnding() {
+  illustEl.classList.remove('show');
+  narration.classList.remove('show');
+  choicesEl.classList.remove('show');
+  setTimeout(() => {
+    endingSvg.innerHTML = endsvg.replace(/<svg[^>]*>|<\/svg>/g,'');
+    endTitle.innerHTML = endingData.title.replace(/\n/g,'<br>');
+    endText.innerHTML  = endingData.text.replace(/\n/g,'<br>');
+    endingEl.style.display = 'block';
+    document.getElementById('game').style.gap = '0';
+    requestAnimationFrame(() => requestAnimationFrame(() => endingEl.classList.add('show')));
+  }, 500);
+}
+
+restartBtn.addEventListener('click', () => {
+  endingEl.classList.remove('show');
+  setTimeout(() => {
+    endingEl.style.display = 'none';
+    showScene('intro');
+  }, 600);
+});
+
+showScene('intro');
+</script>
+</body>
+</html>
