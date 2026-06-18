@@ -9,568 +9,392 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#1C1410;--bg2:#231A13;
-  --cream:#F2EAD8;--cream2:#D9CEBC;
-  --brown:#7A7870;--brown-light:#D4C9B0;
-  --muted:#8A8880;
-}
+:root{--bg:#1C1410;--bg2:#231A13;--cream:#F2EAD8;--cream2:#D9CEBC;--brown:#7A7870;--brown-light:#D4C9B0;--muted:#8A8880;}
 html,body{min-height:100%;background:var(--bg);color:var(--cream);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;}
-
 #starfield{position:fixed;inset:0;pointer-events:none;z-index:0;}
-
 nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(28,20,16,0.95),transparent);}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:0.75rem;letter-spacing:0.3em;color:var(--brown-light);text-decoration:none;opacity:0.8;}
 .nav-back{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.35em;color:var(--muted);text-decoration:none;transition:color 0.2s;}
 .nav-back:hover{color:var(--cream);}
-
-#game{
-  position:relative;z-index:1;
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:6rem 2rem 5rem;
-  max-width:600px;margin:0 auto;
-  text-align:center;
-  gap:0;
-}
-
-.illustration{
-  width:200px;height:160px;
-  margin-bottom:2.5rem;
-  opacity:0;
-  transform:translateY(8px);
-  transition:opacity 1s ease 0.2s, transform 1s ease 0.2s;
-}
+#game{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 2rem 5rem;max-width:600px;margin:0 auto;text-align:center;gap:0;}
+.illustration{width:200px;height:160px;margin-bottom:2.5rem;opacity:0;transform:translateY(8px);transition:opacity 1s ease 0.2s,transform 1s ease 0.2s;}
 .illustration.show{opacity:1;transform:translateY(0);}
-
-.act-tag{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:0.6rem;letter-spacing:0.6em;
-  color:var(--brown-light);opacity:0.45;
-  margin-bottom:2rem;
-}
-.narration{
-  font-size:clamp(1.05rem,2.8vw,1.35rem);
-  font-style:italic;font-weight:300;
-  line-height:2;color:var(--cream);
-  margin-bottom:2.8rem;
-  opacity:0;transform:translateY(10px);
-  transition:opacity 0.9s ease 0.4s,transform 0.9s ease 0.4s;
-}
+.act-tag{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.6em;color:var(--brown-light);opacity:0.45;margin-bottom:2rem;}
+.narration{font-size:clamp(1.05rem,2.8vw,1.35rem);font-style:italic;font-weight:300;line-height:2;color:var(--cream);margin-bottom:2.8rem;opacity:0;transform:translateY(10px);transition:opacity 0.9s ease 0.4s,transform 0.9s ease 0.4s;}
 .narration.show{opacity:1;transform:translateY(0);}
 .narration em{color:var(--brown-light);font-style:normal;}
-
-.choices{
-  display:flex;flex-direction:column;gap:0.9rem;
-  width:100%;max-width:400px;
-  opacity:0;transition:opacity 0.6s ease 0.9s;
-}
+.choices{display:flex;flex-direction:column;gap:0.9rem;width:100%;max-width:400px;opacity:0;transition:opacity 0.6s ease 0.9s;}
 .choices.show{opacity:1;}
-.choice-btn{
-  background:none;border:1px solid rgba(180,170,155,0.2);
-  padding:0.9rem 1.4rem;color:var(--cream2);
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;font-size:clamp(0.95rem,2vw,1.05rem);
-  font-weight:300;line-height:1.6;cursor:pointer;
-  transition:all 0.3s;text-align:center;
-}
+.choice-btn{background:none;border:1px solid rgba(180,170,155,0.2);padding:0.9rem 1.4rem;color:var(--cream2);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(0.95rem,2vw,1.05rem);font-weight:300;line-height:1.6;cursor:pointer;transition:all 0.3s;text-align:center;}
 .choice-btn:hover{background:rgba(180,170,155,0.07);border-color:rgba(212,201,176,0.45);color:var(--cream);}
-
 .ending{opacity:0;transform:translateY(14px);transition:opacity 1.2s ease,transform 1.2s ease;display:none;}
 .ending.show{opacity:1;transform:translateY(0);}
-.ending-illus{width:200px;height:160px;margin:0 auto 2.5rem;}
+.ending-illus{width:200px;height:160px;margin:0 auto 2.5rem;display:block;}
 .ending-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.8rem,6vw,3rem);color:var(--cream);line-height:1.1;margin-bottom:2rem;}
-.ending-text{font-size:clamp(1rem,2.3vw,1.2rem);font-style:italic;font-weight:300;line-height:2.1;color:var(--cream2);opacity:0.88;margin-bottom:2.5rem;}
+.ending-text{font-size:clamp(1rem,2.3vw,1.2rem);font-style:italic;font-weight:300;line-height:2.1;color:var(--cream2);opacity:0.88;margin-bottom:1.8rem;}
 .ending-text em{color:var(--brown-light);font-style:normal;}
-.ending-sig{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.5em;color:var(--brown-light);opacity:0.4;margin-bottom:3rem;}
-.restart-btn{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.4em;color:var(--muted);background:none;border:1px solid rgba(180,170,155,0.18);padding:0.65rem 1.6rem;cursor:pointer;transition:all 0.3s;}
+.ending-sig{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.5em;color:var(--brown-light);opacity:0.4;margin-bottom:2.5rem;}
+.restart-btn{font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.4em;color:var(--muted);background:none;border:1px solid rgba(180,170,155,0.18);padding:0.65rem 1.6rem;cursor:pointer;transition:all 0.3s;display:inline-block;margin-bottom:3rem;}
 .restart-btn:hover{color:var(--cream);border-color:rgba(180,170,155,0.5);}
 </style>
 </head>
 <body>
 <canvas id="starfield"></canvas>
 <nav>
-  <a class="nav-logo" href="index.html">✦ Explorer</a>
-  <a class="nav-back" href="index.html">← Retour</a>
+  <a class="nav-logo" href="index.html">&#10022; Explorer</a>
+  <a class="nav-back" href="index.html">&larr; Retour</a>
 </nav>
-
 <div id="game">
   <div class="illustration" id="illustration"></div>
   <p class="act-tag" id="act-tag"></p>
   <p class="narration" id="narration"></p>
   <div class="choices" id="choices"></div>
   <div class="ending" id="ending">
-    <svg class="ending-illus" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" id="ending-svg"></svg>
+    <canvas class="ending-illus" id="ending-canvas" width="200" height="160"></canvas>
     <h2 class="ending-title" id="ending-title"></h2>
     <p class="ending-text" id="ending-text"></p>
-    <p class="ending-sig">Lily ✦</p>
-    <button class="restart-btn" id="restart-btn">Recommencer ↺</button>
+    <p class="ending-sig">Lily &#10022;</p>
+    <button class="restart-btn" id="restart-btn">Recommencer l&#8217;histoire &#8635;</button>
   </div>
 </div>
-
 <script>
-// ── STARFIELD ──
-const cv=document.getElementById('starfield'),cx=cv.getContext('2d');let ST=[];
+// STARFIELD
+var cv=document.getElementById('starfield'),cx=cv.getContext('2d'),ST=[];
 function rsz(){cv.width=innerWidth;cv.height=Math.max(document.body.scrollHeight,innerHeight);}
-function mkS(){ST=[];for(let i=0;i<180;i++){const l=Math.random()<0.7?0:Math.random()<0.7?1:2;const r=l===0?Math.random()*0.35+0.1:l===1?Math.random()*0.55+0.3:Math.random()*0.85+0.5;const mA=l===0?0.2:l===1?0.38:0.62;ST.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r,a:Math.random()*Math.PI*2,sp:(Math.random()*0.0015+0.0003)*(Math.random()<0.5?1:-1),mA});}}
-function drawS(){cx.clearRect(0,0,cv.width,cv.height);ST.forEach(s=>{s.a+=s.sp;const al=(Math.sin(s.a)*0.5+0.5)*s.mA+0.02;cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=`rgba(235,232,228,${al})`;cx.fill();});requestAnimationFrame(drawS);}
-rsz();mkS();drawS();window.addEventListener('resize',()=>{rsz();mkS();});
+function mkS(){ST=[];for(var i=0;i<180;i++){var l=Math.random()<0.7?0:Math.random()<0.7?1:2;var r=l===0?Math.random()*0.35+0.1:l===1?Math.random()*0.55+0.3:Math.random()*0.85+0.5;var mA=l===0?0.2:l===1?0.38:0.62;ST.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:r,a:Math.random()*Math.PI*2,sp:(Math.random()*0.0015+0.0003)*(Math.random()<0.5?1:-1),mA:mA});}}
+function drawS(){cx.clearRect(0,0,cv.width,cv.height);ST.forEach(function(s){s.a+=s.sp;var al=(Math.sin(s.a)*0.5+0.5)*s.mA+0.02;cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle='rgba(235,232,228,'+al+')';cx.fill();});requestAnimationFrame(drawS);}
+rsz();mkS();drawS();window.addEventListener('resize',function(){rsz();mkS();});
 
-// ── ILLUSTRATIONS via Canvas 2D (compatibles Safari) ──
-
-// Chaque illustration est une fonction qui dessine dans un <canvas>
-function makeLyreCanvas() {
-  const c = document.createElement('canvas');
-  c.width = 200; c.height = 160;
-  c.style.width = '100%'; c.style.height = '100%';
-  const ctx = c.getContext('2d');
-  let t = 0;
-  function draw() {
-    ctx.clearRect(0, 0, 200, 160);
-    const col = 'rgba(212,201,176,';
-
-    // Lueur
-    const glow = 0.04 + 0.02 * Math.sin(t * 0.02);
-    ctx.beginPath();
-    ctx.ellipse(100, 80, 38, 42, 0, 0, Math.PI * 2);
-    ctx.fillStyle = col + glow + ')';
-    ctx.fill();
-
-    // Corps lyre
-    ctx.beginPath();
-    ctx.moveTo(70, 60);
-    ctx.bezierCurveTo(60, 80, 60, 100, 70, 105);
-    ctx.bezierCurveTo(82, 130, 118, 130, 130, 105);
-    ctx.bezierCurveTo(140, 100, 140, 80, 130, 60);
-    ctx.strokeStyle = col + '0.35)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Bras gauche
-    ctx.beginPath();
-    ctx.moveTo(72, 65);
-    ctx.bezierCurveTo(68, 45, 80, 30, 100, 30);
-    ctx.strokeStyle = col + '0.4)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Bras droit
-    ctx.beginPath();
-    ctx.moveTo(128, 65);
-    ctx.bezierCurveTo(132, 45, 120, 30, 100, 30);
-    ctx.strokeStyle = col + '0.4)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Barre
-    ctx.beginPath();
-    ctx.moveTo(80, 35); ctx.lineTo(120, 35);
-    ctx.strokeStyle = col + '0.5)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Cordes vibrantes (JS, compatible Safari)
-    const strings = [
-      { x1: 88, x2: 88, y1: 48, y2: 112, phase: 0,   amp: 6 },
-      { x1: 96, x2: 96, y1: 44, y2: 116, phase: 0.5, amp: 7 },
-      { x1: 104,x2: 104,y1: 44, y2: 116, phase: 1.0, amp: 7 },
-      { x1: 112,x2: 112,y1: 48, y2: 112, phase: 1.5, amp: 6 },
-    ];
-    strings.forEach(s => {
-      const vib = Math.sin(t * 0.06 + s.phase) * s.amp;
-      const mx = s.x1 + vib;
-      const my = (s.y1 + s.y2) / 2;
-      ctx.beginPath();
-      ctx.moveTo(s.x1, s.y1);
-      ctx.quadraticCurveTo(mx, my, s.x2, s.y2);
-      ctx.strokeStyle = col + '0.55)';
-      ctx.lineWidth = 0.8;
-      ctx.stroke();
-    });
-
-    // Étoiles
-    const stars = [[55,45,2.5],[148,52,3.2],[62,110,2.8],[142,105,2.0],[100,148,3.0]];
-    stars.forEach(([sx, sy, sp]) => {
-      const al = 0.18 + 0.2 * (Math.sin(t * 0.04 + sp) * 0.5 + 0.5);
-      ctx.beginPath();
-      ctx.arc(sx, sy, 1, 0, Math.PI * 2);
-      ctx.fillStyle = col + al + ')';
-      ctx.fill();
-    });
-
-    t++;
-    requestAnimationFrame(draw);
-  }
-  draw();
+// CANVAS ILLUSTRATIONS
+function makeCanvas(drawFn){
+  var c=document.createElement('canvas');
+  c.width=200;c.height=160;
+  c.style.width='100%';c.style.height='100%';
+  var ctx=c.getContext('2d');
+  var t=0;
+  function loop(){ctx.clearRect(0,0,200,160);drawFn(ctx,t);t++;requestAnimationFrame(loop);}
+  loop();
   return c;
 }
 
-function makeDarknessCanvas() {
-  const c = document.createElement('canvas');
-  c.width = 200; c.height = 160;
-  c.style.width = '100%'; c.style.height = '100%';
-  const ctx = c.getContext('2d');
-  let t = 0;
-  function draw() {
-    ctx.clearRect(0, 0, 200, 160);
-    const col = 'rgba(212,201,176,';
-
-    // Sol
-    ctx.beginPath();
-    ctx.moveTo(30, 128); ctx.lineTo(170, 128);
-    ctx.strokeStyle = col + '0.08)';
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
-
-    // Orphée — flotte
-    const fy = Math.sin(t * 0.025) * 2;
-    ctx.save();
-    ctx.translate(0, fy);
-    // Tête
-    ctx.beginPath(); ctx.arc(65, 80, 7, 0, Math.PI*2);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    // Corps
-    ctx.beginPath(); ctx.moveTo(65,87); ctx.lineTo(65,115);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    // Bras
-    ctx.beginPath(); ctx.moveTo(65,97); ctx.lineTo(55,108);
-    ctx.strokeStyle = col + '0.3)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(65,97); ctx.lineTo(75,108);
-    ctx.strokeStyle = col + '0.3)'; ctx.lineWidth = 1; ctx.stroke();
-    // Jambes
-    ctx.beginPath(); ctx.moveTo(65,115); ctx.lineTo(58,128);
-    ctx.strokeStyle = col + '0.3)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(65,115); ctx.lineTo(72,128);
-    ctx.strokeStyle = col + '0.3)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.restore();
-
-    // Eurydice — flotte (décalé)
-    const fy2 = Math.sin(t * 0.022 + 0.5) * 2;
-    ctx.save();
-    ctx.translate(0, fy2);
-    ctx.globalAlpha = 0.75;
-    ctx.setLineDash([3, 2]);
-    ctx.beginPath(); ctx.arc(135, 80, 7, 0, Math.PI*2);
-    ctx.strokeStyle = col + '0.28)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.beginPath(); ctx.moveTo(135,87); ctx.lineTo(135,115);
-    ctx.strokeStyle = col + '0.28)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(135,97); ctx.lineTo(125,108);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(135,97); ctx.lineTo(145,108);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(135,115); ctx.lineTo(128,128);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(135,115); ctx.lineTo(142,128);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.globalAlpha = 1;
-    ctx.restore();
-
-    // Mélodie entre eux
-    const melo = 0.1 + 0.1 * (Math.sin(t * 0.03) * 0.5 + 0.5);
-    ctx.beginPath();
-    ctx.moveTo(82, 100);
-    ctx.bezierCurveTo(90, 95, 110, 105, 118, 100);
-    ctx.strokeStyle = col + melo + ')';
-    ctx.lineWidth = 0.8;
-    ctx.setLineDash([]);
-    ctx.stroke();
-
-    // Étoiles
-    const stars = [[40,50,3],[160,45,2.5],[100,35,3.5],[55,145,2.8],[155,140,3.2]];
-    stars.forEach(([sx, sy, sp]) => {
-      const al = 0.15 + 0.2 * (Math.sin(t * 0.035 + sp) * 0.5 + 0.5);
-      ctx.beginPath(); ctx.arc(sx, sy, 1, 0, Math.PI*2);
-      ctx.fillStyle = col + al + ')'; ctx.fill();
-    });
-
-    t++;
-    requestAnimationFrame(draw);
-  }
-  draw();
-  return c;
+function drawLyre(ctx,t){
+  var col='rgba(212,201,176,';
+  var glow=0.04+0.02*Math.sin(t*0.02);
+  ctx.beginPath();ctx.ellipse(100,80,38,42,0,0,Math.PI*2);ctx.fillStyle=col+glow+')';ctx.fill();
+  ctx.beginPath();ctx.moveTo(70,60);ctx.bezierCurveTo(60,80,60,100,70,105);ctx.bezierCurveTo(82,130,118,130,130,105);ctx.bezierCurveTo(140,100,140,80,130,60);ctx.strokeStyle=col+'0.35)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(72,65);ctx.bezierCurveTo(68,45,80,30,100,30);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(128,65);ctx.bezierCurveTo(132,45,120,30,100,30);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(80,35);ctx.lineTo(120,35);ctx.strokeStyle=col+'0.5)';ctx.lineWidth=1.5;ctx.stroke();
+  var strings=[{x:88,y1:48,y2:112,ph:0,amp:6},{x:96,y1:44,y2:116,ph:0.5,amp:7},{x:104,y1:44,y2:116,ph:1.0,amp:7},{x:112,y1:48,y2:112,ph:1.5,amp:6}];
+  strings.forEach(function(s){var vib=Math.sin(t*0.06+s.ph)*s.amp;ctx.beginPath();ctx.moveTo(s.x,s.y1);ctx.quadraticCurveTo(s.x+vib,(s.y1+s.y2)/2,s.x,s.y2);ctx.strokeStyle=col+'0.55)';ctx.lineWidth=0.8;ctx.stroke();});
+  [[55,45,2.5],[148,52,3.2],[62,110,2.8],[142,105,2.0],[100,148,3.0]].forEach(function(s){var al=0.18+0.2*(Math.sin(t*0.04+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],1,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
-function makeWalkCanvas() {
-  const c = document.createElement('canvas');
-  c.width = 200; c.height = 160;
-  c.style.width = '100%'; c.style.height = '100%';
-  const ctx = c.getContext('2d');
-  let t = 0;
-  function draw() {
-    ctx.clearRect(0, 0, 200, 160);
-    const col = 'rgba(212,201,176,';
-
-    // Chemin
-    ctx.beginPath();
-    ctx.moveTo(20, 130); ctx.quadraticCurveTo(100, 125, 180, 130);
-    ctx.strokeStyle = col + '0.1)'; ctx.lineWidth = 0.8; ctx.stroke();
-
-    // Orphée
-    const fy = Math.sin(t * 0.025) * 2;
-    ctx.save(); ctx.translate(0, fy);
-    ctx.beginPath(); ctx.arc(75, 82, 7, 0, Math.PI*2);
-    ctx.strokeStyle = col + '0.4)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(75,89); ctx.lineTo(75,115);
-    ctx.strokeStyle = col + '0.4)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(75,98); ctx.lineTo(65,110);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(75,98); ctx.lineTo(85,107);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(75,115); ctx.lineTo(68,130);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(75,115); ctx.lineTo(82,130);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.restore();
-
-    // Eurydice
-    const fy2 = Math.sin(t * 0.022 + 0.4) * 1.5;
-    ctx.save(); ctx.translate(0, fy2); ctx.globalAlpha = 0.7;
-    ctx.setLineDash([2,2]);
-    ctx.beginPath(); ctx.arc(115, 90, 6, 0, Math.PI*2);
-    ctx.strokeStyle = col + '0.3)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.beginPath(); ctx.moveTo(115,96); ctx.lineTo(115,118);
-    ctx.strokeStyle = col + '0.28)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(115,105); ctx.lineTo(107,115);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(115,105); ctx.lineTo(123,115);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(115,118); ctx.lineTo(109,130);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(115,118); ctx.lineTo(121,130);
-    ctx.strokeStyle = col + '0.25)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.globalAlpha = 1;
-    ctx.restore();
-
-    // Éclat entre eux (le regard qui va se poser)
-    const spark = 0.4 + 0.4 * (Math.sin(t * 0.05) * 0.5 + 0.5);
-    ctx.beginPath(); ctx.arc(95, 86, 1.5, 0, Math.PI*2);
-    ctx.fillStyle = col + spark + ')'; ctx.fill();
-    const rays = [[0,-8],[6,-6],[8,0],[6,6],[-6,-6],[-8,0]];
-    rays.forEach(([rx, ry], i) => {
-      const a2 = 0.3 + 0.35 * (Math.sin(t * 0.05 + i * 0.4) * 0.5 + 0.5);
-      ctx.beginPath();
-      ctx.moveTo(95, 86);
-      ctx.lineTo(95 + rx, 86 + ry);
-      ctx.strokeStyle = col + a2 + ')'; ctx.lineWidth = 0.8; ctx.stroke();
-    });
-
-    // Étoiles
-    const stars = [[30,40,4],[170,35,3.5],[100,25,5],[50,148,3.8],[155,145,4.2]];
-    stars.forEach(([sx,sy,sp]) => {
-      const al = 0.12 + 0.2 * (Math.sin(t * 0.03 + sp) * 0.5 + 0.5);
-      ctx.beginPath(); ctx.arc(sx, sy, 1, 0, Math.PI*2);
-      ctx.fillStyle = col + al + ')'; ctx.fill();
-    });
-
-    t++;
-    requestAnimationFrame(draw);
-  }
-  draw();
-  return c;
+function drawDarkness(ctx,t){
+  var col='rgba(212,201,176,';
+  ctx.beginPath();ctx.moveTo(30,128);ctx.lineTo(170,128);ctx.strokeStyle=col+'0.08)';ctx.lineWidth=0.5;ctx.stroke();
+  var fy=Math.sin(t*0.025)*2;
+  ctx.save();ctx.translate(0,fy);
+  ctx.beginPath();ctx.arc(65,80,7,0,Math.PI*2);ctx.strokeStyle=col+'0.35)';ctx.lineWidth=1;ctx.stroke();
+  [[65,87,65,115],[65,97,55,108],[65,97,75,108],[65,115,58,128],[65,115,72,128]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.32)';ctx.lineWidth=1;ctx.stroke();});
+  ctx.restore();
+  var fy2=Math.sin(t*0.022+0.5)*2;
+  ctx.save();ctx.translate(0,fy2);ctx.globalAlpha=0.75;
+  ctx.setLineDash([3,2]);ctx.beginPath();ctx.arc(135,80,7,0,Math.PI*2);ctx.strokeStyle=col+'0.28)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
+  [[135,87,135,115],[135,97,125,108],[135,97,145,108],[135,115,128,128],[135,115,142,128]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.25)';ctx.lineWidth=1;ctx.stroke();});
+  ctx.globalAlpha=1;ctx.restore();
+  var melo=0.1+0.1*(Math.sin(t*0.03)*0.5+0.5);
+  ctx.beginPath();ctx.moveTo(82,100);ctx.bezierCurveTo(90,95,110,105,118,100);ctx.strokeStyle=col+melo+')';ctx.lineWidth=0.8;ctx.stroke();
+  [[40,50,3],[160,45,2.5],[100,35,3.5],[55,145,2.8],[155,140,3.2]].forEach(function(s){var al=0.15+0.2*(Math.sin(t*0.035+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],1,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
-function makeEndCanvas() {
-  const c = document.createElement('canvas');
-  c.width = 200; c.height = 160;
-  c.style.width = '100%'; c.style.height = '100%';
-  const ctx = c.getContext('2d');
-  let t = 0;
-  function draw() {
-    ctx.clearRect(0, 0, 200, 160);
-    const col = 'rgba(212,201,176,';
-
-    // Constellation Lyre
-    const constStars = [[100,38],[88,52],[112,52],[85,65],[115,65]];
-    const constLines = [[0,1],[0,2],[1,3],[2,4],[3,4]];
-    constLines.forEach(([a,b]) => {
-      ctx.beginPath();
-      ctx.moveTo(constStars[a][0], constStars[a][1]);
-      ctx.lineTo(constStars[b][0], constStars[b][1]);
-      ctx.strokeStyle = col + '0.12)'; ctx.lineWidth = 0.5; ctx.stroke();
-    });
-    constStars.forEach(([sx,sy], i) => {
-      const al = 0.4 + 0.5 * (Math.sin(t * 0.04 + i * 0.8) * 0.5 + 0.5);
-      const r = i === 0 ? 1.8 : 1;
-      ctx.beginPath(); ctx.arc(sx, sy, r, 0, Math.PI*2);
-      ctx.fillStyle = col + al + ')'; ctx.fill();
-    });
-    // Halo Vega
-    const halo = 0.1 + 0.15 * (Math.sin(t * 0.04) * 0.5 + 0.5);
-    ctx.beginPath(); ctx.arc(100, 38, 5, 0, Math.PI*2);
-    ctx.strokeStyle = col + halo + ')'; ctx.lineWidth = 0.5; ctx.stroke();
-
-    // Deux silhouettes — flottent ensemble
-    const fy = Math.sin(t * 0.02) * 4;
-    ctx.save(); ctx.translate(0, fy);
-
-    // Lui
-    ctx.beginPath(); ctx.arc(90, 88, 6, 0, Math.PI*2);
-    ctx.strokeStyle = col + '0.4)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(90,94); ctx.lineTo(90,118);
-    ctx.strokeStyle = col + '0.4)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(90,103); ctx.lineTo(82,112);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(90,103); ctx.lineTo(97,110);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(90,118); ctx.lineTo(84,130);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(90,118); ctx.lineTo(96,130);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-
-    // Elle
-    ctx.setLineDash([2,1.5]);
-    ctx.beginPath(); ctx.arc(110, 88, 6, 0, Math.PI*2);
-    ctx.strokeStyle = col + '0.35)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.beginPath(); ctx.moveTo(110,94); ctx.lineTo(110,118);
-    ctx.strokeStyle = col + '0.32)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(110,103); ctx.lineTo(103,110);
-    ctx.strokeStyle = col + '0.28)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(110,103); ctx.lineTo(118,112);
-    ctx.strokeStyle = col + '0.28)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(110,118); ctx.lineTo(104,130);
-    ctx.strokeStyle = col + '0.28)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(110,118); ctx.lineTo(116,130);
-    ctx.strokeStyle = col + '0.28)'; ctx.lineWidth = 1; ctx.stroke();
-
-    // Mains jointes
-    ctx.beginPath(); ctx.moveTo(97,110); ctx.lineTo(103,110);
-    ctx.strokeStyle = col + '0.5)'; ctx.lineWidth = 1.2; ctx.stroke();
-
-    ctx.restore();
-
-    // Sol
-    ctx.beginPath(); ctx.moveTo(55,130); ctx.lineTo(145,130);
-    ctx.strokeStyle = col + '0.08)'; ctx.lineWidth = 0.5; ctx.stroke();
-
-    // Étoiles fond
-    const bgStars = [[35,55,3.5],[165,48,2.8],[45,140,4],[158,138,3.2]];
-    bgStars.forEach(([sx,sy,sp]) => {
-      const al = 0.1 + 0.18 * (Math.sin(t * 0.03 + sp) * 0.5 + 0.5);
-      ctx.beginPath(); ctx.arc(sx, sy, 0.8, 0, Math.PI*2);
-      ctx.fillStyle = col + al + ')'; ctx.fill();
-    });
-
-    t++;
-    requestAnimationFrame(draw);
-  }
-  draw();
-  return c;
+function drawWalk(ctx,t){
+  var col='rgba(212,201,176,';
+  ctx.beginPath();ctx.moveTo(20,130);ctx.quadraticCurveTo(100,125,180,130);ctx.strokeStyle=col+'0.1)';ctx.lineWidth=0.8;ctx.stroke();
+  var fy=Math.sin(t*0.025)*2;
+  ctx.save();ctx.translate(0,fy);
+  ctx.beginPath();ctx.arc(75,82,7,0,Math.PI*2);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1;ctx.stroke();
+  [[75,89,75,115],[75,98,65,110],[75,98,85,107],[75,115,68,130],[75,115,82,130]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.38)';ctx.lineWidth=1;ctx.stroke();});
+  ctx.restore();
+  var fy2=Math.sin(t*0.022+0.4)*1.5;
+  ctx.save();ctx.translate(0,fy2);ctx.globalAlpha=0.7;
+  ctx.setLineDash([2,2]);ctx.beginPath();ctx.arc(115,90,6,0,Math.PI*2);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
+  [[115,96,115,118],[115,105,107,115],[115,105,123,115],[115,118,109,130],[115,118,121,130]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.25)';ctx.lineWidth=1;ctx.stroke();});
+  ctx.globalAlpha=1;ctx.restore();
+  var spark=0.4+0.4*(Math.sin(t*0.05)*0.5+0.5);
+  ctx.beginPath();ctx.arc(95,86,1.5,0,Math.PI*2);ctx.fillStyle=col+spark+')';ctx.fill();
+  [[0,-8],[6,-6],[8,0],[6,6],[-6,-6],[-8,0]].forEach(function(r,i){var a2=0.3+0.35*(Math.sin(t*0.05+i*0.4)*0.5+0.5);ctx.beginPath();ctx.moveTo(95,86);ctx.lineTo(95+r[0],86+r[1]);ctx.strokeStyle=col+a2+')';ctx.lineWidth=0.8;ctx.stroke();});
+  [[30,40,4],[170,35,3.5],[100,25,5],[50,148,3.8],[155,145,4.2]].forEach(function(s){var al=0.12+0.2*(Math.sin(t*0.03+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],1,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
-// Map des clés de scène vers leur fonction canvas
-const canvasFactories = {
-  lyre:     makeLyreCanvas,
-  darkness: makeDarknessCanvas,
-  walk:     makeWalkCanvas,
-  end:      makeEndCanvas,
+function drawEnd(ctx,t){
+  var col='rgba(212,201,176,';
+  var cStars=[[100,38],[88,52],[112,52],[85,65],[115,65]];
+  [[0,1],[0,2],[1,3],[2,4],[3,4]].forEach(function(p){ctx.beginPath();ctx.moveTo(cStars[p[0]][0],cStars[p[0]][1]);ctx.lineTo(cStars[p[1]][0],cStars[p[1]][1]);ctx.strokeStyle=col+'0.12)';ctx.lineWidth=0.5;ctx.stroke();});
+  cStars.forEach(function(s,i){var al=0.4+0.5*(Math.sin(t*0.04+i*0.8)*0.5+0.5);var r=i===0?1.8:1;ctx.beginPath();ctx.arc(s[0],s[1],r,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
+  var halo=0.1+0.15*(Math.sin(t*0.04)*0.5+0.5);ctx.beginPath();ctx.arc(100,38,5,0,Math.PI*2);ctx.strokeStyle=col+halo+')';ctx.lineWidth=0.5;ctx.stroke();
+  var fy=Math.sin(t*0.02)*4;
+  ctx.save();ctx.translate(0,fy);
+  ctx.beginPath();ctx.arc(90,88,6,0,Math.PI*2);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1;ctx.stroke();
+  [[90,94,90,118],[90,103,82,112],[90,103,97,110],[90,118,84,130],[90,118,96,130]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.38)';ctx.lineWidth=1;ctx.stroke();});
+  ctx.setLineDash([2,1.5]);ctx.beginPath();ctx.arc(110,88,6,0,Math.PI*2);ctx.strokeStyle=col+'0.35)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
+  [[110,94,110,118],[110,103,103,110],[110,103,118,112],[110,118,104,130],[110,118,116,130]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.28)';ctx.lineWidth=1;ctx.stroke();});
+  ctx.beginPath();ctx.moveTo(97,110);ctx.lineTo(103,110);ctx.strokeStyle=col+'0.5)';ctx.lineWidth=1.2;ctx.stroke();
+  ctx.restore();
+  ctx.beginPath();ctx.moveTo(55,130);ctx.lineTo(145,130);ctx.strokeStyle=col+'0.08)';ctx.lineWidth=0.5;ctx.stroke();
+  [[35,55,3.5],[165,48,2.8],[45,140,4],[158,138,3.2]].forEach(function(s){var al=0.1+0.18*(Math.sin(t*0.03+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
+}
+
+var drawFns={lyre:drawLyre,darkness:drawDarkness,walk:drawWalk,end:drawEnd};
+
+// SCENES
+var scenes={
+
+  // ── ACTE I ──
+  intro:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Il y avait une lyre, et le silence autour.<br>Les cordes vibraient dans l\'air froid du soir<br>comme si la nuit elle-m&ecirc;me retenait son souffle.<br><br>Elle passait par l&agrave; sans raison.<br>Ou peut-&ecirc;tre que toutes les raisons du monde<br>l\'avaient men&eacute;e jusqu\'ici,<br>sans qu\'elle le sache encore.',
+    choices:[
+      {label:'Elle s\'arr&ecirc;te',next:'stop'},
+      {label:'Elle continue de marcher',next:'walk_past'}
+    ]
+  },
+  stop:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Elle s\'arr&ecirc;ta.<br>Pas par curiosit&eacute; &mdash; par n&eacute;cessit&eacute;.<br>Comme si ses pieds avaient compris avant elle<br>que certaines musiques ne se laissent pas traverser.<br><br>Il jouait les yeux ferm&eacute;s.<br>Il ne la vit pas.<br>Mais quelque chose dans la m&eacute;lodie<br><em>changea</em>.',
+    choices:[
+      {label:'Elle attend, immobile',next:'wait_still'},
+      {label:'Elle s\'approche doucement',next:'approach_slow'}
+    ]
+  },
+  wait_still:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Elle attendit.<br>La musique tourna autour d\'elle<br>comme on tourne autour de quelqu\'un qu\'on n\'ose pas nommer.<br><br>Quand la derni&egrave;re note s\'&eacute;teignit,<br>il ouvrit les yeux.<br>Et il la vit &mdash; debout dans le soir,<br>comme si elle avait toujours &eacute;t&eacute; l&agrave;.<br><br>Comme si c\'&eacute;tait <em>normal</em>.',
+    choices:[{label:'Continuer',next:'meet'}]
+  },
+  approach_slow:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Elle fit un pas.<br>Puis un autre.<br>La musique ne s\'arr&ecirc;ta pas &mdash;<br>elle s\'ouvrit,<br>comme une porte qu\'on pousse sans savoir ce qu\'il y a derri&egrave;re.<br><br>Il sentit sa pr&eacute;sence avant de la voir.<br>Quelque chose dans l\'air avait chang&eacute; de go&ucirc;t.',
+    choices:[{label:'Continuer',next:'meet'}]
+  },
+  walk_past:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Elle fit encore trois pas.<br>Puis la musique se tordit &mdash; une seule note,<br>suspendue dans l\'air comme une question.<br><br>Elle ne put pas ne pas se retourner.<br>Ce n\'&eacute;tait pas lui qui avait jou&eacute; cette note.<br>C\'&eacute;tait <em>elle</em>, sans le savoir,<br>qui l\'avait appel&eacute;e.',
+    choices:[
+      {label:'Elle revient sur ses pas',next:'come_back'},
+      {label:'Elle s\'arr&ecirc;te sans se retourner',next:'hesitate'}
+    ]
+  },
+  come_back:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Elle revint.<br>Lentement, comme quelqu\'un qui sait<br>qu\'une chose importante l\'attend<br>et pr&eacute;f&egrave;re ne pas courir.<br><br>La musique reprit, plus douce cette fois.<br>Comme si elle l\'avait attendue, elle aussi.',
+    choices:[{label:'Continuer',next:'meet'}]
+  },
+  hesitate:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Elle resta l&agrave;, dos tourn&eacute;, les yeux ferm&eacute;s.<br>La musique vint &agrave; elle.<br>S\'enroula autour d\'elle comme un bras qu\'on pose sur les &eacute;paules<br>sans demander la permission.<br><br>Elle se retourna.<br>Pas parce qu\'elle avait d&eacute;cid&eacute; de le faire &mdash;<br>mais parce que son corps<br>avait <em>d&eacute;j&agrave; choisi</em>.',
+    choices:[{label:'Continuer',next:'meet'}]
+  },
+  meet:{
+    act:'Acte I &mdash; La Rencontre',
+    canvas:'lyre',
+    text:'Quand il ouvrit les yeux,<br>elle &eacute;tait l&agrave;.<br><br>Il n\'y eut pas de mots.<br>Il y eut le vent dans les feuilles,<br>et cette fa&ccedil;on qu\'il avait de la regarder<br>comme si elle &eacute;tait la seule chose au monde<br>qui m&eacute;ritait d\'&ecirc;tre vue.<br><br>Elle comprit, dans ce silence,<br>qu\'elle ne repartirait plus seule.',
+    choices:[{label:'Continuer',next:'act2'}]
+  },
+
+  // ── ACTE II ──
+  act2:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Puis vint la nuit qui ne finit pas.<br><br>Elle disparut &mdash; doucement, presque sans bruit.<br>Comme une bougie qu\'on oublie de prot&eacute;ger du vent.<br>Et lui resta l&agrave;,<br>avec sa lyre et le vide en forme d\'elle,<br>dans un monde soudainement trop grand,<br>trop silencieux,<br>trop <em>plat</em>.',
+    choices:[
+      {label:'Il descend la chercher',next:'descend'},
+      {label:'Il joue pour qu\'elle l\'entende',next:'play'}
+    ]
+  },
+  descend:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Il descendit l&agrave; o&ugrave; personne ne descend librement.<br>Pas par bravoure.<br>Par impossibilit&eacute; de faire autrement.<br><br>Sa musique ouvrait les portes devant lui<br>comme la lumi&egrave;re devant l\'aube.<br>M&ecirc;me les gardiens du seuil<br>pos&egrave;rent leurs armes,<br>&eacute;mus par quelque chose qu\'ils ne savaient pas nommer.',
+    choices:[
+      {label:'Il avance sans h&eacute;siter',next:'brave'},
+      {label:'Il s\'arr&ecirc;te, accabl&eacute;',next:'grief'}
+    ]
+  },
+  brave:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Il ne s\'arr&ecirc;ta pas.<br>Chaque couloir plus sombre que le pr&eacute;c&eacute;dent,<br>chaque silence plus &eacute;pais &mdash;<br>et lui qui avan&ccedil;ait quand m&ecirc;me,<br>les yeux ouverts dans le noir,<br>comme si l\'amour &eacute;tait une forme de vision<br>que la lumi&egrave;re n\'enseigne pas.',
+    choices:[{label:'Continuer',next:'found'}]
+  },
+  grief:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Il s\'arr&ecirc;ta.<br>Le chagrin &eacute;tait trop lourd, une seconde.<br>Il s\'assit dans le noir<br>et joua &mdash; pour elle, pour personne,<br>pour l\'obscurit&eacute; elle-m&ecirc;me.<br><br>Et l\'obscurit&eacute; l\'&eacute;couta.<br>Puis s\'&eacute;carta, <em>un peu</em>.',
+    choices:[{label:'Continuer',next:'found'}]
+  },
+  play:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Il joua.<br>Pendant des heures, peut-&ecirc;tre des si&egrave;cles &mdash;<br>le temps n\'existait plus vraiment.<br><br>Et quelque part dans l\'obscurit&eacute;,<br>elle l\'entendit.<br>La m&eacute;lodie traversa tout &mdash;<br>les murs, les distances, le silence &mdash;<br>et elle sut que c\'&eacute;tait lui.<br>Qu\'il <em>viendrait</em>.',
+    choices:[
+      {label:'Elle va vers la musique',next:'she_moves'},
+      {label:'Elle attend, les yeux ferm&eacute;s',next:'she_waits'}
+    ]
+  },
+  she_moves:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Elle avan&ccedil;a vers le son.<br>Chaque note &eacute;tait un fil tendu dans l\'obscurit&eacute;.<br>Elle n\'avait pas besoin de voir &mdash;<br>elle avait besoin de <em>lui</em>.<br><br>Ils se trouv&egrave;rent quelque part entre deux mondes,<br>l&agrave; o&ugrave; la lumi&egrave;re commence &agrave; peine &agrave; se souvenir d\'elle-m&ecirc;me.',
+    choices:[{label:'Continuer',next:'found'}]
+  },
+  she_waits:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Elle ferma les yeux et attendit.<br>La musique se rapprochait &mdash; lentement,<br>comme quelqu\'un qui ne veut pas effrayer<br>ce qui est fragile.<br><br>Quand elle rouvrit les yeux,<br>il &eacute;tait l&agrave;.<br>Il n\'avait pas l\'air triomphant.<br>Il avait l\'air <em>soulag&eacute;</em>.',
+    choices:[{label:'Continuer',next:'found'}]
+  },
+  found:{
+    act:'Acte II &mdash; La Descente',
+    canvas:'darkness',
+    text:'Il la trouva.<br><br>Elle &eacute;tait l&agrave;, un peu p&acirc;le,<br>un peu plus l&eacute;g&egrave;re qu\'avant,<br>comme quelqu\'un qui a attendu si longtemps<br>qu\'il a appris &agrave; ne plus peser.<br><br>Ils se regard&egrave;rent.<br>Aucun mot.<br>Juste cette certitude &mdash; lente, absolue &mdash;<br>que rien de ce qui s&eacute;pare<br>ne dure vraiment <em>pour toujours</em>.',
+    choices:[{label:'Continuer',next:'act3'}]
+  },
+
+  // ── ACTE III ──
+  act3:{
+    act:'Acte III &mdash; La Remont&eacute;e',
+    canvas:'walk',
+    text:'Une seule condition.<br><br>Ne pas se retourner.<br>Remonter sans chercher &agrave; v&eacute;rifier<br>que l\'autre suit encore.<br>Faire confiance au bruit de ses pas,<br>&agrave; sa respiration dans l\'obscurit&eacute;,<br>&agrave; ce fil invisible qui les reliait<br>depuis toujours &mdash;<br>m&ecirc;me avant de se conna&icirc;tre.',
+    choices:[
+      {label:'Il marche et fait confiance',next:'trust'},
+      {label:'Le doute s\'installe',next:'doubt'}
+    ]
+  },
+  trust:{
+    act:'Acte III &mdash; La Remont&eacute;e',
+    canvas:'walk',
+    text:'Il marcha.<br>Un pas, puis l\'autre.<br>Il entendait son souffle dans son dos<br>comme une promesse que l\'on tient sans le dire.<br><br>Il y eut un moment &mdash; une seconde &mdash;<br>o&ugrave; le silence devint trop &eacute;pais.<br>O&ugrave; il ne sut plus si elle &eacute;tait l&agrave;.<br><br>Mais il continua.<br>Parce que douter n\'est pas trahir.<br>Et parce qu\'il l\'aimait assez<br>pour <em>ne pas avoir besoin de le v&eacute;rifier</em>.',
+    choices:[
+      {label:'Il sent la lumi&egrave;re devant lui',next:'light_ahead'},
+      {label:'Il lui parle sans se retourner',next:'whisper'}
+    ]
+  },
+  light_ahead:{
+    act:'Acte III &mdash; La Remont&eacute;e',
+    canvas:'walk',
+    text:'Une lueur, devant.<br>Mince comme un fil de soie &mdash;<br>mais r&eacute;elle.<br><br>Il accl&eacute;ra, juste un peu.<br>Pas assez pour la perdre &mdash;<br>juste assez pour lui montrer<br>qu\'il croyait en ce qu\'ils &eacute;taient<br>en train de traverser ensemble.',
+    choices:[{label:'Voir la fin',next:'end'}]
+  },
+  whisper:{
+    act:'Acte III &mdash; La Remont&eacute;e',
+    canvas:'walk',
+    text:'Il parla &agrave; voix basse.<br>Pas pour v&eacute;rifier qu\'elle &eacute;tait l&agrave; &mdash;<br>mais pour qu\'elle sache<br>qu\'il pensait &agrave; elle en marchant.<br><br>Il lui dit des choses simples.<br>La couleur du ciel qu\'il allait lui montrer.<br>Le nom d\'une &eacute;toile qu\'il lui avait mis de c&ocirc;t&eacute;.<br>Elle &eacute;couta, et ses pas<br>se rapproch&egrave;rent <em>imperceptiblement</em>.',
+    choices:[{label:'Voir la fin',next:'end'}]
+  },
+  doubt:{
+    act:'Acte III &mdash; La Remont&eacute;e',
+    canvas:'walk',
+    text:'Le doute est entr&eacute; par une fissure dans le silence.<br><br>Et si elle n\'&eacute;tait plus l&agrave; ?<br>Et si tout &ccedil;a n\'&eacute;tait qu\'un r&ecirc;ve de plus<br>que le matin allait d&eacute;faire ?<br><br>Il ferma les yeux.<br>Respira.<br>Et choisit de continuer quand m&ecirc;me &mdash;<br>non pas parce qu\'il &eacute;tait certain,<br>mais parce que l\'amour<br>ne demande pas la certitude.<br>Il demande <em>le courage d\'avancer</em>.',
+    choices:[
+      {label:'Il reprend confiance',next:'regain'},
+      {label:'Il s\'arr&ecirc;te une derni&egrave;re fois',next:'last_stop'}
+    ]
+  },
+  regain:{
+    act:'Acte III &mdash; La Remont&eacute;e',
+    canvas:'walk',
+    text:'Il respira une deuxi&egrave;me fois.<br>Plus profond&eacute;ment.<br><br>Et dans ce souffle,<br>il retrouva quelque chose &mdash;<br>pas la certitude,<br>mais quelque chose de plus solide :<br>la <em>d&eacute;cision</em> d\'aimer quand m&ecirc;me.<br><br>Il repartit. Un pas. Puis l\'autre.',
+    choices:[{label:'Voir la fin',next:'end'}]
+  },
+  last_stop:{
+    act:'Acte III &mdash; La Remont&eacute;e',
+    canvas:'walk',
+    text:'Il s\'arr&ecirc;ta.<br>Une seconde seulement &mdash;<br>le temps de poser la main sur sa poitrine,<br>l&agrave; o&ugrave; quelque chose battait encore pour elle.<br><br>Il n\'avait pas besoin de la voir.<br>Elle &eacute;tait l&agrave; aussi dans ce battement.<br>Dans chaque pas qu\'il faisait<br>vers la lumi&egrave;re.<br><br>Il avanca. <em>Sans se retourner.</em>',
+    choices:[{label:'Voir la fin',next:'end'}]
+  },
+
+  end:{act:'',canvas:'',text:'',choices:[]}
 };
 
-// ── SCÈNES ──
-const scenes = {
-  intro:      { act:'Acte I — La Lyre',      canvas:'lyre',     text:`Il jouait seul, au bord de l'eau,\net les pierres s'arrêtaient de tomber pour l'écouter.\nTu n'étais pas censée passer par là ce soir-là.\nMais quelque chose — une note, un silence —\nt'a fait ralentir.`, choices:[{label:"Tu t'approches",next:'approach'},{label:"Tu restes dans l'ombre",next:'shadow'}]},
-  approach:   { act:'Acte I — La Lyre',      canvas:'lyre',     text:`Tu t'avances, et la musique change.\nComme si elle t'avait attendue.\nIl lève les yeux — il n'est pas surpris,\nil est <em>soulagé</em>.\nComme si ta présence était la note manquante.`, choices:[{label:'Tu lui souris',next:'smile'},{label:'Tu ne dis rien',next:'silence_a'}]},
-  shadow:     { act:'Acte I — La Lyre',      canvas:'lyre',     text:`Tu restes où tu es.\nMais la mélodie s'étire vers toi,\ncontourne les arbres,\ntraverse l'air comme une question.\nIl ne te voit pas encore.\nMais il joue <em>pour toi</em>.`, choices:[{label:'Tu fais un pas',next:'smile'},{label:'Tu fermes les yeux',next:'silence_a'}]},
-  smile:      { act:'Acte I — La Lyre',      canvas:'lyre',     text:`Un sourire,\net il range sa lyre.\nPas parce que la musique est finie —\nmais parce qu'il a trouvé\nquelque chose de plus beau\nà regarder.`, choices:[{label:'Continuer',next:'act2'}]},
-  silence_a:  { act:'Acte I — La Lyre',      canvas:'lyre',     text:`Le silence entre vous\nn'est pas un vide.\nC'est un espace que vous avez créé ensemble,\nsans le chercher, sans le nommer.\nIl pose sa lyre.\nCe regard-là ne s'oubliera pas.`, choices:[{label:'Continuer',next:'act2'}]},
-  act2:       { act:'Acte II — L'Obscurité', canvas:'darkness', text:`Il y a des nuits qui tombent plus vite que d'habitude.\nTu t'es retrouvée seule,\ndans un endroit sans bords, sans couleurs, sans son.\n\nL'obscurité n'était pas cruelle.\nElle était juste <em>silencieuse</em>.\nEt dans ce silence — un son, très loin.`, choices:[{label:'Tu suis la mélodie',next:'follow'},{label:"Tu attends qu'elle vienne à toi",next:'wait'}]},
-  follow:     { act:'Acte II — L'Obscurité', canvas:'darkness', text:`Tu avances.\nLe sol n'est pas certain sous tes pieds\nmais la musique, elle, ne ment pas.\nElle grandit à chaque pas.\nElle te dit : <em>par ici, encore un peu.</em>\nEt tu lui fais confiance.`, choices:[{label:'Continuer',next:'act3'}]},
-  wait:       { act:'Acte II — L'Obscurité', canvas:'darkness', text:`Tu t'arrêtes.\nEt la mélodie — comme si elle t'avait sentie —\nchange de direction.\nElle vient vers toi.\nLentement, puis soudainement,\ncomme l'amour.`, choices:[{label:'Continuer',next:'act3'}]},
-  act3:       { act:'Acte III — Le Regard',  canvas:'walk',     text:`Il remontait devant toi.\nLes dieux avaient posé leur seule condition :\n<em>ne pas se retourner.</em>\n\nIl avançait.\nTes pas résonnaient derrière lui.\nMais le silence entre vous\nétait trop lourd à porter.`, choices:[{label:'Tu espères qu'il tienne',next:'turn_hope'},{label:'Tu sais déjà ce qu'il va faire',next:'turn_know'}]},
-  turn_hope:  { act:'Acte III — Le Regard',  canvas:'walk',     text:`Il n'a pas tenu.\nIl s'est retourné.\n\nMais dans cette version-là,\nce n'est pas la fin de l'histoire.\nC'est juste la preuve\nqu'il t'aimait trop\npour ne pas le faire.`, choices:[{label:'Voir la fin',next:'end'}]},
-  turn_know:  { act:'Acte III — Le Regard',  canvas:'walk',     text:`Tu le savais.\nEt pourtant, quand il s'est retourné,\ntu as vu dans ses yeux\nnon pas une erreur —\nmais une certitude.\nIl avait besoin de s'assurer\nque tu étais <em>réelle</em>.`, choices:[{label:'Voir la fin',next:'end'}]},
-  end: { act:'', canvas:'', text:'', choices:[] }
+var endingData={
+  title:'Et la lumi&egrave;re,<br>enfin.',
+  text:'Ils &eacute;mergent ensemble.<br><br>Personne ne se retourna.<br>Ou peut-&ecirc;tre que si &mdash;<br>mais dans cette version-l&agrave;,<br>l\'obscurit&eacute; ne r&eacute;clame rien.<br>Elle regarde partir ceux qui s\'aiment<br>avec quelque chose qui ressemble<br>&agrave; de la <em>tendresse</em>.<br><br>Ils ne dirent rien pendant longtemps.<br>Le ciel &eacute;tait vaste et tr&egrave;s doux.<br>Quelque part dans la constellation de la Lyre,<br>une &eacute;toile br&ucirc;lait plus fort que les autres.<br><br>Comme une promesse<br>que personne n\'avait besoin de formuler &mdash;<br>parce qu\'elle &eacute;tait d&eacute;j&agrave; <em>vraie</em>.'
 };
 
-const endingData = {
-  title: 'Cette fois,\nil ne se retourne pas.',
-  text: `Cette fois, il savait que tu étais là.\nPas parce qu'il t'entendait —\nmais parce qu'il te <em>portait</em>.\n\nTu n'avais pas besoin des Enfers\nni d'une condition des dieux\npour comprendre ce que vous étiez l'une pour l'autre.\n\nIl suffisait d'une note,\nd'une nuit,\nd'un regard posé au bon endroit.\n\nEt quelque part dans la constellation de la Lyre,\nune étoile porte ton nom.\nNon pas parce que tu es perdue —\nmais parce que tu appartiens <em>au ciel</em>.`
-};
+// ENGINE
+var illustEl=document.getElementById('illustration');
+var actTag=document.getElementById('act-tag');
+var narration=document.getElementById('narration');
+var choicesEl=document.getElementById('choices');
+var endingEl=document.getElementById('ending');
+var endingCanvas=document.getElementById('ending-canvas');
+var endTitle=document.getElementById('ending-title');
+var endText=document.getElementById('ending-text');
+var restartBtn=document.getElementById('restart-btn');
 
-// ── ENGINE ──
-const illustEl  = document.getElementById('illustration');
-const actTag    = document.getElementById('act-tag');
-const narration = document.getElementById('narration');
-const choicesEl = document.getElementById('choices');
-const endingEl  = document.getElementById('ending');
-const endingSvgEl = document.getElementById('ending-svg');
-const endTitle  = document.getElementById('ending-title');
-const endText   = document.getElementById('ending-text');
-const restartBtn= document.getElementById('restart-btn');
-
-function showScene(key) {
-  if(key === 'end'){ showEnding(); return; }
-  const scene = scenes[key];
-  if(!scene) return;
-
+function showScene(key){
+  if(key==='end'){showEnding();return;}
+  var scene=scenes[key];
+  if(!scene)return;
   illustEl.classList.remove('show');
   narration.classList.remove('show');
   choicesEl.classList.remove('show');
-
-  setTimeout(() => {
-    actTag.textContent = scene.act;
-    // Remplace le contenu par un canvas animé
-    illustEl.innerHTML = '';
-    if(scene.canvas && canvasFactories[scene.canvas]) {
-      illustEl.appendChild(canvasFactories[scene.canvas]());
-    }
-    narration.innerHTML = scene.text.replace(/\n/g,'<br>');
-    choicesEl.innerHTML = '';
-    scene.choices.forEach(c => {
-      const btn = document.createElement('button');
-      btn.className = 'choice-btn';
-      btn.textContent = c.label;
-      btn.addEventListener('click', () => {
+  setTimeout(function(){
+    actTag.innerHTML=scene.act;
+    illustEl.innerHTML='';
+    if(scene.canvas&&drawFns[scene.canvas]){illustEl.appendChild(makeCanvas(drawFns[scene.canvas]));}
+    narration.innerHTML=scene.text;
+    choicesEl.innerHTML='';
+    scene.choices.forEach(function(c){
+      var btn=document.createElement('button');
+      btn.className='choice-btn';
+      btn.innerHTML=c.label;
+      btn.addEventListener('click',function(){
         illustEl.classList.remove('show');
         narration.classList.remove('show');
         choicesEl.classList.remove('show');
-        setTimeout(() => showScene(c.next), 450);
+        setTimeout(function(){showScene(c.next);},450);
       });
       choicesEl.appendChild(btn);
     });
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+    requestAnimationFrame(function(){requestAnimationFrame(function(){
       illustEl.classList.add('show');
       narration.classList.add('show');
       choicesEl.classList.add('show');
-    }));
-  }, 480);
+    });});
+  },480);
 }
 
-function showEnding() {
+var endLoopActive=false;
+function showEnding(){
   illustEl.classList.remove('show');
   narration.classList.remove('show');
   choicesEl.classList.remove('show');
-  setTimeout(() => {
-    // Remplace le SVG statique par un canvas animé pour la fin
-    const endIllusWrap = endingSvgEl.parentNode;
-    endingSvgEl.style.display = 'none';
-    // Évite de dupliquer si on rejoue
-    let existingCanvas = endIllusWrap.querySelector('canvas.end-canvas');
-    if(!existingCanvas){
-      const ec = makeEndCanvas();
-      ec.className = 'end-canvas ending-illus';
-      ec.style.display = 'block';
-      endIllusWrap.insertBefore(ec, endingSvgEl);
-    } else {
-      existingCanvas.style.display = 'block';
-    }
-    endTitle.innerHTML = endingData.title.replace(/\n/g,'<br>');
-    endText.innerHTML  = endingData.text.replace(/\n/g,'<br>');
-    endingEl.style.display = 'block';
-    document.getElementById('game').style.gap = '0';
-    requestAnimationFrame(() => requestAnimationFrame(() => endingEl.classList.add('show')));
-  }, 500);
+  setTimeout(function(){
+    endLoopActive=true;
+    var t=0;
+    var ctx=endingCanvas.getContext('2d');
+    function loopEnd(){if(!endLoopActive)return;ctx.clearRect(0,0,200,160);drawEnd(ctx,t);t++;requestAnimationFrame(loopEnd);}
+    loopEnd();
+    endTitle.innerHTML=endingData.title;
+    endText.innerHTML=endingData.text;
+    endingEl.style.display='block';
+    requestAnimationFrame(function(){requestAnimationFrame(function(){endingEl.classList.add('show');});});
+  },500);
 }
 
-restartBtn.addEventListener('click', () => {
+restartBtn.addEventListener('click',function(){
+  endLoopActive=false;
   endingEl.classList.remove('show');
-  setTimeout(() => {
-    endingEl.style.display = 'none';
-    showScene('intro');
-  }, 600);
+  setTimeout(function(){endingEl.style.display='none';showScene('intro');},600);
 });
 
 showScene('intro');
