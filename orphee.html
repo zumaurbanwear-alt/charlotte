@@ -162,11 +162,13 @@ function drawWalk(ctx,t){
 
 function drawEnd(ctx,t){
   var col='rgba(212,201,176,';
+  var rise=Math.min(1,t/420); // ascension progressive sur ~7s
+  var riseOffset=rise*10; // les silhouettes montent doucement avec le temps
   var cStars=[[100,38],[88,52],[112,52],[85,65],[115,65]];
   [[0,1],[0,2],[1,3],[2,4],[3,4]].forEach(function(p){ctx.beginPath();ctx.moveTo(cStars[p[0]][0],cStars[p[0]][1]);ctx.lineTo(cStars[p[1]][0],cStars[p[1]][1]);ctx.strokeStyle=col+'0.12)';ctx.lineWidth=0.5;ctx.stroke();});
-  cStars.forEach(function(s,i){var al=0.4+0.5*(Math.sin(t*0.04+i*0.8)*0.5+0.5);var r=i===0?1.8:1;ctx.beginPath();ctx.arc(s[0],s[1],r,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
-  var halo=0.1+0.15*(Math.sin(t*0.04)*0.5+0.5);ctx.beginPath();ctx.arc(100,38,5,0,Math.PI*2);ctx.strokeStyle=col+halo+')';ctx.lineWidth=0.5;ctx.stroke();
-  var fy=Math.sin(t*0.02)*4;
+  cStars.forEach(function(s,i){var al=(0.4+0.5*(Math.sin(t*0.04+i*0.8)*0.5+0.5))*(0.5+0.5*rise);var r=i===0?1.8:1;ctx.beginPath();ctx.arc(s[0],s[1],r,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
+  var halo=(0.1+0.15*(Math.sin(t*0.04)*0.5+0.5))*(0.5+0.6*rise);ctx.beginPath();ctx.arc(100,38,5+rise*2,0,Math.PI*2);ctx.strokeStyle=col+halo+')';ctx.lineWidth=0.5;ctx.stroke();
+  var fy=Math.sin(t*0.02)*4-riseOffset;
   ctx.save();ctx.translate(0,fy);
   ctx.beginPath();ctx.arc(90,88,6,0,Math.PI*2);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1;ctx.stroke();
   [[90,94,90,118],[90,103,82,112],[90,103,97,110],[90,118,84,130],[90,118,96,130]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.38)';ctx.lineWidth=1;ctx.stroke();});
@@ -175,56 +177,70 @@ function drawEnd(ctx,t){
   ctx.beginPath();ctx.moveTo(97,110);ctx.lineTo(103,110);ctx.strokeStyle=col+'0.5)';ctx.lineWidth=1.2;ctx.stroke();
   ctx.restore();
   ctx.beginPath();ctx.moveTo(55,130);ctx.lineTo(145,130);ctx.strokeStyle=col+'0.08)';ctx.lineWidth=0.5;ctx.stroke();
-  [[35,55,3.5],[165,48,2.8],[45,140,4],[158,138,3.2]].forEach(function(s){var al=0.1+0.18*(Math.sin(t*0.03+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
+  [[35,55,3.5],[165,48,2.8],[45,140,4],[158,138,3.2]].forEach(function(s){var al=(0.1+0.18*(Math.sin(t*0.03+s[2])*0.5+0.5))*(0.6+0.4*rise);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
 // Fin 2 — seul avec la lyre, elle est partie
 function drawAlone(ctx,t){
   var col='rgba(212,201,176,';
-  var glow=0.03+0.015*Math.sin(t*0.015);
+  var fade=Math.max(0,1-t/500); // tout s'éteint sur ~8s puis se stabilise très bas
+  var settle=0.15+0.85*fade; // intensité résiduelle
+  var glow=(0.03+0.015*Math.sin(t*0.015))*settle;
   ctx.beginPath();ctx.ellipse(100,80,30,34,0,0,Math.PI*2);ctx.fillStyle=col+glow+')';ctx.fill();
-  ctx.beginPath();ctx.moveTo(78,66);ctx.bezierCurveTo(70,80,70,98,78,102);ctx.bezierCurveTo(88,122,112,122,122,102);ctx.bezierCurveTo(130,98,130,80,122,66);ctx.strokeStyle=col+'0.28)';ctx.lineWidth=1.5;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(80,70);ctx.bezierCurveTo(76,52,88,40,100,40);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=1.5;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(120,70);ctx.bezierCurveTo(124,52,112,40,100,40);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=1.5;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(88,42);ctx.lineTo(112,42);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1.5;ctx.stroke();
-  [{x:92,y1:54,y2:108,ph:0,amp:1.5},{x:100,y1:50,y2:112,ph:0.5,amp:1},{x:108,y1:54,y2:108,ph:1,amp:1.5}].forEach(function(s){var vib=Math.sin(t*0.025+s.ph)*s.amp;ctx.beginPath();ctx.moveTo(s.x,s.y1);ctx.quadraticCurveTo(s.x+vib,(s.y1+s.y2)/2,s.x,s.y2);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=0.7;ctx.stroke();});
-  ctx.beginPath();ctx.arc(100,32,5,0,Math.PI*2);ctx.strokeStyle=col+'0.22)';ctx.lineWidth=1;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(100,37);ctx.bezierCurveTo(98,48,95,55,98,65);ctx.strokeStyle=col+'0.22)';ctx.lineWidth=1;ctx.stroke();
-  [[45,40,2],[158,35,3],[70,130,2.5],[135,128,3.5],[100,150,4]].forEach(function(s){var al=0.05+0.1*(Math.sin(t*0.025+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
+  ctx.beginPath();ctx.moveTo(78,66);ctx.bezierCurveTo(70,80,70,98,78,102);ctx.bezierCurveTo(88,122,112,122,122,102);ctx.bezierCurveTo(130,98,130,80,122,66);ctx.strokeStyle=col+(0.28*settle)+')';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(80,70);ctx.bezierCurveTo(76,52,88,40,100,40);ctx.strokeStyle=col+(0.3*settle)+')';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(120,70);ctx.bezierCurveTo(124,52,112,40,100,40);ctx.strokeStyle=col+(0.3*settle)+')';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(88,42);ctx.lineTo(112,42);ctx.strokeStyle=col+(0.4*settle)+')';ctx.lineWidth=1.5;ctx.stroke();
+  // les cordes vibrent de moins en moins, jusqu'à devenir presque immobiles
+  var vibAmp=fade; // l'amplitude de vibration décroît avec le temps
+  [{x:92,y1:54,y2:108,ph:0,amp:1.5},{x:100,y1:50,y2:112,ph:0.5,amp:1},{x:108,y1:54,y2:108,ph:1,amp:1.5}].forEach(function(s){var vib=Math.sin(t*0.025+s.ph)*s.amp*vibAmp;ctx.beginPath();ctx.moveTo(s.x,s.y1);ctx.quadraticCurveTo(s.x+vib,(s.y1+s.y2)/2,s.x,s.y2);ctx.strokeStyle=col+(0.3*settle)+')';ctx.lineWidth=0.7;ctx.stroke();});
+  // la silhouette s'affaisse légèrement avec le temps, tête qui s'incline
+  var slump=Math.min(1,t/600)*3;
+  ctx.save();ctx.translate(0,slump);
+  ctx.beginPath();ctx.arc(100,32,5,0,Math.PI*2);ctx.strokeStyle=col+(0.22*settle)+')';ctx.lineWidth=1;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(100,37);ctx.bezierCurveTo(98,48,95,55,98,65);ctx.strokeStyle=col+(0.22*settle)+')';ctx.lineWidth=1;ctx.stroke();
+  ctx.restore();
+  [[45,40,2],[158,35,3],[70,130,2.5],[135,128,3.5],[100,150,4]].forEach(function(s){var al=(0.05+0.1*(Math.sin(t*0.025+s[2])*0.5+0.5))*settle;ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
 // Fin 3 — elle seule, remonte
 function drawFree(ctx,t){
   var col='rgba(212,201,176,';
+  var advance=Math.min(1,t/450); // elle avance progressivement vers la lumière sur ~7.5s
+  var walkX=advance*14; // déplacement net vers la droite, déterminé
   ctx.beginPath();ctx.moveTo(40,130);ctx.quadraticCurveTo(100,124,170,130);ctx.strokeStyle=col+'0.1)';ctx.lineWidth=0.8;ctx.stroke();
   var fy=Math.sin(t*0.022)*2;
-  ctx.save();ctx.translate(0,fy);
+  var stepBounce=Math.abs(Math.sin(t*0.05))*1.5; // un léger rebond de pas, régulier et déterminé
+  ctx.save();ctx.translate(walkX,fy-stepBounce);
   ctx.setLineDash([2,1.5]);ctx.beginPath();ctx.arc(100,82,7,0,Math.PI*2);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
   [[100,89,100,115],[100,98,90,110],[100,98,110,110],[100,115,93,130],[100,115,107,130]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.35)';ctx.lineWidth=1;ctx.stroke();});
   ctx.beginPath();ctx.moveTo(94,82);ctx.bezierCurveTo(90,92,91,104,93,115);ctx.strokeStyle=col+'0.2)';ctx.lineWidth=0.8;ctx.stroke();
   ctx.beginPath();ctx.moveTo(92,84);ctx.bezierCurveTo(87,96,89,108,91,118);ctx.strokeStyle=col+'0.12)';ctx.lineWidth=0.6;ctx.stroke();
   ctx.restore();
-  var lum=0.06+0.08*(Math.sin(t*0.03)*0.5+0.5);
-  var grad=ctx.createRadialGradient(160,60,5,160,60,55);
+  var lum=(0.06+0.08*(Math.sin(t*0.03)*0.5+0.5))*(0.7+0.5*advance); // la lumière grandit en intensité
+  var lumR=55+advance*10;
+  var grad=ctx.createRadialGradient(160,60,5,160,60,lumR);
   grad.addColorStop(0,'rgba(212,201,176,'+lum+')');
   grad.addColorStop(1,'rgba(212,201,176,0)');
-  ctx.beginPath();ctx.arc(160,60,55,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill();
+  ctx.beginPath();ctx.arc(160,60,lumR,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill();
   [[35,35,2],[60,20,3.5],[130,25,2.5],[170,45,4],[50,140,3],[155,135,2.8],[85,150,3.2]].forEach(function(s){var al=0.2+0.35*(Math.sin(t*0.03+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],1,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
 // Fin 4 — restent ensemble dans l'obscurité
 function drawTogether(ctx,t){
   var col='rgba(212,201,176,';
-  var pulse=0.03+0.02*(Math.sin(t*0.018)*0.5+0.5);
+  var breath=Math.sin(t*0.012)*0.5+0.5; // un seul souffle lent, partagé par les deux silhouettes
+  var pulse=0.025+0.025*breath;
   ctx.beginPath();ctx.ellipse(100,100,50,30,0,0,Math.PI*2);ctx.fillStyle=col+pulse+')';ctx.fill();
-  var fy=Math.sin(t*0.015)*1.5;
+  var fy=breath*1.5; // les deux montent et descendent ensemble, à l'unisson — pas de décalage
   ctx.save();ctx.translate(0,fy);
-  ctx.beginPath();ctx.arc(88,80,6,0,Math.PI*2);ctx.strokeStyle=col+'0.35)';ctx.lineWidth=1;ctx.stroke();
-  [[88,86,88,108],[88,95,80,104],[88,95,96,102],[88,108,83,120],[88,108,93,120]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=1;ctx.stroke();});
-  ctx.setLineDash([2,1.5]);ctx.beginPath();ctx.arc(112,80,6,0,Math.PI*2);ctx.strokeStyle=col+'0.32)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
-  [[112,86,112,108],[112,95,104,104],[112,95,120,102],[112,108,107,120],[112,108,117,120]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.28)';ctx.lineWidth=1;ctx.stroke();});
+  ctx.beginPath();ctx.arc(88,80,6,0,Math.PI*2);ctx.strokeStyle=col+(0.3+0.1*breath)+')';ctx.lineWidth=1;ctx.stroke();
+  [[88,86,88,108],[88,95,80,104],[88,95,96,102],[88,108,83,120],[88,108,93,120]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+(0.26+0.08*breath)+')';ctx.lineWidth=1;ctx.stroke();});
+  ctx.setLineDash([2,1.5]);ctx.beginPath();ctx.arc(112,80,6,0,Math.PI*2);ctx.strokeStyle=col+(0.28+0.08*breath)+')';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
+  [[112,86,112,108],[112,95,104,104],[112,95,120,102],[112,108,107,120],[112,108,117,120]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+(0.24+0.07*breath)+')';ctx.lineWidth=1;ctx.stroke();});
   ctx.beginPath();ctx.moveTo(106,80);ctx.bezierCurveTo(103,90,104,100,106,108);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=0.8;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(96,102);ctx.lineTo(104,102);ctx.strokeStyle=col+'0.5)';ctx.lineWidth=1.2;ctx.stroke();
+  // mains jointes, légèrement plus lumineuses au pic du souffle commun
+  ctx.beginPath();ctx.moveTo(96,102);ctx.lineTo(104,102);ctx.strokeStyle=col+(0.4+0.25*breath)+')';ctx.lineWidth=1.2;ctx.stroke();
   ctx.restore();
   [[30,30,2],[170,25,3],[50,145,2.5],[158,140,3.5],[100,20,4]].forEach(function(s){var al=0.12+0.15*(Math.sin(t*0.02+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
@@ -232,14 +248,18 @@ function drawTogether(ctx,t){
 // Fin 5 — lyre brisée, silence
 function drawSilence(ctx,t){
   var col='rgba(212,201,176,';
-  ctx.beginPath();ctx.moveTo(70,60);ctx.bezierCurveTo(60,80,62,98,72,104);ctx.strokeStyle=col+'0.18)';ctx.lineWidth=1.5;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(130,60);ctx.bezierCurveTo(140,80,136,98,126,104);ctx.strokeStyle=col+'0.18)';ctx.lineWidth=1.5;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(72,65);ctx.lineTo(82,50);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=1;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(128,65);ctx.lineTo(118,50);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=1;ctx.stroke();
-  [{x:88,drop:20},{x:96,drop:35},{x:104,drop:28},{x:112,drop:15}].forEach(function(s){ctx.beginPath();ctx.moveTo(s.x,50);ctx.lineTo(s.x+Math.sin(t*0.02)*2,50+s.drop);ctx.strokeStyle=col+'0.2)';ctx.lineWidth=0.7;ctx.stroke();});
-  ctx.beginPath();ctx.moveTo(50,130);ctx.lineTo(150,130);ctx.strokeStyle=col+'0.07)';ctx.lineWidth=0.5;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(80,130);ctx.bezierCurveTo(75,118,85,112,90,120);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=1;ctx.stroke();
-  [[40,35,2],[160,40,3],[100,25,2.5],[55,145,3],[148,138,2]].forEach(function(s){var al=0.03+0.05*(Math.sin(t*0.015+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
+  var stillness=Math.max(0,1-t/550); // tout ralentit puis s'arrête presque totalement sur ~9s
+  var dim=0.3+0.7*stillness; // la scène s'assombrit légèrement avec le temps
+  ctx.beginPath();ctx.moveTo(70,60);ctx.bezierCurveTo(60,80,62,98,72,104);ctx.strokeStyle=col+(0.18*dim)+')';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(130,60);ctx.bezierCurveTo(140,80,136,98,126,104);ctx.strokeStyle=col+(0.18*dim)+')';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(72,65);ctx.lineTo(82,50);ctx.strokeStyle=col+(0.15*dim)+')';ctx.lineWidth=1;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(128,65);ctx.lineTo(118,50);ctx.strokeStyle=col+(0.15*dim)+')';ctx.lineWidth=1;ctx.stroke();
+  // les cordes pendantes oscillent de moins en moins, jusqu'à l'immobilité quasi totale
+  var swayAmp=0.2+0.8*stillness;
+  [{x:88,drop:20},{x:96,drop:35},{x:104,drop:28},{x:112,drop:15}].forEach(function(s){ctx.beginPath();ctx.moveTo(s.x,50);ctx.lineTo(s.x+Math.sin(t*0.02)*2*swayAmp,50+s.drop);ctx.strokeStyle=col+(0.2*dim)+')';ctx.lineWidth=0.7;ctx.stroke();});
+  ctx.beginPath();ctx.moveTo(50,130);ctx.lineTo(150,130);ctx.strokeStyle=col+(0.07*dim)+')';ctx.lineWidth=0.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(80,130);ctx.bezierCurveTo(75,118,85,112,90,120);ctx.strokeStyle=col+(0.15*dim)+')';ctx.lineWidth=1;ctx.stroke();
+  [[40,35,2],[160,40,3],[100,25,2.5],[55,145,3],[148,138,2]].forEach(function(s){var al=(0.03+0.05*(Math.sin(t*0.015+s[2])*0.5+0.5))*dim;ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
 var drawFns={lyre:drawLyre,darkness:drawDarkness,walk:drawWalk,end:drawEnd,alone:drawAlone,free:drawFree,together:drawTogether,silence:drawSilence};
