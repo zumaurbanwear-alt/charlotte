@@ -187,12 +187,9 @@ function drawAlone(ctx,t){
   ctx.beginPath();ctx.moveTo(80,70);ctx.bezierCurveTo(76,52,88,40,100,40);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=1.5;ctx.stroke();
   ctx.beginPath();ctx.moveTo(120,70);ctx.bezierCurveTo(124,52,112,40,100,40);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=1.5;ctx.stroke();
   ctx.beginPath();ctx.moveTo(88,42);ctx.lineTo(112,42);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1.5;ctx.stroke();
-  // cordes qui ne vibrent presque plus
   [{x:92,y1:54,y2:108,ph:0,amp:1.5},{x:100,y1:50,y2:112,ph:0.5,amp:1},{x:108,y1:54,y2:108,ph:1,amp:1.5}].forEach(function(s){var vib=Math.sin(t*0.025+s.ph)*s.amp;ctx.beginPath();ctx.moveTo(s.x,s.y1);ctx.quadraticCurveTo(s.x+vib,(s.y1+s.y2)/2,s.x,s.y2);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=0.7;ctx.stroke();});
-  // silhouette assise seule, voûtée
   ctx.beginPath();ctx.arc(100,32,5,0,Math.PI*2);ctx.strokeStyle=col+'0.22)';ctx.lineWidth=1;ctx.stroke();
   ctx.beginPath();ctx.moveTo(100,37);ctx.bezierCurveTo(98,48,95,55,98,65);ctx.strokeStyle=col+'0.22)';ctx.lineWidth=1;ctx.stroke();
-  // étoiles qui s'éteignent
   [[45,40,2],[158,35,3],[70,130,2.5],[135,128,3.5],[100,150,4]].forEach(function(s){var al=0.05+0.1*(Math.sin(t*0.025+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
@@ -200,64 +197,48 @@ function drawAlone(ctx,t){
 function drawFree(ctx,t){
   var col='rgba(212,201,176,';
   ctx.beginPath();ctx.moveTo(40,130);ctx.quadraticCurveTo(100,124,170,130);ctx.strokeStyle=col+'0.1)';ctx.lineWidth=0.8;ctx.stroke();
-  // Elle seule, silhouette féminine, marche vers la lumière
   var fy=Math.sin(t*0.022)*2;
   ctx.save();ctx.translate(0,fy);
   ctx.setLineDash([2,1.5]);ctx.beginPath();ctx.arc(100,82,7,0,Math.PI*2);ctx.strokeStyle=col+'0.4)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
   [[100,89,100,115],[100,98,90,110],[100,98,110,110],[100,115,93,130],[100,115,107,130]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.35)';ctx.lineWidth=1;ctx.stroke();});
-  // cheveux longs
   ctx.beginPath();ctx.moveTo(94,82);ctx.bezierCurveTo(90,92,91,104,93,115);ctx.strokeStyle=col+'0.2)';ctx.lineWidth=0.8;ctx.stroke();
   ctx.beginPath();ctx.moveTo(92,84);ctx.bezierCurveTo(87,96,89,108,91,118);ctx.strokeStyle=col+'0.12)';ctx.lineWidth=0.6;ctx.stroke();
   ctx.restore();
-  // Lumière devant elle
   var lum=0.06+0.08*(Math.sin(t*0.03)*0.5+0.5);
   var grad=ctx.createRadialGradient(160,60,5,160,60,55);
   grad.addColorStop(0,'rgba(212,201,176,'+lum+')');
   grad.addColorStop(1,'rgba(212,201,176,0)');
   ctx.beginPath();ctx.arc(160,60,55,0,Math.PI*2);ctx.fillStyle=grad;ctx.fill();
-  // étoiles — libres, nombreuses
   [[35,35,2],[60,20,3.5],[130,25,2.5],[170,45,4],[50,140,3],[155,135,2.8],[85,150,3.2]].forEach(function(s){var al=0.2+0.35*(Math.sin(t*0.03+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],1,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
 // Fin 4 — restent ensemble dans l'obscurité
 function drawTogether(ctx,t){
   var col='rgba(212,201,176,';
-  // Deux silhouettes immobiles, proches, dans le noir
   var pulse=0.03+0.02*(Math.sin(t*0.018)*0.5+0.5);
   ctx.beginPath();ctx.ellipse(100,100,50,30,0,0,Math.PI*2);ctx.fillStyle=col+pulse+')';ctx.fill();
   var fy=Math.sin(t*0.015)*1.5;
   ctx.save();ctx.translate(0,fy);
-  // Lui
   ctx.beginPath();ctx.arc(88,80,6,0,Math.PI*2);ctx.strokeStyle=col+'0.35)';ctx.lineWidth=1;ctx.stroke();
   [[88,86,88,108],[88,95,80,104],[88,95,96,102],[88,108,83,120],[88,108,93,120]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.3)';ctx.lineWidth=1;ctx.stroke();});
-  // Elle
   ctx.setLineDash([2,1.5]);ctx.beginPath();ctx.arc(112,80,6,0,Math.PI*2);ctx.strokeStyle=col+'0.32)';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);
   [[112,86,112,108],[112,95,104,104],[112,95,120,102],[112,108,107,120],[112,108,117,120]].forEach(function(l){ctx.beginPath();ctx.moveTo(l[0],l[1]);ctx.lineTo(l[2],l[3]);ctx.strokeStyle=col+'0.28)';ctx.lineWidth=1;ctx.stroke();});
-  // cheveux
   ctx.beginPath();ctx.moveTo(106,80);ctx.bezierCurveTo(103,90,104,100,106,108);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=0.8;ctx.stroke();
-  // mains jointes
   ctx.beginPath();ctx.moveTo(96,102);ctx.lineTo(104,102);ctx.strokeStyle=col+'0.5)';ctx.lineWidth=1.2;ctx.stroke();
   ctx.restore();
-  // Étoiles rares — intimes
   [[30,30,2],[170,25,3],[50,145,2.5],[158,140,3.5],[100,20,4]].forEach(function(s){var al=0.12+0.15*(Math.sin(t*0.02+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
 // Fin 5 — lyre brisée, silence
 function drawSilence(ctx,t){
   var col='rgba(212,201,176,';
-  // Lyre fragmentée, cordes coupées
   ctx.beginPath();ctx.moveTo(70,60);ctx.bezierCurveTo(60,80,62,98,72,104);ctx.strokeStyle=col+'0.18)';ctx.lineWidth=1.5;ctx.stroke();
   ctx.beginPath();ctx.moveTo(130,60);ctx.bezierCurveTo(140,80,136,98,126,104);ctx.strokeStyle=col+'0.18)';ctx.lineWidth=1.5;ctx.stroke();
-  // bras cassé
   ctx.beginPath();ctx.moveTo(72,65);ctx.lineTo(82,50);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=1;ctx.stroke();
   ctx.beginPath();ctx.moveTo(128,65);ctx.lineTo(118,50);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=1;ctx.stroke();
-  // cordes pendantes
   [{x:88,drop:20},{x:96,drop:35},{x:104,drop:28},{x:112,drop:15}].forEach(function(s){ctx.beginPath();ctx.moveTo(s.x,50);ctx.lineTo(s.x+Math.sin(t*0.02)*2,50+s.drop);ctx.strokeStyle=col+'0.2)';ctx.lineWidth=0.7;ctx.stroke();});
-  // sol
   ctx.beginPath();ctx.moveTo(50,130);ctx.lineTo(150,130);ctx.strokeStyle=col+'0.07)';ctx.lineWidth=0.5;ctx.stroke();
-  // fragment tombé
   ctx.beginPath();ctx.moveTo(80,130);ctx.bezierCurveTo(75,118,85,112,90,120);ctx.strokeStyle=col+'0.15)';ctx.lineWidth=1;ctx.stroke();
-  // étoiles presque éteintes
   [[40,35,2],[160,40,3],[100,25,2.5],[55,145,3],[148,138,2]].forEach(function(s){var al=0.03+0.05*(Math.sin(t*0.015+s[2])*0.5+0.5);ctx.beginPath();ctx.arc(s[0],s[1],0.8,0,Math.PI*2);ctx.fillStyle=col+al+')';ctx.fill();});
 }
 
@@ -265,171 +246,327 @@ var drawFns={lyre:drawLyre,darkness:drawDarkness,walk:drawWalk,end:drawEnd,alone
 
 // ── SCORE ──
 var score={courage:0,confiance:0,lacher:0};
-var maxScore={courage:4,confiance:4,lacher:3};
+var maxScore={courage:5,confiance:5,lacher:5};
+var flags={witness:false,pact:false,hiddenTruth:false,renounceRecovered:false,renounced:false};
 
 // ── SCÈNES ──
-// score: {courage:n, confiance:n, lacher:n}
 var scenes={
-  intro:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Il y avait une lyre, et le silence autour.<br>Les cordes vibraient dans l\'air froid du soir<br>comme si la nuit elle-m&ecirc;me retenait son souffle.<br><br>Elle passait par l&agrave; sans raison.<br>Ou peut-&ecirc;tre que toutes les raisons du monde<br>l\'avaient men&eacute;e jusqu\'ici,<br>sans qu\'elle le sache encore.',
-    choices:[
-      {label:'Elle s\'arr&ecirc;te',sc:{courage:1},next:'stop'},
-      {label:'Elle continue de marcher',sc:{},next:'walk_past'}
-    ]
-  },
-  stop:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Elle s\'arr&ecirc;ta.<br>Pas par curiosit&eacute; &mdash; par n&eacute;cessit&eacute;.<br>Comme si ses pieds avaient compris avant elle<br>que certaines musiques ne se laissent pas traverser.<br><br>Il jouait les yeux ferm&eacute;s.<br>Il ne la vit pas.<br>Mais quelque chose dans la m&eacute;lodie<br><em>changea</em>.',
-    choices:[
-      {label:'Elle attend, immobile',sc:{confiance:1},next:'wait_still'},
-      {label:'Elle s\'approche doucement',sc:{courage:1},next:'approach_slow'}
-    ]
-  },
-  wait_still:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Elle attendit.<br>La musique tourna autour d\'elle<br>comme on tourne autour de quelqu\'un qu\'on n\'ose pas nommer.<br><br>Quand la derni&egrave;re note s\'&eacute;teignit,<br>il ouvrit les yeux.<br>Et il la vit &mdash; debout dans le soir,<br>comme si elle avait toujours &eacute;t&eacute; l&agrave;.<br>Comme si c\'&eacute;tait <em>normal</em>.',
-    choices:[{label:'Continuer',sc:{},next:'meet'}]
-  },
-  approach_slow:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Elle fit un pas.<br>Puis un autre.<br>La musique ne s\'arr&ecirc;ta pas &mdash;<br>elle s\'ouvrit,<br>comme une porte qu\'on pousse sans savoir ce qu\'il y a derri&egrave;re.<br><br>Il sentit sa pr&eacute;sence avant de la voir.<br>Quelque chose dans l\'air avait chang&eacute; de go&ucirc;t.',
-    choices:[{label:'Continuer',sc:{},next:'meet'}]
-  },
-  walk_past:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Elle fit encore trois pas.<br>Puis la musique se tordit &mdash; une seule note,<br>suspendue dans l\'air comme une question.<br><br>Elle ne put pas ne pas se retourner.<br>Ce n\'&eacute;tait pas lui qui avait jou&eacute; cette note.<br>C\'&eacute;tait <em>elle</em>, sans le savoir,<br>qui l\'avait appel&eacute;e.',
-    choices:[
-      {label:'Elle revient sur ses pas',sc:{courage:1,lacher:1},next:'come_back'},
-      {label:'Elle s\'arr&ecirc;te sans se retourner',sc:{},next:'hesitate'}
-    ]
-  },
-  come_back:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Elle revint.<br>Lentement, comme quelqu\'un qui sait<br>qu\'une chose importante l\'attend<br>et pr&eacute;f&egrave;re ne pas courir.<br><br>La musique reprit, plus douce cette fois.<br>Comme si elle l\'avait attendue, elle aussi.',
-    choices:[{label:'Continuer',sc:{},next:'meet'}]
-  },
-  hesitate:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Elle resta l&agrave;, dos tourn&eacute;, les yeux ferm&eacute;s.<br>La musique vint &agrave; elle.<br>S\'enroula autour d\'elle comme un bras qu\'on pose sur les &eacute;paules<br>sans demander la permission.<br><br>Elle se retourna.<br>Pas parce qu\'elle avait d&eacute;cid&eacute; de le faire &mdash;<br>mais parce que son corps<br>avait <em>d&eacute;j&agrave; choisi</em>.',
-    choices:[{label:'Continuer',sc:{},next:'meet'}]
-  },
-  meet:{
-    act:'Acte I &mdash; La Rencontre',canvas:'lyre',
-    text:'Quand il ouvrit les yeux, elle &eacute;tait l&agrave;.<br><br>Il n\'y eut pas de mots.<br>Il y eut le vent dans les feuilles,<br>et cette fa&ccedil;on qu\'il avait de la regarder<br>comme si elle &eacute;tait la seule chose au monde<br>qui m&eacute;ritait d\'&ecirc;tre vue.<br><br>Elle comprit, dans ce silence,<br>qu\'elle ne repartirait plus seule.',
-    choices:[{label:'Continuer',sc:{},next:'act2'}]
-  },
-  act2:{
-    act:'Acte II &mdash; La Descente',canvas:'darkness',
-    text:'Puis vint la nuit qui ne finit pas.<br><br>Elle disparut &mdash; doucement, presque sans bruit.<br>Comme une bougie qu\'on oublie de prot&eacute;ger du vent.<br>Et lui resta l&agrave;,<br>avec sa lyre et le vide en forme d\'elle.<br><br>Il avait le choix de rester ou de descendre<br>l&agrave; o&ugrave; personne ne descend librement.',
-    choices:[
-      {label:'Il descend la chercher',sc:{courage:1},next:'descend'},
-      {label:'Il joue pour qu\'elle l\'entende',sc:{lacher:1},next:'play'}
-    ]
-  },
-  descend:{
-    act:'Acte II &mdash; La Descente',canvas:'darkness',
-    text:'Il descendit l&agrave; o&ugrave; personne ne descend librement.<br>Pas par bravoure.<br>Par impossibilit&eacute; de faire autrement.<br><br>Sa musique ouvrait les portes devant lui<br>comme la lumi&egrave;re devant l\'aube.<br>M&ecirc;me les gardiens du seuil<br>pos&egrave;rent leurs armes,<br>&eacute;mus par quelque chose qu\'ils ne savaient pas nommer.',
-    choices:[
-      {label:'Il avance sans h&eacute;siter',sc:{courage:1,confiance:1},next:'brave'},
-      {label:'Il s\'arr&ecirc;te, accabl&eacute;',sc:{},next:'grief'}
-    ]
-  },
-  brave:{
-    act:'Acte II &mdash; La Descente',canvas:'darkness',
-    text:'Il ne s\'arr&ecirc;ta pas.<br>Chaque couloir plus sombre que le pr&eacute;c&eacute;dent,<br>chaque silence plus &eacute;pais &mdash;<br>et lui qui avan&ccedil;ait quand m&ecirc;me,<br>les yeux ouverts dans le noir,<br>comme si l\'amour &eacute;tait une forme de vision<br>que la lumi&egrave;re n\'enseigne pas.',
-    choices:[{label:'Continuer',sc:{},next:'found'}]
-  },
-  grief:{
-    act:'Acte II &mdash; La Descente',canvas:'darkness',
-    text:'Il s\'arr&ecirc;ta.<br>Le chagrin &eacute;tait trop lourd, une seconde.<br>Il s\'assit dans le noir<br>et joua &mdash; pour elle, pour personne,<br>pour l\'obscurit&eacute; elle-m&ecirc;me.<br><br>Et l\'obscurit&eacute; l\'&eacute;couta.<br>Puis s\'&eacute;carta, <em>un peu</em>.',
-    choices:[{label:'Continuer',sc:{},next:'found'}]
-  },
-  play:{
-    act:'Acte II &mdash; La Descente',canvas:'darkness',
-    text:'Il joua.<br>Pendant des heures, peut-&ecirc;tre des si&egrave;cles &mdash;<br>le temps n\'existait plus vraiment.<br><br>Et quelque part dans l\'obscurit&eacute;,<br>elle l\'entendit.<br>La m&eacute;lodie traversa tout &mdash;<br>les murs, les distances, le silence &mdash;<br>et elle sut que c\'&eacute;tait lui.<br>Qu\'il <em>viendrait</em>.',
-    choices:[
-      {label:'Elle va vers la musique',sc:{courage:1,lacher:1},next:'she_moves'},
-      {label:'Elle choisit de remonter seule',sc:{lacher:1},next:'she_alone'}
-    ]
-  },
-  she_moves:{
-    act:'Acte II &mdash; La Descente',canvas:'darkness',
-    text:'Elle avan&ccedil;a vers le son.<br>Chaque note &eacute;tait un fil tendu dans l\'obscurit&eacute;.<br>Elle n\'avait pas besoin de voir &mdash;<br>elle avait besoin de <em>lui</em>.<br><br>Ils se trouv&egrave;rent quelque part entre deux mondes,<br>l&agrave; o&ugrave; la lumi&egrave;re commence &agrave; peine &agrave; se souvenir d\'elle-m&ecirc;me.',
-    choices:[{label:'Continuer',sc:{},next:'found'}]
-  },
-  she_alone:{
-    act:'Acte II &mdash; La D&eacute;cision',canvas:'free',
-    text:'Elle n\'attendit pas.<br><br>Il y avait quelque chose en elle &mdash;<br>quelque chose de calme et d\'ancien &mdash;<br>qui savait qu\'elle pouvait se retrouver seule.<br><br>Elle ne le d&eacute;signait pas comme responsable de sa perte.<br>Et elle ne l\'attendrait pas comme une r&eacute;compense.<br>Elle remonterait par ses propres pas,<br>et il la trouverait,<br>ou il ne la trouverait pas &mdash;<br>mais elle serait <em>libre</em>.',
-    choices:[{label:'Voir la fin',sc:{},next:'end_free'}]
-  },
-  found:{
-    act:'Acte II &mdash; La Descente',canvas:'darkness',
-    text:'Il la trouva.<br><br>Elle &eacute;tait l&agrave;, un peu p&acirc;le,<br>un peu plus l&eacute;g&egrave;re qu\'avant,<br>comme quelqu\'un qui a attendu si longtemps<br>qu\'il a appris &agrave; ne plus peser.<br><br>Ils se regard&egrave;rent.<br>Aucun mot.<br>Juste cette certitude &mdash; lente, absolue &mdash;<br>que rien de ce qui s&eacute;pare<br>ne dure vraiment <em>pour toujours</em>.',
-    choices:[{label:'Continuer',sc:{},next:'act3'}]
-  },
-  act3:{
-    act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
-    text:'Une seule condition.<br><br>Ne pas se retourner.<br>Remonter sans chercher &agrave; v&eacute;rifier<br>que l\'autre suit encore.<br>Faire confiance au bruit de ses pas,<br>&agrave; sa respiration dans l\'obscurit&eacute;,<br>&agrave; ce fil invisible qui les reliait<br>depuis toujours.',
-    choices:[
-      {label:'Il marche et fait confiance',sc:{confiance:1},next:'trust'},
-      {label:'Le doute s\'installe',sc:{},next:'doubt'},
-      {label:'Il lui propose de rester l&agrave;-bas',sc:{lacher:1},next:'stay_offer'}
-    ]
-  },
-  stay_offer:{
-    act:'Acte III &mdash; La D&eacute;cision',canvas:'together',
-    text:'Il s\'arr&ecirc;ta.<br>Se retourna &mdash; non par peur de la perdre,<br>mais pour lui poser la question.<br><br>&laquo;&nbsp;Et si on restait ?&nbsp;&raquo;<br><br>Elle le regarda longtemps.<br>L\'obscurit&eacute; autour d\'eux n\'avait plus l\'air hostile.<br>Elle avait l\'air d\'une chose qu\'on pourrait apprivoiser &mdash;<br>ensemble,<br>si on d&eacute;cidait que <em>nulle part ailleurs</em><br>n\'avait plus d\'importance.',
-    choices:[{label:'Voir la fin',sc:{},next:'end_together'}]
-  },
-  trust:{
-    act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
-    text:'Il marcha.<br>Un pas, puis l\'autre.<br>Il entendait son souffle dans son dos<br>comme une promesse que l\'on tient sans le dire.<br><br>Il y eut un moment &mdash; une seconde &mdash;<br>o&ugrave; le silence devint trop &eacute;pais.<br>O&ugrave; il ne sut plus si elle &eacute;tait l&agrave;.<br><br>Mais il continua.<br>Parce que douter n\'est pas trahir.<br>Et parce qu\'il l\'aimait assez<br>pour <em>ne pas avoir besoin de le v&eacute;rifier</em>.',
-    choices:[
-      {label:'Il sent la lumi&egrave;re devant lui',sc:{courage:1,confiance:1},next:'light_ahead'},
-      {label:'Il lui parle sans se retourner',sc:{confiance:1},next:'whisper'}
-    ]
-  },
-  light_ahead:{
-    act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
-    text:'Une lueur, devant.<br>Mince comme un fil de soie &mdash; mais r&eacute;elle.<br><br>Il acc&eacute;l&eacute;ra, juste un peu.<br>Pas assez pour la perdre &mdash;<br>juste assez pour lui montrer<br>qu\'il croyait en ce qu\'ils &eacute;taient<br>en train de traverser ensemble.',
-    choices:[{label:'Voir la fin',sc:{},next:'end_light'}]
-  },
-  whisper:{
-    act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
-    text:'Il parla &agrave; voix basse.<br>Pas pour v&eacute;rifier qu\'elle &eacute;tait l&agrave; &mdash;<br>mais pour qu\'elle sache<br>qu\'il pensait &agrave; elle en marchant.<br><br>Il lui dit des choses simples.<br>La couleur du ciel qu\'il allait lui montrer.<br>Le nom d\'une &eacute;toile qu\'il lui avait mis de c&ocirc;t&eacute;.<br>Elle &eacute;couta, et ses pas<br>se rapproch&egrave;rent <em>imperceptiblement</em>.',
-    choices:[{label:'Voir la fin',sc:{},next:'end_light'}]
-  },
-  doubt:{
-    act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
-    text:'Le doute est entr&eacute; par une fissure dans le silence.<br><br>Et si elle n\'&eacute;tait plus l&agrave; ?<br>Et si tout &ccedil;a n\'&eacute;tait qu\'un r&ecirc;ve de plus<br>que le matin allait d&eacute;faire ?<br><br>Le vide creux entre ses omoplates<br>devint insupportable.',
-    choices:[
-      {label:'Il ferme les yeux et continue',sc:{courage:1},next:'regain'},
-      {label:'Il se retourne',sc:{},next:'turn_back'},
-      {label:'Il abandonne et repart seul',sc:{},next:'give_up'}
-    ]
-  },
-  regain:{
-    act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
-    text:'Il respira une deuxi&egrave;me fois.<br>Plus profond&eacute;ment.<br><br>Et dans ce souffle,<br>il retrouva quelque chose &mdash;<br>pas la certitude,<br>mais quelque chose de plus solide :<br>la <em>d&eacute;cision</em> d\'aimer quand m&ecirc;me.<br><br>Il repartit. Un pas. Puis l\'autre.',
-    choices:[{label:'Voir la fin',sc:{},next:'end_light'}]
-  },
-  turn_back:{
-    act:'Acte III &mdash; Le Regard',canvas:'walk',
-    text:'Il se retourna.<br><br>Et elle &eacute;tait l&agrave;.<br>Juste derri&egrave;re lui.<br>Les yeux grands ouverts.<br><br>Le regard qu\'ils &eacute;chang&egrave;rent dura une seconde &mdash;<br>ou une vie.<br>Et puis l\'obscurit&eacute; r&eacute;clama ce qu\'elle lui avait pr&ecirc;t&eacute;.<br><br>Elle ne dit rien en partant.<br>Elle n\'avait pas l\'air d\'une femme trahie.<br>Elle avait l\'air de quelqu\'un qui <em>comprend</em>.',
-    choices:[{label:'Voir la fin',sc:{},next:'end_alone'}]
-  },
-  give_up:{
-    act:'Acte III &mdash; L\'Abandon',canvas:'silence',
-    text:'Il s\'arr&ecirc;ta.<br>Pas pour se retourner.<br>Pour ne plus avancer.<br><br>La lyre glissa de ses doigts.<br>Elle ne fit presque pas de bruit en tombant.<br>Les cordes rendirent une note &mdash;<br>la derni&egrave;re &mdash;<br>et puis plus rien.<br><br>Ce n\'&eacute;tait pas de la l&acirc;chet&eacute;.<br>C\'&eacute;tait l\'&eacute;puisement de quelqu\'un<br>qui avait tout donn&eacute;<br>avant m&ecirc;me de savoir<br>qu\'il ne lui resterait <em>rien</em>.',
-    choices:[{label:'Voir la fin',sc:{},next:'end_silence'}]
-  },
-  // fins
-  end_light:{act:'',canvas:'end',text:'',choices:[]},
-  end_alone:{act:'',canvas:'alone',text:'',choices:[]},
-  end_free:{act:'',canvas:'free',text:'',choices:[]},
-  end_together:{act:'',canvas:'together',text:'',choices:[]},
-  end_silence:{act:'',canvas:'silence',text:'',choices:[]}
+
+/* ============ ACTE I — LA RENCONTRE ============ */
+
+intro:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Il y avait une lyre, et le silence autour.<br>Les cordes vibraient dans l\'air froid du soir<br>comme si la nuit elle-m&ecirc;me retenait son souffle.<br><br>Elle passait par l&agrave; sans raison.<br>Ou peut-&ecirc;tre que toutes les raisons du monde<br>l\'avaient men&eacute;e jusqu\'ici,<br>sans qu\'elle le sache encore.',
+  choices:[
+    {label:'Elle s\'arr&ecirc;te net',sc:{courage:1},next:'stop_immediate'},
+    {label:'Elle ralentit, prudente',sc:{confiance:1},next:'slow_approach'},
+    {label:'Elle continue, feint l\'indiff&eacute;rence',sc:{lacher:1},next:'walk_past'}
+  ]
+},
+
+stop_immediate:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle s\'arr&ecirc;ta d\'un coup, comme on bute sur quelque chose d\'invisible.<br>Pas par curiosit&eacute; &mdash; par n&eacute;cessit&eacute;.<br><br>Il jouait les yeux ferm&eacute;s.<br>Il ne la vit pas tout de suite.<br>Mais quelque chose dans la m&eacute;lodie<br><em>changea</em>, comme si l\'air lui-m&ecirc;me<br>venait de lui annoncer une pr&eacute;sence.',
+  choices:[{label:'Continuer',sc:{},next:'first_exchange'}]
+},
+
+slow_approach:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle ralentit, un pas apr&egrave;s l\'autre,<br>comme on s\'approche d\'un animal qu\'on ne veut pas effrayer.<br><br>La musique ne s\'arr&ecirc;ta pas &mdash;<br>elle s\'adoucit,<br>comme si elle avait senti la prudence<br>et avait d&eacute;cid&eacute; d\'y r&eacute;pondre par la douceur.',
+  choices:[{label:'Continuer',sc:{},next:'first_exchange'}]
+},
+
+first_exchange:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Ils &eacute;taient l&agrave;, tous les deux,<br>s&eacute;par&eacute;s par quelques pas et par tout ce qu\'on ne sait pas encore<br>d\'une personne qu\'on vient de croiser.',
+  choices:[
+    {label:'Elle parle la premi&egrave;re',sc:{courage:1},next:'meet_bold'},
+    {label:'Elle laisse le silence parler',sc:{confiance:1},next:'meet_silent'},
+    {label:'Elle pose sa main sur la lyre',sc:{lacher:1},next:'meet_touch'}
+  ]
+},
+
+meet_bold:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'&laquo;&nbsp;Tu joues comme si quelqu\'un t\'&eacute;coutait d&eacute;j&agrave;,&nbsp;&raquo; dit-elle.<br><br>Il ouvrit les yeux, surpris &mdash; pas par la phrase,<br>mais par le fait qu\'elle ait os&eacute; la dire.<br>&laquo;&nbsp;C\'&eacute;tait le cas,&nbsp;&raquo; r&eacute;pondit-il. &laquo;&nbsp;Maintenant je sais qui.&nbsp;&raquo;',
+  choices:[{label:'Continuer',sc:{},next:'act1_close'}]
+},
+
+meet_silent:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle ne dit rien.<br>Quand la derni&egrave;re note s\'&eacute;teignit,<br>il ouvrit les yeux et la vit &mdash; debout dans le soir,<br>comme si elle avait toujours &eacute;t&eacute; l&agrave;.<br><br>Aucun des deux ne sentit le besoin<br>de combler ce silence-l&agrave;.<br>C\'&eacute;tait d&eacute;j&agrave; une forme de conversation.',
+  choices:[{label:'Continuer',sc:{},next:'act1_close'}]
+},
+
+meet_touch:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle s\'approcha et posa deux doigts sur une corde,<br>l\'arr&ecirc;tant net.<br><br>Il leva les yeux, sans col&egrave;re.<br>&laquo;&nbsp;Pourquoi ?&nbsp;&raquo;<br>&laquo;&nbsp;Pour voir ce qui se passe<br>quand la musique s\'arr&ecirc;te avant la fin,&nbsp;&raquo; dit-elle.<br>Il sourit. &laquo;&nbsp;On dirait que &ccedil;a continue quand m&ecirc;me.&nbsp;&raquo;',
+  choices:[{label:'Continuer',sc:{},next:'act1_close'}]
+},
+
+walk_past:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle fit encore trois pas, le visage ferm&eacute;.<br>Puis la musique se tordit &mdash; une seule note,<br>suspendue dans l\'air comme une question.<br><br>Elle ne put pas ne pas r&eacute;agir.<br>Ce n\'&eacute;tait pas lui qui avait jou&eacute; cette note.<br>C\'&eacute;tait <em>elle</em>, sans le savoir,<br>qui l\'avait appel&eacute;e.',
+  choices:[
+    {label:'Elle revient sur ses pas',sc:{courage:1,lacher:1},next:'meet_return'},
+    {label:'Elle s\'arr&ecirc;te sans se retourner, attend',sc:{confiance:1},next:'meet_wait'},
+    {label:'Elle ignore et acc&eacute;l&egrave;re le pas',sc:{lacher:1},next:'meet_late'}
+  ]
+},
+
+meet_return:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle revint, lentement,<br>comme quelqu\'un qui sait<br>qu\'une chose importante l\'attend<br>et pr&eacute;f&egrave;re ne pas courir vers elle.<br><br>La musique reprit, plus douce cette fois.<br>Comme si elle l\'avait attendue, elle aussi.',
+  choices:[{label:'Continuer',sc:{},next:'act1_close'}]
+},
+
+meet_wait:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle resta l&agrave;, dos tourn&eacute;, immobile.<br>La musique vint &agrave; elle, s\'enroula autour d\'elle<br>comme un bras qu\'on pose sur les &eacute;paules<br>sans demander la permission.<br><br>Elle se retourna &mdash; pas parce qu\'elle avait d&eacute;cid&eacute;<br>de le faire, mais parce que son corps<br>avait <em>d&eacute;j&agrave; choisi</em>.',
+  choices:[{label:'Continuer',sc:{},next:'act1_close'}]
+},
+
+meet_late:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Elle s\'&eacute;loigna. La musique s\'arr&ecirc;ta net derri&egrave;re elle,<br>comme une phrase qu\'on n\'ach&egrave;ve pas.<br><br>Ce n\'est que des jours plus tard<br>qu\'elle le recroisa, par hasard,<br>pr&egrave;s d\'un puits o&ugrave; il ne jouait pas.<br>&laquo;&nbsp;Je t\'ai cherch&eacute;e,&nbsp;&raquo; dit-il simplement,<br>sans reproche. &laquo;&nbsp;Pas longtemps. Mais je t\'ai cherch&eacute;e.&nbsp;&raquo;<br><br>Cette fois, elle ne partit pas.',
+  choices:[{label:'Continuer',sc:{},next:'act1_close_late'}]
+},
+
+act1_close:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Les jours suivants les retrouv&egrave;rent l\'un pr&egrave;s de l\'autre,<br>sans qu\'aucun des deux ne d&eacute;cide vraiment de rien.<br>C\'&eacute;tait simplement devenu &eacute;vident.',
+  choices:[
+    {label:'Ils restent ensemble cette nuit-l&agrave;, sans un mot',sc:{confiance:1},next:'act2'},
+    {label:'Elle lui parle de ses peurs, ouvertement',sc:{lacher:1},next:'act2_warned'},
+    {label:'Rien n\'est dit, juste une pr&eacute;sence qui dure',sc:{courage:1},next:'act2'}
+  ]
+},
+
+act1_close_late:{
+  act:'Acte I &mdash; La Rencontre',canvas:'lyre',
+  text:'Apr&egrave;s ce premier rendez-vous manqu&eacute;,<br>quelque chose de plus prudent s\'installa entre eux &mdash;<br>moins &eacute;vident, mais peut-&ecirc;tre plus solide,<br>comme une chose qu\'on a failli perdre<br>avant m&ecirc;me de l\'avoir.',
+  choices:[
+    {label:'Ils restent ensemble cette nuit-l&agrave;, sans un mot',sc:{confiance:1},next:'act2'},
+    {label:'Elle lui parle de ses peurs, ouvertement',sc:{lacher:1},next:'act2_warned'},
+    {label:'Rien n\'est dit, juste une pr&eacute;sence qui dure',sc:{courage:1},next:'act2'}
+  ]
+},
+
+/* ============ ACTE II — LA DESCENTE ============ */
+
+act2:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Puis vint la nuit qui ne finit pas.<br><br>Elle disparut &mdash; doucement, presque sans bruit.<br>Comme une bougie qu\'on oublie de prot&eacute;ger du vent.<br>Et lui resta l&agrave;,<br>avec sa lyre et le vide en forme d\'elle.',
+  choices:[
+    {label:'Il descend la chercher',sc:{courage:1},next:'descend'},
+    {label:'Il joue pour qu\'elle l\'entende, o&ugrave; qu\'elle soit',sc:{lacher:1},next:'play'},
+    {label:'Il renonce, paralys&eacute; par le chagrin',sc:{},next:'renounce'}
+  ]
+},
+
+act2_warned:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Puis vint la nuit qui ne finit pas.<br><br>Elle disparut &mdash; et il se souvint, trop tard,<br>de ce qu\'elle lui avait confi&eacute; :<br>qu\'elle avait toujours eu peur de dispara&icirc;tre<br>sans que personne ne vienne.<br><br>Cette pens&eacute;e le frappa plus fort que le chagrin lui-m&ecirc;me.',
+  choices:[
+    {label:'Il descend la chercher',sc:{courage:1},next:'descend'},
+    {label:'Il joue pour qu\'elle l\'entende, o&ugrave; qu\'elle soit',sc:{lacher:1},next:'play'},
+    {label:'Il renonce, paralys&eacute; par le chagrin',sc:{},next:'renounce'}
+  ]
+},
+
+renounce:{
+  act:'Acte II &mdash; Le Renoncement',canvas:'silence',
+  text:'Il s\'assit, et ne bougea plus.<br><br>Ce n\'&eacute;tait pas de la l&acirc;chet&eacute;.<br>C\'&eacute;tait l\'&eacute;puisement d\'un homme<br>qui sentait d&eacute;j&agrave;, au fond de lui,<br>qu\'il n\'aurait pas la force de revenir<br>m&ecirc;me s\'il la retrouvait.',
+  choices:[
+    {label:'Il reste, immobile, jusqu\'au bout',sc:{},next:'end_silence'},
+    {label:'Il se ravise au dernier moment',sc:{courage:1},next:'renounce_recover'}
+  ]
+},
+
+renounce_recover:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Il se leva d\'un coup, comme arrach&eacute; &agrave; lui-m&ecirc;me.<br><br>Il &eacute;tait parti tard. Trop tard, peut-&ecirc;tre.<br>Mais il descendit quand m&ecirc;me,<br>le pas moins assur&eacute; que s\'il &eacute;tait parti tout de suite &mdash;<br>avec, en lui, la conscience d\'avoir h&eacute;sit&eacute;<br>quand il ne le fallait pas.',
+  choices:[{label:'Continuer',sc:{},next:'descend'}]
+},
+
+descend:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Il descendit l&agrave; o&ugrave; personne ne descend librement.<br>Pas par bravoure. Par impossibilit&eacute; de faire autrement.<br><br>Sa musique ouvrait les portes devant lui<br>comme la lumi&egrave;re devant l\'aube.',
+  choices:[{label:'Continuer',sc:{},next:'obstacle'}]
+},
+
+play:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Il joua. Pendant des heures, peut-&ecirc;tre des si&egrave;cles &mdash;<br>le temps n\'existait plus vraiment.<br><br>Et quelque part dans l\'obscurit&eacute;, elle l\'entendit.<br>La m&eacute;lodie traversa tout &mdash;<br>les murs, les distances, le silence &mdash;<br>et elle sut que c\'&eacute;tait lui.',
+  choices:[{label:'Continuer',sc:{},next:'obstacle'}]
+},
+
+obstacle:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Quelque chose se dressa sur le chemin &mdash;<br>une pr&eacute;sence, un seuil, un refus.<br>Ce que c\'&eacute;tait exactement, il ne le sut jamais vraiment.<br>Seulement qu\'il fallait passer.',
+  choices:[
+    {label:'Il avance sans h&eacute;siter',sc:{courage:1,confiance:1},next:'brave'},
+    {label:'Il s\'arr&ecirc;te, accabl&eacute;, et joue pour l\'obscurit&eacute;',sc:{lacher:1},next:'grief_play'},
+    {label:'Il marchande avec ce qu\'il croise',sc:{confiance:1},next:'bargain'}
+  ]
+},
+
+brave:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Il ne s\'arr&ecirc;ta pas.<br>Chaque couloir plus sombre que le pr&eacute;c&eacute;dent,<br>chaque silence plus &eacute;pais &mdash;<br>et lui qui avan&ccedil;ait quand m&ecirc;me,<br>comme si l\'amour &eacute;tait une forme de vision<br>que la lumi&egrave;re n\'enseigne pas.',
+  choices:[{label:'Continuer',sc:{},next:'found'}]
+},
+
+grief_play:{
+  act:'Acte II &mdash; La Descente',canvas:'darkness',
+  text:'Il s\'arr&ecirc;ta. Le chagrin &eacute;tait trop lourd, une seconde.<br>Il s\'assit dans le noir et joua &mdash;<br>pour elle, pour personne, pour l\'obscurit&eacute; elle-m&ecirc;me.<br><br>Et l\'obscurit&eacute; l\'&eacute;couta. Puis s\'&eacute;carta, <em>un peu</em>.',
+  choices:[{label:'Continuer',sc:{},next:'found'}]
+},
+
+bargain:{
+  act:'Acte II &mdash; Le Prix',canvas:'darkness',
+  text:'Quelque chose lui proposa un &eacute;change &mdash;<br>vague, ancien, dont les termes ne se disaient pas clairement.<br>Il comprit seulement qu\'il fallait promettre <em>quelque chose</em>.',
+  choices:[
+    {label:'Il promet sa musique, pour toujours',sc:{lacher:1},next:'bargain_promise'},
+    {label:'Il refuse de promettre quoi que ce soit',sc:{courage:1},next:'bargain_refuse'},
+    {label:'Il h&eacute;site trop longtemps',sc:{},next:'bargain_hesitate'}
+  ]
+},
+
+bargain_promise:{
+  act:'Acte II &mdash; Le Prix',canvas:'darkness',
+  text:'&laquo;&nbsp;Tout ce que je jouerai d&eacute;sormais,&nbsp;&raquo; dit-il, &laquo;&nbsp;sera pour ce passage.&nbsp;&raquo;<br><br>Quelque chose accepta, sans bruit.<br>Il sentit le poids de cette promesse<br>se glisser entre ses c&ocirc;tes,<br>l&eacute;ger pour l\'instant. Comme toutes les dettes, au d&eacute;but.',
+  choices:[{label:'Continuer',sc:{},next:'found'}]
+},
+
+bargain_refuse:{
+  act:'Acte II &mdash; Le Prix',canvas:'darkness',
+  text:'&laquo;&nbsp;Je ne dois rien &agrave; ce lieu,&nbsp;&raquo; dit-il, &laquo;&nbsp;et je ne lui promettrai rien.&nbsp;&raquo;<br><br>Le silence qui suivit n\'&eacute;tait pas hostile.<br>C\'&eacute;tait peut-&ecirc;tre m&ecirc;me un peu de respect &mdash;<br>pour quelqu\'un qui refusait de marchander<br>ce qui ne se monnaye pas.',
+  choices:[{label:'Continuer',sc:{},next:'found'}]
+},
+
+bargain_hesitate:{
+  act:'Acte II &mdash; Le Prix',canvas:'darkness',
+  text:'Il ouvrit la bouche, la referma.<br>Le temps qu\'il trouve les mots,<br>quelque chose s\'&eacute;tait d&eacute;j&agrave; d&eacute;cid&eacute; sans lui.<br><br>Il avan&ccedil;a, mais une graine de doute<br>&eacute;tait d&eacute;j&agrave; pos&eacute;e en lui &mdash;<br>la sensation t&eacute;nue de n\'avoir rien tranch&eacute;,<br>et que cela aurait, un jour, un prix.',
+  choices:[{label:'Continuer',sc:{},next:'found'}]
+},
+
+found:{
+  act:'Acte II &mdash; Les Retrouvailles',canvas:'darkness',
+  text:'Il la trouva.<br><br>Elle &eacute;tait l&agrave;, un peu p&acirc;le, un peu plus l&eacute;g&egrave;re qu\'avant,<br>comme quelqu\'un qui a attendu si longtemps<br>qu\'il a appris &agrave; ne plus peser.<br><br>Ils se regard&egrave;rent. Aucun mot.<br>Juste cette certitude &mdash; lente, absolue.',
+  choices:[
+    {label:'Il la prend dans ses bras sans attendre',sc:{lacher:1},next:'act3_embrace'},
+    {label:'Il pose tout de suite la condition, s&eacute;rieux',sc:{confiance:1},next:'act3_serious'},
+    {label:'Il h&eacute;site &agrave; lui dire toute la v&eacute;rit&eacute; sur la condition',sc:{},fl:'hiddenTruth',next:'act3_hidden'}
+  ]
+},
+
+act3_embrace:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Il la serra contre lui d\'abord, longuement &mdash;<br>et ce n\'est qu\'apr&egrave;s, le souffle court,<br>qu\'il lui expliqua la condition.<br>&laquo;&nbsp;Je marche devant. Je ne dois pas me retourner<br>avant d\'&ecirc;tre sorti. Toi, suis-moi.&nbsp;&raquo;',
+  choices:[{label:'Continuer',sc:{},next:'act3'}]
+},
+
+act3_serious:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Avant m&ecirc;me de la toucher, il parla,<br>la voix grave : &laquo;&nbsp;Une seule condition. Je marche devant,<br>et je ne dois pas me retourner avant la sortie &mdash;<br>m&ecirc;me pour v&eacute;rifier que tu es l&agrave;.&nbsp;&raquo;<br><br>Elle hocha la t&ecirc;te, le visage s&eacute;rieux,<br>comme on accepte un pacte qu\'on ne discute pas.',
+  choices:[{label:'Continuer',sc:{},next:'act3'}]
+},
+
+act3_hidden:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Il lui dit l\'essentiel &mdash; qu\'il marcherait devant,<br>sans se retourner, jusqu\'&agrave; la sortie.<br><br>Mais il tut une partie de la condition :<br>que s\'il se retournait, m&ecirc;me une seconde,<br>m&ecirc;me par r&eacute;flexe, elle repartirait<br><em>pour toujours</em>, sans recours possible.<br><br>Il se dit qu\'il la prot&eacute;geait ainsi d\'un poids inutile.<br>Une petite chose, pensa-t-il.<br>Une toute petite chose.',
+  choices:[{label:'Continuer',sc:{},next:'act3'}]
+},
+
+/* ============ ACTE III — LA REMONTÉE ============ */
+
+act3:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Remonter sans chercher &agrave; v&eacute;rifier que l\'autre suit encore.<br>Faire confiance au bruit de ses pas,<br>&agrave; sa respiration dans l\'obscurit&eacute;,<br>&agrave; ce fil invisible qui les reliait depuis toujours.',
+  choices:[
+    {label:'Il marche, confiant',sc:{confiance:1},next:'trust'},
+    {label:'Le doute s\'installe d&eacute;j&agrave;',sc:{},next:'doubt'},
+    {label:'Il propose de rester l&agrave;-bas, tout de suite',sc:{lacher:2},next:'end_together'}
+  ]
+},
+
+trust:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Il marcha. Un pas, puis l\'autre.<br>Il entendait son souffle dans son dos<br>comme une promesse que l\'on tient sans le dire.',
+  choices:[
+    {label:'Il sent une lumi&egrave;re devant lui',sc:{courage:1,confiance:1},next:'light_ahead'},
+    {label:'Il lui parle sans se retourner',sc:{confiance:1},next:'whisper'},
+    {label:'Il chante pour elle, &agrave; voix haute',sc:{courage:1,lacher:1},next:'sing'}
+  ]
+},
+
+doubt:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Le doute est entr&eacute; par une fissure dans le silence.<br>Et si elle n\'&eacute;tait plus l&agrave; ?<br>Le vide creux entre ses omoplates devint insupportable.',
+  choices:[
+    {label:'Il ferme les yeux et continue',sc:{courage:1},next:'regain_light'},
+    {label:'Il ralentit pour &eacute;couter ses pas',sc:{confiance:1},next:'regain_whisper'},
+    {label:'Il se retourne',sc:{},next:'end_alone'}
+  ]
+},
+
+regain_light:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Il respira une deuxi&egrave;me fois, plus profond&eacute;ment.<br>Et dans ce souffle, il retrouva quelque chose &mdash;<br>pas la certitude, mais la <em>d&eacute;cision</em><br>d\'aimer quand m&ecirc;me.',
+  choices:[{label:'Continuer',sc:{},next:'light_ahead'}]
+},
+
+regain_whisper:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Il ralentit, presque imperceptiblement,<br>et entendit &mdash; oui, l&agrave;, derri&egrave;re lui &mdash;<br>le bruit r&eacute;gulier d\'un pas qui n\'&eacute;tait pas le sien.<br>Cela suffit &agrave; tout changer.',
+  choices:[{label:'Continuer',sc:{},next:'whisper'}]
+},
+
+sing:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Il se mit &agrave; chanter, sans pudeur,<br>une m&eacute;lodie qu\'elle seule pouvait reconna&icirc;tre &mdash;<br>celle qui jouait le soir o&ugrave; elle s\'&eacute;tait arr&ecirc;t&eacute;e<br>devant lui pour la premi&egrave;re fois.<br><br>Derri&egrave;re lui, il l\'entendit retenir un souffle,<br>presque un rire. Elle se souvenait aussi.',
+  choices:[{label:'Continuer',sc:{},next:'light_ahead'}]
+},
+
+light_ahead:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Une lueur, devant. Mince comme un fil de soie &mdash; mais r&eacute;elle.',
+  choices:[
+    {label:'Il acc&eacute;l&egrave;re, s&ucirc;r de lui',sc:{courage:1},next:'final_stretch'},
+    {label:'Il ralentit, savoure le chemin',sc:{confiance:1},next:'final_stretch'},
+    {label:'Il s\'arr&ecirc;te net, &eacute;coute le silence derri&egrave;re lui',sc:{},next:'final_pause'}
+  ]
+},
+
+whisper:{
+  act:'Acte III &mdash; La Remont&eacute;e',canvas:'walk',
+  text:'Il parla &agrave; voix basse &mdash; pas pour v&eacute;rifier qu\'elle &eacute;tait l&agrave;,<br>mais pour qu\'elle sache qu\'il pensait &agrave; elle en marchant.<br>La couleur du ciel qu\'il allait lui montrer.<br>Le nom d\'une &eacute;toile qu\'il lui avait mis de c&ocirc;t&eacute;.',
+  choices:[
+    {label:'Il acc&eacute;l&egrave;re, s&ucirc;r de lui',sc:{courage:1},next:'final_stretch'},
+    {label:'Il ralentit, savoure le chemin',sc:{confiance:1},next:'final_stretch'},
+    {label:'Il s\'arr&ecirc;te net, &eacute;coute le silence derri&egrave;re lui',sc:{},next:'final_pause'}
+  ]
+},
+
+final_pause:{
+  act:'Acte III &mdash; Le Silence',canvas:'walk',
+  text:'Il s\'arr&ecirc;ta tout &agrave; fait.<br>Le silence derri&egrave;re lui &eacute;tait total &mdash; trop total.<br><br>Pendant une seconde affreuse, il ne sut plus<br>s\'il entendait l\'absence de pas<br>ou simplement sa propre peur.',
+  choices:[{label:'Continuer',sc:{},next:'final_stretch'}]
+},
+
+final_stretch:{
+  act:'Acte III &mdash; Le Seuil',canvas:'walk',
+  text:'Le chemin se resserrait. La lumi&egrave;re grandissait.<br>Encore quelques pas, et tout serait jou&eacute; &mdash;<br>d\'une mani&egrave;re ou d\'une autre.',
+  choices:[{label:'Sortir',sc:{},next:'COMPUTE'}]
+},
+
+/* ============ FINS ============ */
+end_light:{act:'',canvas:'end',text:'',choices:[]},
+end_alone:{act:'',canvas:'alone',text:'',choices:[]},
+end_free:{act:'',canvas:'free',text:'',choices:[]},
+end_together:{act:'',canvas:'together',text:'',choices:[]},
+end_silence:{act:'',canvas:'silence',text:'',choices:[]}
 };
 
 var endings={
@@ -437,39 +574,49 @@ var endings={
     label:'Fin I',
     type:'L\'amour confiant &mdash; celui qui avance sans avoir besoin de v&eacute;rifier',
     title:'Et la lumi&egrave;re,<br>enfin.',
-    text:'Ils &eacute;merg&egrave;rent ensemble.<br><br>Personne ne se retourna.<br>Ou peut-&ecirc;tre que si &mdash;<br>mais dans cette version-l&agrave;,<br>l\'obscurit&eacute; ne r&eacute;clame rien.<br>Elle regarde partir ceux qui s\'aiment<br>avec quelque chose qui ressemble<br>&agrave; de la <em>tendresse</em>.<br><br>Ils ne dirent rien pendant longtemps.<br>Le ciel &eacute;tait vaste et tr&egrave;s doux.<br>Quelque part dans la constellation de la Lyre,<br>une &eacute;toile br&ucirc;lait plus fort que les autres.<br><br>Comme une promesse<br>que personne n\'avait besoin de formuler &mdash;<br>parce qu\'elle &eacute;tait d&eacute;j&agrave; <em>vraie</em>.',
+    text:'Ils &eacute;merg&egrave;rent ensemble.<br><br>Personne ne se retourna.<br>L\'obscurit&eacute; ne r&eacute;clama rien &mdash;<br>elle regarde partir ceux qui s\'aiment<br>avec quelque chose qui ressemble &agrave; de la <em>tendresse</em>.<br><br>Ils ne dirent rien pendant longtemps.<br>Quelque part dans la constellation de la Lyre,<br>une &eacute;toile br&ucirc;lait plus fort que les autres &mdash;<br>comme une promesse que personne n\'avait besoin de formuler,<br>parce qu\'elle &eacute;tait d&eacute;j&agrave; <em>vraie</em>.',
     philosophy:'Tes choix ont dessin&eacute; un amour qui n\'a pas besoin de preuves. Tu avances, et tu fais confiance. C\'est la forme d\'amour la plus rare &mdash; et la plus solide.'
   },
   end_alone:{
     label:'Fin II',
-    type:'L\'amour possessif &mdash; celui qui aime trop fort pour lâcher',
+    type:'L\'amour possessif &mdash; celui qui aime trop fort pour l&acirc;cher',
     title:'Il se retourna.',
-    text:'Elle &eacute;tait l&agrave; &mdash; juste derri&egrave;re lui.<br>Et puis elle ne l\'&eacute;tait plus.<br><br>L\'obscurit&eacute; reprit ce qu\'elle avait pr&ecirc;t&eacute;.<br>Sans bruit, sans col&egrave;re.<br>Comme quelque chose d\'in&eacute;vitable.<br><br>Il remonta seul.<br>Sa lyre ne jouait plus les m&ecirc;mes notes.<br>Quelque chose s\'&eacute;tait l&eacute;g&egrave;rement <em>d&eacute;sacord&eacute;</em>.<br><br>Pas bris&eacute; &mdash; juste alt&eacute;r&eacute;.<br>Comme tous ceux qui ont aim&eacute; quelqu\'un<br>plus fort qu\'ils ne savaient le porter.',
+    text:'Elle &eacute;tait l&agrave; &mdash; juste derri&egrave;re lui. Et puis elle ne l\'&eacute;tait plus.<br><br>L\'obscurit&eacute; reprit ce qu\'elle avait pr&ecirc;t&eacute;. Sans bruit, sans col&egrave;re.<br>Comme quelque chose d\'in&eacute;vitable.<br><br>Il remonta seul. Sa lyre ne jouait plus les m&ecirc;mes notes &mdash;<br>quelque chose s\'&eacute;tait l&eacute;g&egrave;rement <em>d&eacute;sacord&eacute;</em>.<br>Pas bris&eacute; &mdash; juste alt&eacute;r&eacute;,<br>comme tous ceux qui ont aim&eacute; quelqu\'un<br>plus fort qu\'ils ne savaient le porter.',
     philosophy:'Tes choix r&eacute;v&egrave;lent un amour intense qui ne supporte pas l\'incertitude. Ce n\'est pas un d&eacute;faut &mdash; c\'est une mani&egrave;re d\'aimer qui exige beaucoup, de soi et de l\'autre.'
   },
   end_free:{
     label:'Fin III',
-    type:'L\'amour libre &mdash; celui qui n\'a pas besoin d\'être sauvé pour être réel',
+    type:'L\'amour libre &mdash; celui qui n\'a pas besoin d\'&ecirc;tre sauv&eacute; pour &ecirc;tre r&eacute;el',
     title:'Elle revint seule.',
-    text:'Elle n\'attendit pas qu\'on vienne la chercher.<br><br>Elle remonta par ses propres pas,<br>dans le noir,<br>en suivant quelque chose d\'int&eacute;rieur &mdash;<br>une boussole que personne ne lui avait donn&eacute;e.<br><br>Il l\'attendait en haut.<br>Pas triomphant &mdash; <em>soulag&eacute;</em>.<br>Pas comme quelqu\'un qui a sauvé &mdash;<br>comme quelqu\'un qui a enfin compris<br>qu\'elle n\'avait pas besoin de l\'&ecirc;tre.<br><br>Cet amour-l&agrave; &eacute;tait plus grand.<br>Parce qu\'il laissait de la place.',
-    philosophy:'Tes choix ont dessin&eacute; un amour qui respecte l\'ind&eacute;pendance. Tu n\'attends pas d\'&ecirc;tre sauvée &mdash; tu te sauve toi-m&ecirc;me, et tu laisses l\'autre t\'aimer librement.'
+    text:'Elle n\'attendit pas qu\'on vienne la chercher.<br><br>Elle remonta par ses propres pas, dans le noir,<br>en suivant quelque chose d\'int&eacute;rieur &mdash;<br>une boussole que personne ne lui avait donn&eacute;e.<br><br>Il l\'attendait en haut. Pas triomphant &mdash; <em>soulag&eacute;</em>.<br>Comme quelqu\'un qui a enfin compris<br>qu\'elle n\'avait pas besoin de l\'&ecirc;tre.<br>Cet amour-l&agrave; &eacute;tait plus grand. Parce qu\'il laissait de la place.',
+    philosophy:'Tes choix ont dessin&eacute; un amour qui respecte l\'ind&eacute;pendance. Tu n\'attends pas d\'&ecirc;tre sauv&eacute;e &mdash; tu te sauves toi-m&ecirc;me, et tu laisses l\'autre t\'aimer librement.'
   },
   end_together:{
     label:'Fin IV',
-    type:'L\'amour absolu &mdash; celui qui choisit l\'autre plutôt que le monde',
+    type:'L\'amour absolu &mdash; celui qui choisit l\'autre plut&ocirc;t que le monde',
     title:'Ils choisirent<br>l\'obscurit&eacute;.',
-    text:'Ils ne remont&egrave;rent pas.<br><br>Ce n\'&eacute;tait pas un renoncement.<br>C\'&eacute;tait une d&eacute;cision.<br><br>Certains amours n\'ont pas besoin du soleil.<br>Ils se suffisent &agrave; eux-m&ecirc;mes,<br>dans le noir,<br>avec leurs deux respirations<br>et le murmure d\'une lyre<br>que personne d\'autre n\'entendrait jamais.<br><br>Le monde, l&agrave;-haut, continua.<br>Sans eux.<br>Et c\'&eacute;tait <em>tr&egrave;s bien</em>.',
+    text:'Ils ne remont&egrave;rent pas.<br><br>Ce n\'&eacute;tait pas un renoncement. C\'&eacute;tait une d&eacute;cision.<br><br>Certains amours n\'ont pas besoin du soleil.<br>Ils se suffisent &agrave; eux-m&ecirc;mes, dans le noir,<br>avec leurs deux respirations<br>et le murmure d\'une lyre que personne d\'autre n\'entendrait jamais.<br><br>Le monde, l&agrave;-haut, continua. Sans eux.<br>Et c\'&eacute;tait <em>tr&egrave;s bien</em>.',
     philosophy:'Tes choix ont dessin&eacute; un amour qui n\'a pas peur de tout quitter. C\'est la forme d\'amour la plus radicale &mdash; celle qui choisit l\'autre au-dessus de tout le reste.'
   },
   end_silence:{
     label:'Fin V',
-    type:'L\'amour épuisé &mdash; celui qui a tout donné, et n\'a plus rien',
+    type:'L\'amour &eacute;puis&eacute; &mdash; celui qui a tout donn&eacute;, et n\'a plus rien',
     title:'La lyre<br>se tut.',
-    text:'Il n\'y eut pas de grand moment.<br>Pas de choix dramatique.<br>Juste un homme<br>qui n\'avait plus la force de tenir<br>ce qu\'il portait.<br><br>L\'amour ne meurt pas d\'un coup.<br>Il s\'use.<br>Doucement, d\'abord.<br>Puis soudainement &mdash; comme tout le reste.<br><br>Il resta assis dans le noir<br>longtemps apr&egrave;s que la derni&egrave;re note se soit &eacute;teinte.<br>Sans elle.<br>Sans sa lyre.<br><br>Juste le silence,<br>et la m&eacute;moire de ce que &ccedil;a faisait<br>d\'avoir <em>&eacute;t&eacute; quelqu\'un qui aimait</em>.',
-    philosophy:'Tes choix ont dessin&eacute; un amour qui s\'est consumé lui-m&ecirc;me. Ce n\'est pas une faiblesse &mdash; c\'est la trace de quelqu\'un qui a donn&eacute; tout ce qu\'il avait.'
+    text:'Il n\'y eut pas de grand moment. Pas de choix dramatique.<br>Juste un homme qui n\'avait plus la force de tenir<br>ce qu\'il portait.<br><br>L\'amour ne meurt pas d\'un coup. Il s\'use.<br>Doucement, d\'abord. Puis soudainement &mdash; comme tout le reste.<br><br>Il resta assis dans le noir longtemps<br>apr&egrave;s que la derni&egrave;re note se soit &eacute;teinte.<br>Sans elle. Sans sa lyre.<br>Juste le silence, et la m&eacute;moire de ce que &ccedil;a faisait<br>d\'avoir <em>&eacute;t&eacute; quelqu\'un qui aimait</em>.',
+    philosophy:'Tes choix ont dessin&eacute; un amour qui s\'est consum&eacute; lui-m&ecirc;me. Ce n\'est pas une faiblesse &mdash; c\'est la trace de quelqu\'un qui a donn&eacute; tout ce qu\'il avait.'
   }
 };
 
+function computeEnding(){
+  var c=score.courage,f=score.confiance,l=score.lacher;
+  var total=c+f+l;
+  if(flags.hiddenTruth&&total<=3)return'end_alone';
+  if(total<=1)return'end_silence';
+  if(l>=3&&c<=2)return'end_together';
+  if(l>=2&&c>=2)return'end_free';
+  if(c<=1&&f<=1)return'end_alone';
+  return'end_light';
+}
 // ── ENGINE ──
 var illustEl=document.getElementById('illustration');
 var actTag=document.getElementById('act-tag');
@@ -489,6 +636,7 @@ var endLoopActive=false;
 var currentEndKey='end_light';
 
 function showScene(key){
+  if(key==='COMPUTE'){showEnding(computeEnding());return;}
   var isEnd=key.indexOf('end_')===0;
   if(isEnd){showEnding(key);return;}
   var scene=scenes[key];if(!scene)return;
@@ -506,6 +654,7 @@ function showScene(key){
       var btn=document.createElement('button');btn.className='choice-btn';btn.innerHTML=c.label;
       btn.addEventListener('click',function(){
         if(c.sc){Object.keys(c.sc).forEach(function(k){score[k]=(score[k]||0)+c.sc[k];});}
+        if(c.fl){flags[c.fl]=true;}
         illustEl.classList.remove('show');narration.classList.remove('show');choicesEl.classList.remove('show');
         setTimeout(function(){showScene(c.next);},450);
       });
@@ -517,21 +666,6 @@ function showScene(key){
   },480);
 }
 
-function computeEnding(){
-  // Logique des fins basée sur le score accumulé
-  var c=score.courage,f=score.confiance,l=score.lacher;
-  var total=c+f+l;
-  // Fin silence : très peu de tout
-  if(total<=1)return'end_silence';
-  // Fin together : lacher élevé
-  if(l>=2&&c<=1)return'end_together';
-  // Fin free : lacher élevé + courage
-  if(l>=2&&c>=1)return'end_free';
-  // Fin alone : courage bas, confiance basse
-  if(c<=1&&f<=1&&total<=3)return'end_alone';
-  // Fin light : courage + confiance élevés
-  return'end_light';
-}
 
 function showEnding(key){
   if(!key)key=computeEnding();
@@ -542,8 +676,6 @@ function showEnding(key){
     if(currentIllus&&currentIllus._stop)currentIllus._stop();
     endLoopActive=true;
     var t=0;var ctx2=endingCanvas.getContext('2d');
-    var fn=drawFns[scenes[key]?scenes[key].canvas:key.replace('end_','')] || drawEnd;
-    // map ending key to draw function
     var endDrawMap={end_light:drawEnd,end_alone:drawAlone,end_free:drawFree,end_together:drawTogether,end_silence:drawSilence};
     var drawFn2=endDrawMap[key]||drawEnd;
     function loopEnd(){if(!endLoopActive)return;ctx2.clearRect(0,0,200,160);drawFn2(ctx2,t);t++;requestAnimationFrame(loopEnd);}
@@ -574,6 +706,7 @@ whyBtn.addEventListener('click',function(){
 
 restartBtn.addEventListener('click',function(){
   endLoopActive=false;score={courage:0,confiance:0,lacher:0};
+  flags={witness:false,pact:false,hiddenTruth:false,renounceRecovered:false,renounced:false};
   endingEl.classList.remove('show');scorePanel.classList.remove('show');whyBtn.style.display='';
   setTimeout(function(){endingEl.style.display='none';showScene('intro');},600);
 });
