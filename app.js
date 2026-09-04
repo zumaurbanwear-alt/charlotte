@@ -54,16 +54,16 @@ Je sais que tu es la personne la plus étonnante que j'aie rencontrée. Pas de f
 
 Je sais que tu m'as changée — sans le vouloir, sans le savoir peut-être. Il y a des gens qui entrent dans ta vie et te laissent exactement pareille. Et il y a des gens qui, sans te demander la permission, réarrangent quelque chose en toi. Toi, tu as réarrangé quelque chose en moi. Tu m'as appris à ralentir. À recevoir sans m'excuser de prendre de la place. À laisser quelqu'un entrer vraiment, sans garder une issue de secours. Ce n'est pas rien. C'est même beaucoup.
 
+Je sais que nos trajets en voiture comptent parmi mes moments préférés. Que j'aime comment tu ris de tes propres blagues avant d'arriver à la chute. Que ta façon de t'indigner pour les autres me touche chaque fois. Que quand tu t'endors, tu as cette façon de te laisser aller complètement, comme si tu faisais confiance au monde pour que rien ne t'arrive — et je trouve ça beau, et ça me donne envie d'être digne de cette confiance-là.
+
 Je sais que tu mérites tout ce que je t'ai dit, tout ce que je t'ai écrit dans ces 200 raisons, dans ces lettres, dans tous ces endroits du site que j'ai construits pour toi. Pas parce que je l'ai décidé — mais parce que tu l'es, simplement, naturellement, sans effort. Tu es quelqu'un qui mérite d'être aimé bien. Et j'espère avoir été ça pour toi cette année — quelqu'un qui t'aime bien.
 
 Il y a une étoile quelque part dans la constellation de la Lyre qui porte ton nom. Je te l'ai offerte parce que je trouvais ça beau. Mais aussi parce qu'une partie de moi voulait que quelque chose d'aussi permanent que le ciel garde la trace de ce que tu représentes pour moi. Les mots s'oublient. Les étoiles, non.
 
-Si tu lis ces mots ce soir, c'est qu'on a tenu — toi et moi, tout ce qu'on est, tout ce qu'on a traversé, tout ce qu'on a ri, tout ce qu'on s'est dit les yeux dans les yeux. Et c'est déjà une très belle chose.
+Si tu lis ces mots ce soir, c'est qu'on a tenu — toi et moi, tout ce qu'on est, tout ce qu'on a traversé, tout ce qu'on a ri, tout ce qu'on s'est dit dans les voitures stationnées et les nuits qui finissent trop tard. Et c'est déjà une très belle chose.
 
-PS : Je casse le romantisme pour te dire ici encore que t'es mon meilleur coup et qu'à l'instant où j'écris cette lettre tout ce à quoi je peux rêver c'est ton corps à côté du mien.
-
-Bonne année, ma Charlotte.
-Ma étoile. Ma fleur. Ma Yasmina.
+Bonne année, Charlotte.
+Ma fleur. Ma yasmina. Mon étoile.
 Je t'aime encore plus qu'il y a un an.
 Et je compte bien continuer longtemps.`;
 
@@ -169,7 +169,7 @@ Et je compte bien continuer longtemps.`;
   mcl.addEventListener('click',closeM);ov.addEventListener('click',e=>{if(e.target===ov)closeM();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});
 
   // 30 MOTS
-  const compliments=["Éthérée","Céleste","Séraphique","Lyrique","Nébuleuse","Vertigineuse","Onirique","Ineffable","Épiphanique","Luminescente","Envoûtante","Vaporeuse","Hypnotique","Radieuse","Élégiaque","Astrale","Magnétique","Crépusculaire","Intemporelle","Mélodieuse","Diaphane","Féerique","Incandescente","Solaire","Mystique","Éblouissante","Aérienne","Harmonieuse","Flamboyante","Sidérale","Brillante","Évanescente","Précieuse","Opulente","Veloutée","Cristalline","Ardente","Sublimée","Bienveillante","Ombreuse","Nacrée","Fulgurante","Délicate","Insondable","Vivace","Resplendissante","Mélancolique","Sacrée","Frémissante","Solennelle","Soyeuse","Singulière","Hallucinante","Pétillante","Absolue","Envoûtante","Sublime","Lumineuse","Vénusienne","Enchanteresse"];
+  const compliments=["Éthérée","Céleste","Séraphique","Lyrique","Nébuleuse","Vertigineuse","Onirique","Ineffable","Épiphanique","Luminescente","Envoûtante","Vaporeuse","Hypnotique","Radieuse","Élégiaque","Astrale","Magnétique","Crépusculaire","Intemporelle","Mélodieuse","Diaphane","Féerique","Incandescente","Solaire","Mystique","Éblouissante","Aérienne","Harmonieuse","Flamboyante","Sidérale","Phosphorescente","Évanescente","Précieuse","Opulente","Veloutée","Cristalline","Ardente","Sublimée","Bienveillante","Ombreuse","Nacrée","Fulgurante","Délicate","Insondable","Vivace","Resplendissante","Mélancolique","Sacrée","Frémissante","Solennelle","Soyeuse","Singulière","Hallucinante","Pétillante","Absolue","Envoutée","Sublime","Lumineuse","Vénusienne","Enchanteresse"];
   const cgrid=document.getElementById('comp-grid'),cctr=document.getElementById('counter-c');let cfound=new Set(progress.c);
   for(let i=0;i<60;i++){const b=document.createElement('button');b.className='star-btn'+(cfound.has(i)?' found':'');b.setAttribute('aria-label','Mot numéro '+(i+1));b.innerHTML='<span class="s-num">'+(i+1)+'</span><span class="star-glyph">✦</span>';b.addEventListener('click',()=>{if(!cfound.has(i)){cfound.add(i);b.classList.add('found');progress.c=Array.from(cfound);saveProgress();cctr.textContent=cfound.size+' / 60 découverts';}openModal('Mot n° '+(i+1),compliments[i]);});cgrid.appendChild(b);}
   cctr.textContent=cfound.size+' / 60 découverts';
@@ -585,6 +585,61 @@ JE T'AIME. Et en même jour, le 13 février, on s'embrassait pour la première f
       soundBtn.textContent = 'OFF';
       soundBtn.classList.remove('on');
     }
+  });
+
+  // ── GALERIE ──
+  // Pour ajouter des photos : ajoute simplement "album21.png", "album22.png"... à la liste
+  const photos = [
+    'album1.jpeg','album2.jpeg','album3.jpeg','album4.jpeg','album5.jpeg',
+    'album6.jpeg','album7.jpeg','album8.jpeg','album9.jpeg','album10.jpeg',
+    'album11.jpeg','album12.jpeg','album13.jpeg','album14.jpeg','album15.jpeg',
+    'album16.jpeg','album17.jpeg','album18.jpeg','album19.jpeg','album20.jpeg'
+  ];
+
+  const galleryGrid = document.getElementById('gallery-grid');
+  const lightbox    = document.getElementById('lightbox');
+  const lbImg       = document.getElementById('lightbox-img');
+  const lbClose     = document.getElementById('lightbox-close');
+  const lbPrev      = document.getElementById('lightbox-prev');
+  const lbNext      = document.getElementById('lightbox-next');
+  let currentPhoto  = 0;
+
+  photos.forEach((src, i) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Charlotte & Lily ' + (i + 1);
+    img.loading = 'lazy';
+    item.appendChild(img);
+    item.addEventListener('click', () => openLightbox(i));
+    galleryGrid.appendChild(item);
+  });
+
+  function openLightbox(i) {
+    currentPhoto = i;
+    lbImg.src = photos[i];
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function showPhoto(i) {
+    currentPhoto = (i + photos.length) % photos.length;
+    lbImg.src = photos[currentPhoto];
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLightbox(); });
+  lbPrev.addEventListener('click', e => { e.stopPropagation(); showPhoto(currentPhoto - 1); });
+  lbNext.addEventListener('click', e => { e.stopPropagation(); showPhoto(currentPhoto + 1); });
+  document.addEventListener('keydown', e => {
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'ArrowLeft') showPhoto(currentPhoto - 1);
+    if(e.key === 'ArrowRight') showPhoto(currentPhoto + 1);
+    if(e.key === 'Escape') closeLightbox();
   });
 
 } // end initApp
