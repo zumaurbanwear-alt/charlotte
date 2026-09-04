@@ -590,10 +590,10 @@ JE T'AIME. Et en même jour, le 13 février, on s'embrassait pour la première f
   // ── GALERIE ──
   // Pour ajouter des photos : ajoute simplement "album21.png", "album22.png"... à la liste
   const photos = [
-    'album1.jpeg','album2.jpeg','album3.jpeg','album4.jpeg','album5.jpeg',
-    'album6.jpeg','album7.jpeg','album8.jpeg','album9.jpeg','album10.jpeg',
-    'album11.jpeg','album12.jpeg','album13.jpeg','album14.jpeg','album15.jpeg',
-    'album16.jpeg','album17.jpeg','album18.jpeg','album19.jpeg','album20.jpeg'
+    'album1.JPG','album2.JPG','album3.JPG','album4.JPG','album5.JPG',
+    'album6.JPG','album7.JPG','album8.JPG','album9.JPG','album10.JPG',
+    'album11.JPG','album12.JPG','album13.JPG','album14.JPG','album15.JPG',
+    'album16.JPG','album17.JPG','album18.JPG','album19.JPG','album20.JPG'
   ];
 
   const galleryGrid = document.getElementById('gallery-grid');
