@@ -513,8 +513,27 @@ Alors aujourd'hui, je voulais simplement laisser une trace de cette pensée. J'a
 JE T'AIME. Et en même jour, le 13 février, on s'embrassait pour la première fois dans ta voiture.`
     },
     // ── LETTRE 3 ── 
+    {
+      title: "Lettre n° 3 — Pour mon anniversaire",
+      text: `Charlotte,
+
+Tu m'as offert des lettres pour quand tu me manques, pour quand j'en aurais besoin. Je t'en écris une pour te dire à quel point j'en suis reconnaissante.
+
+Elles sont encore chez toi malheureusement, mais je les récupère très bientôt. Tu as pensé à moi avant même que j'en aie besoin. Tu as anticipé mes jours difficiles, mes absences de toi, mes nuits trop longues et tu y as déposé ta voix, tes mots, toi. C'est une des choses les plus belles qu'on m'ait jamais faites.
+
+Le bracelet, le carnet, le parfum, je les aime parce qu'ils viennent de toi. Mais les lettres, les lettres je les garderai précieusement. Parce qu'elles me feront te sentir proche même quand tu es loin. Parce que tu as mis du temps, de l'attention, de l'amour dedans et ça, ça ne s'oublie pas.
+
+Je voulais que tu saches que ce cadeau m'a touchée profondément. Plus que tu ne le crois peut-être. Parce que tu m'as vue, tu as vu ce dont j'aurais besoin et tu y as répondu avant même que je le demande. C'est ça, prendre soin de quelqu'un.
+
+Merci de me choisir comme ça. Merci de m'aimer avec autant d'attention et de douceur. Merci d'exister et d'être toi, ma Charlotte, mon bébé, mon étoile.
+
+Je t'aime. Fort. Tu me fais retomber amoureuse de toi chaque jour. 
+
+Rappelons-nous pour toujours de la sensation de retomber pour l'autre, comme ce 1er Septembre au cinéma.`
+    },
+    // ── LETTRE 4 ── 
     // {
-    //   title: "Lettre n° 3",
+    //   title: "Lettre n° 4",
     //   text: `texte ici`
     // },
   ];
