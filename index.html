@@ -34,6 +34,7 @@
     <button class="nav-sound-btn" id="nav-sound-btn">OFF</button>
     <button class="nav-todo-btn" id="nav-todo-btn">To Do</button>
     <button class="nav-todo-btn" id="nav-lettres-btn">Lettres</button>
+    <button class="nav-todo-btn" id="nav-ouvre-btn">Ouvre quand</button>
   </div>
   <ul class="nav-links" style="display:none;">
     <li><a href="#compliments">60 mots</a></li>
@@ -169,6 +170,31 @@
     </div>
     <div class="envelopes-grid" id="envelopes-grid"></div>
     <button class="todo-back" id="lettres-back" style="margin-top:4rem;">← Retour</button>
+  </div>
+</div>
+
+<!-- OUVRE QUAND PAGE -->
+<div id="ouvre-page">
+  <canvas id="ouvre-starfield"></canvas>
+  <div id="ouvre-inner">
+    <div class="lettres-hero">
+      <h1>OUVRE QUAND…</h1>
+      <p>une lettre pour chaque moment, et ma voix pour te les lire</p>
+    </div>
+    <div class="ouvre-grid" id="ouvre-grid"></div>
+    <button class="todo-back" id="ouvre-back" style="margin-top:4rem;">← Retour</button>
+  </div>
+</div>
+
+<!-- OUVRE QUAND MODAL -->
+<div id="ouvre-overlay">
+  <div id="ouvre-modal">
+    <p class="lettre-num" id="ouvre-title"></p>
+    <button class="ouvre-play" id="ouvre-play" style="display:none;"><span id="ouvre-play-icon">▶</span> <span id="ouvre-play-label">M'ÉCOUTER</span></button>
+    <p class="lettre-content" id="ouvre-content"></p>
+    <div class="lettre-line"></div>
+    <p class="lettre-sig">Lily ✦</p>
+    <button class="lettre-close" id="ouvre-close">FERMER ✕</button>
   </div>
 </div>
 

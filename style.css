@@ -397,3 +397,22 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
 #lightbox-prev{left:1rem;}
 #lightbox-next{right:1rem;}
 #lightbox-prev:hover,#lightbox-next:hover{color:var(--cream);}
+
+/* OUVRE QUAND */
+#ouvre-page{position:fixed;inset:0;z-index:90;background:#1C1410;overflow-y:auto;display:none;}
+#ouvre-page.open{display:block;}
+#ouvre-starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+#ouvre-inner{position:relative;z-index:1;padding:7rem 2rem 8rem;max-width:760px;margin:0 auto;}
+.ouvre-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.2rem;}
+.ouvre-card{background:rgba(255,255,255,0.02);border:1px solid rgba(180,170,155,0.2);cursor:pointer;padding:1.6rem 1.4rem;text-align:left;transition:all 0.3s;display:flex;flex-direction:column;gap:0.6rem;min-height:110px;}
+.ouvre-card:hover{background:rgba(180,170,155,0.06);border-color:rgba(180,170,155,0.4);}
+.ouvre-card.opened{background:rgba(212,201,176,0.1);border-color:rgba(180,170,155,0.4);}
+.ouvre-card-small{font-family:'Bebas Neue',sans-serif;font-size:0.6rem;letter-spacing:0.4em;color:var(--muted);opacity:0.6;}
+.ouvre-card-title{font-style:italic;font-size:1.15rem;color:var(--cream2);line-height:1.4;font-weight:300;}
+#ouvre-overlay{position:fixed;inset:0;z-index:300;background:rgba(10,7,4,0.92);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity 0.4s;}
+#ouvre-overlay.open{opacity:1;pointer-events:all;}
+#ouvre-modal{background:var(--bg2);border:1px solid rgba(180,170,155,0.2);padding:3rem 3.5rem;max-width:520px;width:100%;transform:translateY(16px);transition:transform 0.4s;position:relative;max-height:80vh;overflow-y:auto;}
+#ouvre-overlay.open #ouvre-modal{transform:translateY(0);}
+.ouvre-play{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:0.35em;color:var(--cream);background:none;border:1px solid rgba(180,170,155,0.35);padding:0.7rem 1.3rem;cursor:pointer;margin-bottom:1.8rem;transition:all 0.3s;}
+.ouvre-play:hover,.ouvre-play.playing{background:rgba(212,201,176,0.1);border-color:rgba(180,170,155,0.6);}
+@media(max-width:600px){#ouvre-modal{padding:2.2rem 1.6rem;}}

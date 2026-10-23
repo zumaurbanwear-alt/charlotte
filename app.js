@@ -527,7 +527,7 @@ Je voulais que tu saches que ce cadeau m'a touchée profondément. Plus que tu n
 
 Merci de me choisir comme ça. Merci de m'aimer avec autant d'attention et de douceur. Merci d'exister et d'être toi, ma Charlotte, mon bébé, mon étoile.
 
-Je t'aime. Fort. Tu me fais retomber amoureuse de toi chaque jour. 
+Je t'aime. Fort. Tu me fais retomber amoureuse de toi chaque jour.
 
 Rappelons-nous pour toujours de la sensation de retomber pour l'autre, comme ce 1er Septembre au cinéma.`
     },
@@ -605,6 +605,189 @@ Rappelons-nous pour toujours de la sensation de retomber pour l'autre, comme ce 
       soundBtn.classList.remove('on');
     }
   });
+
+  // ── OUVRE QUAND ──
+  // ✎ MODIFIE ICI LES LETTRES : change simplement le texte entre les `backticks`
+  const ouvreQuand = [
+   { label:"Ouvre quand", title:"tu es triste", text:`Charlotte,
+ 
+Coucou mon amour. Si tu ouvres cette lettre, c'est que ça ne va pas, et j'aurais tellement voulu être là à ce moment précis.
+ 
+Alors imagine que je le suis. Que je m'assois à côté de toi, sans rien dire s'il le faut, juste pour que tu ne sois pas seule avec ça.
+ 
+Tu as le droit d'être triste. Tu n'as pas à faire semblant, ni à être forte pour moi. Avec moi, tu peux être fatiguée, à fleur de peau, irritée ou simplement ne pas savoir pourquoi.
+ 
+Ce que je sais, c'est que ça passe. Pas toujours vite, mais ça passe, et je serai là jusqu'à ce que ça passe.
+ 
+Respire. Bois un verre d'eau. Et dis-toi que quelque part, quelqu'un pense à toi plus que tu ne l'imagines. 
+
+
+Parle-moi, n’hésite pas; c’est à ça que je sers. Fais de la musique, si ça te fait du bien. Regarde ta série et mets-toi sous ta couette. Appelle moi aussi et je te ferai penser à autre chose. 
+ 
+Je t'aime, même dans tes jours gris. Surtout dans tes jours gris.` },
+   { label:"Ouvre quand", title:"tu doutes de toi", text:`Charlotte,
+ 
+Coucou mon coeur. Si tu ouvres cette lettre c’est que tu doutes de toi. Et moi, je vais te dire ce que tu ne vois pas quand tu doutes.
+ 
+Tu es la personne la plus belle, la plus douce, la plus brillante que je connaisse. Et ce n'est pas l'amour qui me fait dire ça, c'est ce que je vois chaque jour.
+ 
+Je vois comment tu prends soin des autres. Comment tu continues, même quand c'est dur. Comment tu me fais me sentir quand tu es là et même quand tu ne l'es pas. Tu es lumineuse et magnifique. 
+ 
+Ta voix qui doute n'est pas la vérité. C'est juste la plus fatiguée, et la plus injuste avec toi. Invoque cette indulgence envers toi-même que je te répète de garder à chaque fois. Tu es forte. Et tu peux tout faire si tu le souhaites. 
+ 
+Si tu veux, prends ce que je viens d'écrire et lis-le comme si c'était écrit sur quelqu'un d'autre. Tu verrais tout de suite que c'est vrai.
+ 
+Je t’aime. Je crois en toi. Quand toi tu n'y arrives pas, laisse-moi croire pour deux.` },
+   { label:"Ouvre quand", title:"tu as peur de l'avenir", text:`Charlotte,
+ 
+Coucou mon amour. Si tu ouvres cette lettre c’est que tu as peur de l’avenir. Tu sais déjà ce que j’en pense. L'avenir fait peur parce qu'on ne le connaît pas. Moi non plus je ne sais pas tout ce qui nous attend. 
+ 
+Mais il y a une chose dont je suis sûre : quoi qu'il arrive, je veux le traverser avec toi. Physiquement ou dans ta mémoire. 
+ 
+On n'a pas besoin d'avoir toutes les réponses aujourd'hui. On a juste besoin d'avancer, un jour après l'autre. Et si un jour, la vie vient à nous séparer, on trouvera quand même le moyen d’être heureuses. Parce que ce que je vis avec toi va forcément laisser sa trace positive dans nos vies. 
+ 
+Il y aura des choses compliquées, sûrement. Mais il y aura aussi des matins tranquilles, des fous rires, des voyages, des projets qu'on n'imagine même pas encore.
+ 
+Quand tu as peur, rappelle-toi que tu n'es pas seule face à ce qui vient. Moi aussi, je suis dedans, avec toi.
+ 
+Je t’aime. Vivons au jour le jour. L’avenir arrivera en temps voulu. Mais pour l’instant on construit quelque chose de beau et c’est le plus important.` },
+   { label:"Ouvre quand", title:"tu as besoin d'un câlin", text:`Charlotte,
+ 
+Coucou mon coeur. Si tu ouvres cette lettre c’est que tu as besoin d’un câlin. Voilà. Je te serre dans mes bras, très fort, comme je le fais quand on se retrouve.
+ 
+Ferme les yeux une seconde. Pose ta tête dans mon cou. Je ne dis rien; je te garde juste contre moi.
+ 
+Je sais que ce n'est pas pareil sur le papier, mais je triche : je mets tout ce que j'ai dedans.
+ 
+Quand je pourrai, je te le rendrai en vrai, et même plus long. Autant que tu veux, aussi longtemps que tu veux. Avec des bisous en bonus. Et un crac-crac après. 
+ 
+Je t’aime. En attendant le vrai câlin, prends celui-ci. Il est à toi.` },
+   { label:"Ouvre quand", title:"tu te sens seule", text:`Charlotte,
+ 
+Coucou mon amour. Si tu ouvres cette lettre c’est que tu te sens seule. Tu n'es pas seule. Je sais que la sensation est là, mais elle ment.
+ 
+Même quand je ne suis pas dans la même pièce, même quand on est loin, tu fais partie de mes journées. Je pense à toi plus souvent que tu ne le crois, et dans des moments où tu ne t'y attends pas. 
+
+
+Je pense à toi tout le temps, seule ou accompagnée. Tu es l’ombre même de mes pensées. 
+ 
+Alors, si tu en as envie, écris-moi, appelle-moi, envoie-moi une photo de rien du tout. Je répondrai toujours, tu le sais.
+ 
+Et si tu n'as envie de rien, c'est bien aussi. Mais sache que quelque part, quelqu'un t'aime et pense à toi.
+ 
+Je t’aime. Tu es chez moi, où que je sois.` },
+   { label:"Ouvre quand", title:"tu veux te souvenir pourquoi on s'aime", text:`Charlotte,
+
+
+Je t’aime,
+ 
+Parce que tu me fais rire quand je n'en ai pas envie.
+ 
+Parce que je me sens moi-même avec toi.
+ 
+Parce que tu fais attention aux petits détails que personne d'autre ne remarque.
+ 
+Parce que le 31 décembre est devenu ma date préférée de l'année.
+ 
+Parce qu'avec toi, même les moments ordinaires ont quelque chose de précieux.
+
+
+Parce qu’avec toi, je suis la plus heureuse des femmes.
+ 
+Parce que je t'ai choisie, et que je te choisirais encore, tous les jours.
+ 
+Je t’aime. Si un jour tu oublies pourquoi, relis cette lettre. Et si ça ne suffit pas, viens me le demander, j'ai encore plein de raisons. Crois moi, j’en ai déjà écrit 200.` },
+   { label:"Ouvre quand", title:"tu es en colère", text:`Charlotte,
+ 
+Coucou mon coeur. Si tu ouvres cette lettre c’est que tu es en colère. Peut-être contre moi, peut-être contre le monde, peut-être contre rien de précis.
+ 
+Tu as le droit. Une colère, ça dit quelque chose qui compte pour toi, et je préfère l'entendre que de la voir enfermée.
+ 
+Alors voilà ce que je te propose : prends un moment. Respire profondément, trois fois. Marche un peu si tu peux. Laisse redescendre.
+
+
+Et tu sais quoi; tape dans quelque chose. Va à la salle. Appelle Taha, faites un concert voiture. 
+ 
+Et quand tu seras prête, dis-moi tout, même si c'est maladroit. Je t'écouterai et j’essaierai au maximum de faire redescendre la colère.
+
+
+T’es trop sex quand tu es en colère en plus. Donc vraiment n’hésites pas. 
+ 
+Je t'aime, même en colère. Surtout quand tu me dis ce que tu as sur le cœur.` },
+   { label:"Ouvre à", title:"notre première dispute", text:`Charlotte,
+ 
+Coucou mon coeur. Alors ça y est, on s'est disputées. Ça devait arriver un jour, et ça ne veut pas dire que quelque chose est cassé.
+ 
+Deux personnes qui s'aiment et qui sont différentes finissent par ne pas être d'accord. C'est normal, et d'une certaine façon, c'est même bon signe : ça veut dire qu'on tient assez l'une à l'autre pour que ça compte.
+ 
+Je ne sais pas ce qui s'est passé, ni qui avait raison. Honnêtement, ça m'importe peu à cet instant. Tout ce que je sais c’est qu’une dispute ne vaut rien devant mes sentiments pour toi. Une dispute ne pourra jamais me séparer de toi. C’est même très drôle comment on l’attendait cette dispute.
+ 
+Ce qui m'importe, c'est qu'on se retrouve. Qu'on se parle, sans crier, sans gagner. Que chacune dise ce qu'elle a ressenti, et qu'on s'écoute. On vient officiellement de passer un cap, parce que je sais d’office qu’on a géré. 
+ 
+Si j'ai été blessante, pardon. Si c'est toi, je te pardonne déjà.
+ 
+Je ne vais nulle part. Reviens, on va arranger ça ensemble.
+ 
+Je t’aime. Fort. Et ce soir, on s'endort réconciliées. C'est promis.` }
+ ];
+
+
+  const ouvreGrid=document.getElementById('ouvre-grid'), ouvreOverlay=document.getElementById('ouvre-overlay'),
+    ouvreTitle=document.getElementById('ouvre-title'), ouvreContent=document.getElementById('ouvre-content'),
+    ouvreClose=document.getElementById('ouvre-close'), ouvrePlay=document.getElementById('ouvre-play'),
+    ouvrePlayIcon=document.getElementById('ouvre-play-icon'), ouvrePlayLabel=document.getElementById('ouvre-play-label');
+  const OUVRE_KEY='charlotte_ouvre';
+  let ouvreOpened={}; try{ ouvreOpened=JSON.parse(localStorage.getItem(OUVRE_KEY))||{}; }catch(e){}
+  let ouvreAudio=null, ouvreBirdsWasOn=false;
+
+  function ouvreStop(){
+    if(ouvreAudio){ ouvreAudio.pause(); ouvreAudio=null; }
+    ouvrePlay.classList.remove('playing'); ouvrePlayIcon.textContent='▶'; ouvrePlayLabel.textContent="M'ÉCOUTER";
+    if(ouvreBirdsWasOn && soundOn){ audio.play().catch(()=>{}); }
+    ouvreBirdsWasOn=false;
+  }
+  function ouvreSetup(i){
+    // essaie .mp3 puis .m4a ; le bouton n'apparaît que si le fichier existe
+    ouvrePlay.style.display='none';
+    const n=i+1, exts=['mp3','m4a'];
+    const tryExt=k=>{
+      if(k>=exts.length) return;
+      const a=new Audio(); a.preload='metadata';
+      a.addEventListener('loadedmetadata',()=>{ if(ouvreOverlay.dataset.idx==i){ ouvrePlay.style.display='inline-block'; ouvrePlay.dataset.src='ouvre'+n+'.'+exts[k]; } });
+      a.addEventListener('error',()=>tryExt(k+1));
+      a.src='ouvre'+n+'.'+exts[k];
+    };
+    tryExt(0);
+  }
+  ouvrePlay.addEventListener('click',()=>{
+    if(ouvreAudio){ ouvreStop(); return; }
+    ouvreAudio=new Audio(ouvrePlay.dataset.src);
+    if(soundOn){ ouvreBirdsWasOn=true; audio.pause(); }
+    ouvreAudio.play().catch(()=>{});
+    ouvrePlay.classList.add('playing'); ouvrePlayIcon.textContent='❚❚'; ouvrePlayLabel.textContent='PAUSE';
+    ouvreAudio.addEventListener('ended',ouvreStop);
+  });
+  ouvreQuand.forEach((l,i)=>{
+    const b=document.createElement('button'); b.className='ouvre-card'+(ouvreOpened[i]?' opened':'');
+    b.innerHTML='<span class="ouvre-card-small">OUVRE QUAND</span><span class="ouvre-card-title">'+l.title+'</span>';
+    b.addEventListener('click',()=>{
+      ouvreOpened[i]=true; try{localStorage.setItem(OUVRE_KEY,JSON.stringify(ouvreOpened));}catch(e){}
+      b.classList.add('opened');
+      ouvreOverlay.dataset.idx=i;
+      ouvreTitle.textContent=l.label+' '+l.title;
+      ouvreContent.textContent=l.text;
+      ouvreSetup(i);
+      ouvreOverlay.classList.add('open');
+    });
+    ouvreGrid.appendChild(b);
+  });
+  function closeOuvreModal(){ ouvreStop(); ouvreOverlay.classList.remove('open'); }
+  ouvreClose.addEventListener('click',closeOuvreModal);
+  ouvreOverlay.addEventListener('click',e=>{ if(e.target===ouvreOverlay) closeOuvreModal(); });
+  const navOuvreBtn=document.getElementById('nav-ouvre-btn'), ouvrePage=document.getElementById('ouvre-page'), ouvreBack=document.getElementById('ouvre-back');
+  navOuvreBtn.addEventListener('click',()=>{ ouvrePage.classList.add('open'); navOuvreBtn.classList.add('active'); document.body.style.overflow='hidden'; });
+  ouvreBack.addEventListener('click',()=>{ closeOuvreModal(); ouvrePage.classList.remove('open'); navOuvreBtn.classList.remove('active'); document.body.style.overflow=''; document.getElementById('ouvre-inner').scrollTop=0; });
+  makeOverlayStars('ouvre-starfield');
 
   // ── GALERIE ──
   // Pour ajouter des photos : ajoute simplement "album21.png", "album22.png"... à la liste
