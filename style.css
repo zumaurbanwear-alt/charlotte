@@ -416,3 +416,11 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:50;padding:1.2rem 2.5rem;disp
 .ouvre-play{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:0.35em;color:var(--cream);background:none;border:1px solid rgba(180,170,155,0.35);padding:0.7rem 1.3rem;cursor:pointer;margin-bottom:1.8rem;transition:all 0.3s;}
 .ouvre-play:hover,.ouvre-play.playing{background:rgba(212,201,176,0.1);border-color:rgba(180,170,155,0.6);}
 @media(max-width:600px){#ouvre-modal{padding:2.2rem 1.6rem;}}
+
+.ouvre-card.locked{opacity:0.75;}
+.ouvre-lock{text-align:center;padding:1rem 0 0.5rem;}
+.ouvre-lock-text{font-style:italic;color:var(--cream2);font-size:1.1rem;line-height:1.8;margin-bottom:1.5rem;font-weight:300;}
+.ouvre-lock-input{display:block;width:100%;max-width:260px;margin:0 auto 1rem;background:transparent;border:none;border-bottom:1px solid rgba(180,170,155,0.4);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.2rem;text-align:center;padding:0.5rem;outline:none;}
+.ouvre-lock-btn{font-family:'Bebas Neue',sans-serif;font-size:0.7rem;letter-spacing:0.35em;color:var(--cream);background:none;border:1px solid rgba(180,170,155,0.35);padding:0.7rem 1.3rem;cursor:pointer;}
+.ouvre-lock-btn:hover{background:rgba(212,201,176,0.1);}
+.ouvre-lock-error{font-size:0.9rem;font-style:italic;color:var(--muted);margin-top:1rem;opacity:0;transition:opacity 0.3s;}
