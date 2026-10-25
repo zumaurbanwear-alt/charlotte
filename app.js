@@ -542,7 +542,7 @@ Aujourd'hui, c'est le jour où le monde a eu la chance de t'avoir. Et moi, j'ai 
 
 J'ai longtemps cherché comment te dire ce que tu représentes pour moi, je cherche encore. Et, au final, j'ai fini par comprendre que je n'y arriverais pas en une seule lettre. Ou même deux. Ou trois. Alors j'ai construit tout cet endroit : les mots, les raisons, les photos, les lettres. Chaque petit coin est une façon de te dire la même chose, différemment. Et je compte sur mes capacités à te le montrer par mes actions tous les jours, suffisamment. 
 
-Tu sais, je te le redis souvent, mais je ne peux pas vraiment décrire ou te montrer à quel point je t'aime. Je t'aime pour ta façon d'être dans les détails : ton sourire (ton sourire bebe, ton sourire) quand tu ne t'en rends pas compte, ta douceur avec les gens que tu aimes, ta force quand tu crois ne pas en avoir. Tu es la personne la plus incroyable que je connaisse, et je suis fière de t'aimer. Je suis fière de faire partie de ta vie, fière que je puisse être appelée ta copine. Tu me combles, tous les jours. Je t'aime omg comment je t'aime. 
+Tu sais, je te le redis souvent, mais je ne peux pas vraiment décrire ou te montrer à quel point je t'aime. Je t'aime pour ta façon d'être dans les détails : ton sourire (ton sourire bebe, ton sourire) quand tu ne t'en rends pas compte, tes yeux qui s'illuminent quand tu me regardes (comment tu me regardes), ta douceur avec les gens que tu aimes, ta force quand tu crois ne pas en avoir. Tu es la personne la plus incroyable que je connaisse, et je suis fière de t'aimer. Je suis fière de faire partie de ta vie, fière que je puisse être appelée ta copine. Tu me combles, tous les jours. Je t'aime omg comment je t'aime. 
 
 Je te souhaite une année douce (avec moi pour encore longtemps, j'espère). Des matins tranquilles, des fous rires, des projets qui se réalisent, des moments où tu te sens vraiment toi, sans pression. Je te souhaite de croire en toi autant que je crois en toi. Et si parfois c'est dur, sache que je serai là, à côté de toi, à chaque étape.
 
@@ -732,7 +732,7 @@ Et quand tu seras prête, dis-moi tout, même si c'est maladroit. Je t'écoutera
 T’es trop sex quand tu es en colère en plus. Donc vraiment n’hésites pas. 
  
 Je t'aime, même en colère. Surtout quand tu me dis ce que tu as sur le cœur.` },
-   { label:"Ouvre à", title:"notre première dispute", text:`Charlotte,
+   { label:"Ouvre à", title:"notre première dispute", lock:"soleil", text:`Charlotte,
  
 Coucou mon coeur. Alors ça y est, on s'est disputées. Ça devait arriver un jour, et ça ne veut pas dire que quelque chose est cassé.
  
@@ -785,18 +785,56 @@ Je t’aime. Fort. Et ce soir, on s'endort réconciliées. C'est promis.` }
     ouvrePlay.classList.add('playing'); ouvrePlayIcon.textContent='❚❚'; ouvrePlayLabel.textContent='PAUSE';
     ouvreAudio.addEventListener('ended',ouvreStop);
   });
+  // ── VERROU (mot de passe) ──
+  // Pour changer le mot de passe : modifie lock:"soleil" sur la lettre concernée
+  const OUVRE_UNLOCK_KEY='charlotte_ouvre_unlocked';
+  let ouvreUnlocked={}; try{ ouvreUnlocked=JSON.parse(localStorage.getItem(OUVRE_UNLOCK_KEY))||{}; }catch(e){}
+  const lockBox=document.createElement('div'); lockBox.className='ouvre-lock'; lockBox.style.display='none';
+  lockBox.innerHTML='<p class="ouvre-lock-text">Cette lettre est verrouillée.<br>Tu auras le mot de passe le moment venu.</p><input type="password" class="ouvre-lock-input" placeholder="mot de passe" autocomplete="off" autocapitalize="none"><button class="ouvre-lock-btn">OUVRIR</button><p class="ouvre-lock-error">ce n\'est pas le bon mot de passe</p>';
+  ouvreContent.parentNode.insertBefore(lockBox,ouvreContent);
+  const lockInput=lockBox.querySelector('.ouvre-lock-input'), lockBtn=lockBox.querySelector('.ouvre-lock-btn'), lockErr=lockBox.querySelector('.ouvre-lock-error');
+  let ouvreCurrent=-1, ouvreCards=[];
+  function showLetter(i){
+    const l=ouvreQuand[i];
+    lockBox.style.display='none'; ouvreContent.style.display='';
+    ouvreContent.textContent=l.text;
+    ouvreSetup(i);
+  }
+  function tryUnlock(){
+    const l=ouvreQuand[ouvreCurrent];
+    if(l && lockInput.value.trim().toLowerCase()===String(l.lock).toLowerCase()){
+      ouvreUnlocked[ouvreCurrent]=true; try{localStorage.setItem(OUVRE_UNLOCK_KEY,JSON.stringify(ouvreUnlocked));}catch(e){}
+      ouvreCards[ouvreCurrent].classList.remove('locked');
+      ouvreCards[ouvreCurrent].querySelector('.ouvre-card-small').textContent='OUVRE QUAND';
+      showLetter(ouvreCurrent);
+    } else {
+      lockErr.style.opacity='1'; lockInput.value=''; lockInput.focus();
+      setTimeout(()=>{lockErr.style.opacity='0';},2500);
+    }
+  }
+  lockBtn.addEventListener('click',tryUnlock);
+  lockInput.addEventListener('keydown',e=>{ if(e.key==='Enter') tryUnlock(); });
+
   ouvreQuand.forEach((l,i)=>{
-    const b=document.createElement('button'); b.className='ouvre-card'+(ouvreOpened[i]?' opened':'');
-    b.innerHTML='<span class="ouvre-card-small">OUVRE QUAND</span><span class="ouvre-card-title">'+l.title+'</span>';
+    const locked=!!l.lock && !ouvreUnlocked[i];
+    const b=document.createElement('button'); b.className='ouvre-card'+(ouvreOpened[i]?' opened':'')+(locked?' locked':'');
+    b.innerHTML='<span class="ouvre-card-small">'+(locked?'VERROUILLÉE':'OUVRE QUAND')+'</span><span class="ouvre-card-title">'+l.title+'</span>';
     b.addEventListener('click',()=>{
-      ouvreOpened[i]=true; try{localStorage.setItem(OUVRE_KEY,JSON.stringify(ouvreOpened));}catch(e){}
-      b.classList.add('opened');
+      ouvreCurrent=i;
       ouvreOverlay.dataset.idx=i;
       ouvreTitle.textContent=l.label+' '+l.title;
-      ouvreContent.textContent=l.text;
-      ouvreSetup(i);
+      ouvrePlay.style.display='none';
+      if(l.lock && !ouvreUnlocked[i]){
+        ouvreContent.style.display='none'; ouvreContent.textContent='';
+        lockBox.style.display='block'; lockInput.value=''; lockErr.style.opacity='0';
+      } else {
+        ouvreOpened[i]=true; try{localStorage.setItem(OUVRE_KEY,JSON.stringify(ouvreOpened));}catch(e){}
+        b.classList.add('opened');
+        showLetter(i);
+      }
       ouvreOverlay.classList.add('open');
     });
+    ouvreCards.push(b);
     ouvreGrid.appendChild(b);
   });
   function closeOuvreModal(){ ouvreStop(); ouvreOverlay.classList.remove('open'); }
