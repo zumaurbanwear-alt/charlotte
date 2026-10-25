@@ -532,10 +532,28 @@ Je t'aime. Fort. Tu me fais retomber amoureuse de toi chaque jour.
 Rappelons-nous pour toujours de la sensation de retomber pour l'autre, comme ce 1er Septembre au cinéma.`
     },
     // ── LETTRE 4 ── 
-    // {
-    //   title: "Lettre n° 4",
-    //   text: `texte ici`
-    // },
+    {
+      title: "Lettre n° 4 — Pour ton anniversaire",
+      text: `Charlotte,
+
+Joyeux anniversaire, mon amour.
+
+Aujourd'hui, c'est le jour où le monde a eu la chance de t'avoir. Et moi, j'ai eu celle de te trouver.
+
+J'ai longtemps cherché comment te dire ce que tu représentes pour moi, je cherche encore. Et, au final, j'ai fini par comprendre que je n'y arriverais pas en une seule lettre. Ou même deux. Ou trois. Alors j'ai construit tout cet endroit : les mots, les raisons, les photos, les lettres. Chaque petit coin est une façon de te dire la même chose, différemment. Et je compte sur mes capacités à te le montrer par mes actions tous les jours, suffisamment. 
+
+Tu sais, je te le redis souvent, mais je ne peux pas vraiment décrire ou te montrer à quel point je t'aime. Je t'aime pour ta façon d'être dans les détails : ton sourire (ton sourire bebe, ton sourire) quand tu ne t'en rends pas compte, ta douceur avec les gens que tu aimes, ta force quand tu crois ne pas en avoir. Tu es la personne la plus incroyable que je connaisse, et je suis fière de t'aimer. Je suis fière de faire partie de ta vie, fière que je puisse être appelée ta copine. Tu me combles, tous les jours. Je t'aime omg comment je t'aime. 
+
+Je te souhaite une année douce (avec moi pour encore longtemps, j'espère). Des matins tranquilles, des fous rires, des projets qui se réalisent, des moments où tu te sens vraiment toi, sans pression. Je te souhaite de croire en toi autant que je crois en toi. Et si parfois c'est dur, sache que je serai là, à côté de toi, à chaque étape.
+
+Une année de plus, et je n'ai qu'un seul souhait : continuer à te choisir, chaque jour, à te regarder évoluer, changer, à rire avec toi, à construire avec toi. Ce n'est pas un vœu qu'on fait en soufflant des bougies, c'est une promesse que je te fais.
+
+Merci d'être là, d'être toi, ma Charlotte. 
+
+Je t'aime. Fort. Aujourd'hui et tous les jours d'après.
+
+Joyeux anniversaire. ✦`
+    },
   ];
   // ════════════════════════════════════════
 
